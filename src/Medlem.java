@@ -14,5 +14,4 @@ public class Medlem extends Person {
     public boolean getMedlemsStatus() {
         return true; // Jeg er i tvivl om der skal returnes true eller false.
     }
-
 }
