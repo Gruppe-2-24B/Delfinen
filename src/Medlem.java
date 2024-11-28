@@ -66,6 +66,10 @@ public class Medlem extends Person {
         return medlemsType;
     }
 
+    public int getAlder() {
+        return alder;
+    }
+
     public int getMedlemsNr() {
         return medlemsNr;
     }
