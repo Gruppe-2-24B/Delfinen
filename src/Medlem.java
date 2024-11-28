@@ -23,12 +23,8 @@ public class Medlem extends Person {
         medlemmer.add(this);
     }
 
-
-    public Medlem(String navn, int cprNr, int tlf, String mail, String aktivitetsForm) {
-        super(navn, cprNr, tlf, mail);
-        this.aktivitetsForm = aktivitetsForm;
-        this.medlemsStatus = medlemsStatus;
-        this.cprNr = cprNr;
+    private int genererMedlemsNr() {
+        return sidsteMedlemsNr++;
     }
 
     public String getAktivitetsForm() {
