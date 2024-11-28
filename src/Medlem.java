@@ -7,6 +7,7 @@ public class Medlem extends Person {
         super(navn, cprNr, tlf, mail);
         this.aktivitetsForm = aktivitetsForm;
         this.medlemsStatus = medlemsStatus;
+        this.cprNr = cprNr;
     }
     public String getAktivitetsForm() {
         return aktivitetsForm;
