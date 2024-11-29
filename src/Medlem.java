@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Medlem extends Person {
 
     private ArrayList<Medlem> medlemmer = new ArrayList<Medlem>();
-    private int sidsteMedlemsNr = 1;
 
     private String aktivitetsForm;
     private String medlemsStatus;
@@ -17,14 +16,10 @@ public class Medlem extends Person {
         setAktivitetsForm(aktivitetsForm);
         setMedlemsStatus(medlemsStatus);
         this.cpr = new CprNr(cprNr);
-        this.medlemsNr = genererMedlemsNr();
+        this.medlemsNr = getTlf();
         this.medlemsType = udregnMedlemsType();
         this.alder = cpr.getAlder();
         medlemmer.add(this);
-    }
-
-    private int genererMedlemsNr() {
-        return sidsteMedlemsNr++;
     }
 
     public String getAktivitetsForm() {
@@ -74,9 +69,9 @@ public class Medlem extends Person {
         return medlemsNr;
     }
 
-    public Medlem findMedlemVedNummer(int medlemsNr) {
+    public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
         for (Medlem medlem : medlemmer) {
-            if(medlem.getMedlemsNr() == medlemsNr) {
+            if (medlem.getTlf() == telefonnummer) {
                 return medlem;
             }
         }
