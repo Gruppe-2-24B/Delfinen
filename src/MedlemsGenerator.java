@@ -72,5 +72,8 @@ public class MedlemsGenerator {
         Medlem nytMedlem = new Medlem(navn, cprNr, tlf, mail, aktivitetsForm, medlemsStatus);
         System.out.println("\nNyt medlem oprettet med medlemsnummer: " + nytMedlem.getMedlemsNr());
         System.out.println(nytMedlem);
+
+        ArrayList<Medlem> medlemmer = Medlem.getAlleMedlemmer(); // Hent eksisterende medlemmer
+        medlemmer.add(nytMedlem);=
     }
 }

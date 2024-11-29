@@ -5,7 +5,7 @@ public class Medlem extends Person {
 
 
     private static ArrayList<Medlem> medlemmer = new ArrayList<>();
- 
+
     private String aktivitetsForm;
     private String medlemsStatus;
     private String medlemsType;
@@ -25,7 +25,7 @@ public class Medlem extends Person {
         medlemmer.add(this);
     }
 
-  
+
     public String getAktivitetsForm() {
         return aktivitetsForm;
     }
@@ -38,6 +38,7 @@ public class Medlem extends Person {
             throw new IllegalArgumentException("Aktivitetsformen skal enten være 'motionist' eller 'konkurrencesvømmer'");
         }
     }
+
 
     public void setMedlemsStatus(String status) {
         status = status.trim().toLowerCase();
@@ -59,6 +60,7 @@ public class Medlem extends Person {
 
     public boolean getMedlemsStatus() {
         return "aktiv".equalsIgnoreCase(medlemsStatus); // Jeg er i tvivl om der skal returnes true eller false.
+
     }
 
     public String getMedlemsType() {
@@ -75,6 +77,7 @@ public class Medlem extends Person {
 
 
     public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
+
 
         for (Medlem medlem : medlemmer) {
             if (medlem.getTlf() == telefonnummer) {

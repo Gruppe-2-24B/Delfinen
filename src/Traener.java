@@ -2,7 +2,9 @@ public class Traener extends Person {
     private String disciplinSpeciale;
     private String medlemsType;
 
-    public Traener(String navn, int cprNr, int tlf, String mail, String disciplinSpeciale, String medlemsType) {
+
+    public Traener(String navn, String cprNr, int tlf, String mail, String disciplinSpeciale, String aldersGruppe) {
+
         super(navn, cprNr, tlf, mail);
         this.disciplinSpeciale = disciplinSpeciale;
         this.medlemsType = medlemsType;
