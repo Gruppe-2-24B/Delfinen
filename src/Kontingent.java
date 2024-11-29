@@ -5,9 +5,12 @@ public class Kontingent {
     private int pris;
     private ArrayList<Integer> prisListe;
     private Dato dato;
+    private Restance restance;
+
 
     public Kontingent(Medlem medlem) {
         this.medlem = medlem;
+        this.restance = new Restance(this);
     }
 
     public int getPris() {
@@ -30,25 +33,25 @@ public class Kontingent {
     }
 
     public boolean erIRestance() {
+        return !restance.geterBetalt();
+    }
 
-        if (medlem.getMedlemsStatus()) {
-            return false; //ikke i restance
-        } else {
-            return true; //i restance
-        }
+    public void setRestanceStatus(boolean status) {
+        restance.erBetalt = status;
     }
 
     public void visKontingentListe() {
         ArrayList<Medlem> medlemmer = medlem.getAlleMedlemmer();
         System.out.println("Liste over medlemmer og deres kontingenter:");
         for (Medlem medlem : medlemmer) {
+            Kontingent kontingent = new Kontingent(medlem);
             System.out.println("Medlemsnummer: " + medlem.getMedlemsNr());
             System.out.println("Navn: " + medlem.getNavn());
             System.out.println("Alder:" + medlem.getAlder() + " år");
             System.out.println("Type: " + medlem.getMedlemsType());
             System.out.println("Aktivitetsform: " + medlem.getAktivitetsForm());
-            System.out.println("Kontingentpris: " + getPris());
-            System.out.println("Er i restance: " + (erIRestance() ? "Ja" : "Nej"));
+            System.out.println("Kontingentpris: " + kontingent.getPris());
+            System.out.println("Er i restance: " + (kontingent.erIRestance() ? "Ja" : "Nej"));
         }
     }
 }
