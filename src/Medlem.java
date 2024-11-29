@@ -1,15 +1,18 @@
 import java.util.ArrayList;
 
+
 public class Medlem extends Person {
 
-    private ArrayList<Medlem> medlemmer = new ArrayList<Medlem>();
 
+    private static ArrayList<Medlem> medlemmer = new ArrayList<>();
+ 
     private String aktivitetsForm;
     private String medlemsStatus;
     private String medlemsType;
     private int medlemsNr;
     private int alder;
     private CprNr cpr;
+
 
     public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus) {
         super(navn, Integer.parseInt(cprNr), tlf, mail);
@@ -22,6 +25,7 @@ public class Medlem extends Person {
         medlemmer.add(this);
     }
 
+  
     public String getAktivitetsForm() {
         return aktivitetsForm;
     }
@@ -78,7 +82,7 @@ public class Medlem extends Person {
         return null;
     }
 
-    public ArrayList<Medlem> getAlleMedlemmer() {
+    public static ArrayList<Medlem> getAlleMedlemmer() {
         return new ArrayList<>(medlemmer);
     }
 
