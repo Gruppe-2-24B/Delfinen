@@ -7,6 +7,7 @@ public class MedlemsGenerator {
     public MedlemsGenerator() {
 
         scanner = new Scanner(System.in);
+
     }
 
     public void medlemsGenerator() {

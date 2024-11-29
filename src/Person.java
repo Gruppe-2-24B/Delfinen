@@ -1,11 +1,11 @@
 public abstract class Person {
     protected String navn;
-    protected int cprNr;
+    protected String cprNr;
     protected int tlf;
     protected String mail;
     protected CprNr cpr;
 
-    public Person(String navn, int cprNr, int tlf, String mail) {
+    public Person(String navn, String cprNr, int tlf, String mail) {
         this.navn = navn;
         this.cprNr = cprNr;
         this.tlf = tlf;
@@ -14,7 +14,7 @@ public abstract class Person {
     public String getNavn() {
         return navn;
     }
-    public int getCprNr() {
+    public String getCprNr() {
         return cprNr;
     }
     public int getTlf() {
