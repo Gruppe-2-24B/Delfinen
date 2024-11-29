@@ -25,7 +25,6 @@ public class Medlem extends Person {
         medlemmer.add(this);
     }
 
-  
     public String getAktivitetsForm() {
         return aktivitetsForm;
     }
