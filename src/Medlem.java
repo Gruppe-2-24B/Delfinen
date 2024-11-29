@@ -15,7 +15,7 @@ public class Medlem extends Person {
 
 
     public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus) {
-        super(navn, Integer.parseInt(cprNr), tlf, mail);
+        super(navn, cprNr, tlf, mail);
         setAktivitetsForm(aktivitetsForm);
         setMedlemsStatus(medlemsStatus);
         this.cpr = new CprNr(cprNr);
@@ -29,7 +29,7 @@ public class Medlem extends Person {
         return aktivitetsForm;
     }
 
-    public void setAktivitetsForm(String aktivitetsForm) {
+    public void setAktivitetsForm(String aktivitetsForm) { // Denne her funktion fungerer ligesom enum, man kan kun værem otionist eller konkurrencesvømmer
         aktivitetsForm = aktivitetsForm.trim().toLowerCase();
         if ("motionist".equals(aktivitetsForm) || "konkurrencesvømmer".equals(aktivitetsForm)) {
             this.aktivitetsForm = aktivitetsForm;
@@ -72,7 +72,9 @@ public class Medlem extends Person {
         return medlemsNr;
     }
 
+
     public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
+
         for (Medlem medlem : medlemmer) {
             if (medlem.getTlf() == telefonnummer) {
                 return medlem;
