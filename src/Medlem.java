@@ -72,9 +72,9 @@ public class Medlem extends Person {
         return medlemsNr;
     }
 
-    public Medlem findMedlemVedNummer(int medlemsNr) {
+   public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
         for (Medlem medlem : medlemmer) {
-            if(medlem.getMedlemsNr() == medlemsNr) {
+            if (medlem.getTlf() == telefonnummer) {
                 return medlem;
             }
         }
