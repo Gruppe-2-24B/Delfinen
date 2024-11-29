@@ -18,8 +18,8 @@ public class Main {
 
         generator.medlemsGenerator();
 
-        for (Medlem medlemm : Medlem.getAlleMedlemmer()) {
-            System.out.println(medlemm);
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            System.out.println(medlem);
         }
 
     }

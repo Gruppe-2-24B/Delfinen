@@ -11,9 +11,17 @@ public class Medlem extends Person {
     private int medlemsNr;
     private int alder;
     private CprNr cpr;
+    private String disciplinNavn;
 
+    public String getDisciplinNavn() {
+        return disciplinNavn;
+    }
 
-    public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus) {
+    public void setDisciplinNavn(String disciplinNavn) {
+        this.disciplinNavn = disciplinNavn;
+    }
+
+    public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String disciplinNavn) {
         super(navn, cprNr, tlf, mail);
         setAktivitetsForm(aktivitetsForm);
         setMedlemsStatus(medlemsStatus);
@@ -21,6 +29,7 @@ public class Medlem extends Person {
         this.medlemsNr = getTlf();
         this.medlemsType = udregnMedlemsType();
         this.alder = cpr.getAlder();
+        this.disciplinNavn = disciplinNavn;
         medlemmer.add(this);
     }
 
@@ -94,7 +103,8 @@ public class Medlem extends Person {
                 "\nMail: " + mail +
                 "\nAktivitetsform: " + aktivitetsForm +
                 "\nMedlemstype: " + medlemsType +
-                "\nStatus: " + medlemsStatus;
+                "\nStatus: " + medlemsStatus+
+                "\nDisciplin: " + disciplinNavn;
      }
 
 }
