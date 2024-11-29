@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
+
 public class Medlem extends Person {
 
-    private ArrayList<Medlem> medlemmer = new ArrayList<Medlem>();
+    private static ArrayList<Medlem> medlemmer = new ArrayList<>();
     private int sidsteMedlemsNr = 1;
-
     private String aktivitetsForm;
     private String medlemsStatus;
     private String medlemsType;
@@ -12,26 +12,24 @@ public class Medlem extends Person {
     private int alder;
     private CprNr cpr;
 
+
     public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus) {
-        super(navn, Integer.parseInt(cprNr), tlf, mail);
+        super(navn, cprNr, tlf, mail);
         setAktivitetsForm(aktivitetsForm);
         setMedlemsStatus(medlemsStatus);
         this.cpr = new CprNr(cprNr);
-        this.medlemsNr = genererMedlemsNr();
+        this.medlemsNr = getTlf();
         this.medlemsType = udregnMedlemsType();
         this.alder = cpr.getAlder();
         medlemmer.add(this);
     }
 
-    private int genererMedlemsNr() {
-        return sidsteMedlemsNr++;
-    }
 
     public String getAktivitetsForm() {
         return aktivitetsForm;
     }
 
-    public void setAktivitetsForm(String aktivitetsForm) {
+    public void setAktivitetsForm(String aktivitetsForm) { // Denne her funktion fungerer ligesom enum, man kan kun værem otionist eller konkurrencesvømmer
         aktivitetsForm = aktivitetsForm.trim().toLowerCase();
         if ("motionist".equals(aktivitetsForm) || "konkurrencesvømmer".equals(aktivitetsForm)) {
             this.aktivitetsForm = aktivitetsForm;
@@ -74,16 +72,16 @@ public class Medlem extends Person {
         return medlemsNr;
     }
 
-    public Medlem findMedlemVedNummer(int medlemsNr) {
+   public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
         for (Medlem medlem : medlemmer) {
-            if(medlem.getMedlemsNr() == medlemsNr) {
+            if (medlem.getTlf() == telefonnummer) {
                 return medlem;
             }
         }
         return null;
     }
 
-    public ArrayList<Medlem> getAlleMedlemmer() {
+    public static ArrayList<Medlem> getAlleMedlemmer() {
         return new ArrayList<>(medlemmer);
     }
 
