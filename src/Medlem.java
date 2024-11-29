@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
+
 public class Medlem extends Person {
 
-    private ArrayList<Medlem> medlemmer = new ArrayList<Medlem>();
+    private static ArrayList<Medlem> medlemmer = new ArrayList<>();
     private int sidsteMedlemsNr = 1;
-
     private String aktivitetsForm;
     private String medlemsStatus;
     private String medlemsType;
@@ -12,20 +12,18 @@ public class Medlem extends Person {
     private int alder;
     private CprNr cpr;
 
+
     public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus) {
         super(navn, Integer.parseInt(cprNr), tlf, mail);
         setAktivitetsForm(aktivitetsForm);
         setMedlemsStatus(medlemsStatus);
         this.cpr = new CprNr(cprNr);
-        this.medlemsNr = genererMedlemsNr();
+        this.medlemsNr = getTlf();
         this.medlemsType = udregnMedlemsType();
         this.alder = cpr.getAlder();
         medlemmer.add(this);
     }
 
-    private int genererMedlemsNr() {
-        return sidsteMedlemsNr++;
-    }
 
     public String getAktivitetsForm() {
         return aktivitetsForm;
@@ -83,7 +81,7 @@ public class Medlem extends Person {
         return null;
     }
 
-    public ArrayList<Medlem> getAlleMedlemmer() {
+    public static ArrayList<Medlem> getAlleMedlemmer() {
         return new ArrayList<>(medlemmer);
     }
 
