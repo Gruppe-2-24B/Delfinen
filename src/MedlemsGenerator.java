@@ -1,5 +1,6 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
+
 
 public class MedlemsGenerator {
 
@@ -95,7 +96,9 @@ public class MedlemsGenerator {
         System.out.println("\nNyt medlem oprettet med medlemsnummer: " + nytMedlem.getMedlemsNr());
         System.out.println(nytMedlem);
 
-        ArrayList<Medlem> medlemmer = Medlem.getAlleMedlemmer(); // Hent eksisterende medlemmer
-        medlemmer.add(nytMedlem);
+
+        // Gem medlem til fil
+        PersistensWriter.medlemsWriter(Medlem.getAlleMedlemmer());
+
     }
 }

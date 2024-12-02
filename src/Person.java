@@ -5,6 +5,8 @@ public abstract class Person {
     protected String mail;
     protected CprNr cpr;
 
+    public Person() {}
+
     public Person(String navn, String cprNr, int tlf, String mail) {
         this.navn = navn;
         this.cprNr = cprNr;
@@ -23,4 +25,14 @@ public abstract class Person {
     public String getMail() {
         return mail;
     }
+
+    public void setMail(String mail)
+    {
+        this.mail = mail;
+    }
+    public void setTlf(int tlf)
+    {
+        this.tlf = tlf;
+    }
+
 }
