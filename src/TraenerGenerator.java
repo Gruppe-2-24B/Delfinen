@@ -1,18 +1,16 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
 
-public class MedlemsGenerator {
+public class TraenerGenerator {
 
     private final Scanner scanner;
 
-    public MedlemsGenerator() {
-
+    public TraenerGenerator() {
         scanner = new Scanner(System.in);
-
     }
 
-    public void medlemsGenerator() {
-        System.out.println("=== Opret ny Medlem ===");
+    public void traenerGenerator() {
+        System.out.println("=== Opret ny Træner ===");
 
         System.out.println("Indtast navn: ");
         String navn = scanner.nextLine();
@@ -29,41 +27,25 @@ public class MedlemsGenerator {
             }
         } while (!validCpr);
 
-        System.out.println("indtast telefonummer");
+        System.out.println("Indtast telefonnummer");
         int tlf = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Indtast mail");
         String mail = scanner.nextLine();
 
-        System.out.println("Vælg aktivitetstype");
-        System.out.println("1. Motionist");
-        System.out.println("2. Konkurrencesvømmer");
-        String aktivitetsForm;
-        while (true) {
-            System.out.println("Indtast valg (1 eller 2): ");
-            String valg = scanner.nextLine();
-            if (valg.equals("1")) {
-                aktivitetsForm = "motionist";
-                break;
-            } else if (valg.equals("2")) {
-                aktivitetsForm = "konkurrence";
-                break;
-            }
-            System.out.println("Ugyldigt valg. Prøv igen");
-        }
 
-        System.out.println("Vælg medlemsstatus");
-        System.out.println("1. Aktiv");
-        System.out.println("2. Passiv");
-        String medlemsStatus;
+        System.out.println("Vælg Alders gruppe:");
+        System.out.println("1. Junior");
+        System.out.println("2. Senior");
+        String medlemsType;
         while (true) {
             System.out.println("Indtast valg (1 eller 2): ");
             String valg = scanner.nextLine();
             if (valg.equals("1")) {
-                medlemsStatus = "Aktiv";
+                medlemsType = "Junior";
                 break;
             } else if (valg.equals("2")) {
-                medlemsStatus = "Passiv";
+                medlemsType = "Senior";
                 break;
             }
             System.out.println("Ugyldigt valg. Prøv igen");
@@ -91,11 +73,8 @@ public class MedlemsGenerator {
             }
         }
 
-        Medlem nytMedlem = new Medlem(navn, cprNr, tlf, mail, aktivitetsForm, medlemsStatus, valgtDisciplin.getDisciplinNavn());
-        System.out.println("\nNyt medlem oprettet med medlemsnummer: " + nytMedlem.getMedlemsNr());
-        System.out.println(nytMedlem);
-
-        ArrayList<Medlem> medlemmer = Medlem.getAlleMedlemmer(); // Hent eksisterende medlemmer
-        medlemmer.add(nytMedlem);
+        Traener nyTraener = new Traener(navn, Integer.parseInt(cprNr), tlf, mail, medlemsType, valgtDisciplin);
+        System.out.println("\nNy træner oprettet:");
+        System.out.println(nyTraener);
     }
 }
