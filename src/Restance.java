@@ -1,14 +1,26 @@
 public class Restance {
-    private Kontingent kontingent;
     public boolean erBetalt;
 
-    public Restance(Kontingent kontingent) {
-        this.kontingent = kontingent;
+    public Restance() {
         this.erBetalt = false;
     }
-    public boolean geterBetalt() {
+
+    public boolean erIRestance() {
+        return !erBetalt;
+    }
+
+    public void setRestanceStatus(boolean status) {
+        erBetalt = status;
+        System.out.println("Betalingsstatus opdateret: " + (status ? "Betalt" : "Ikke betalt"));
+    }
+
+    public void redigerRestanceStatus(boolean status) {
+        setRestanceStatus(status);
+    }
+
+    public boolean getErBetalt() {
         return erBetalt;
     }
 
-
 }
+

@@ -5,9 +5,12 @@ public class Kontingent {
     private int pris;
     private ArrayList<Integer> prisListe;
     private Dato dato;
+    private Restance restance;
+
 
     public Kontingent(Medlem medlem) {
         this.medlem = medlem;
+        this.restance = new Restance();
     }
 
     public int getPris() {
@@ -29,6 +32,7 @@ public class Kontingent {
         }
     }
 
+
     public boolean erIRestance() {
 
         if (medlem.getMedlemsStatus().equals("passiv")) {
@@ -39,16 +43,18 @@ public class Kontingent {
     }
 
     public void visKontingentListe() {
-        ArrayList<Medlem> medlemmer = medlem.getAlleMedlemmer();
-        System.out.println("Liste over medlemmer og deres kontingenter:");
-        for (Medlem medlem : medlemmer) {
             System.out.println("Medlemsnummer: " + medlem.getMedlemsNr());
             System.out.println("Navn: " + medlem.getNavn());
             System.out.println("Alder:" + medlem.getAlder() + " år");
             System.out.println("Type: " + medlem.getMedlemsType());
             System.out.println("Aktivitetsform: " + medlem.getAktivitetsForm());
             System.out.println("Kontingentpris: " + getPris());
-            System.out.println("Er i restance: " + (erIRestance() ? "Ja" : "Nej"));
-        }
+            System.out.println("Er i restance: " + (restance.erIRestance() ? "Ja" : "Nej"));
+
+    }
+
+    public void redigerRestanceStatus(boolean status) {
+        restance.redigerRestanceStatus(status);
     }
 }
+
