@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class RedigerMedlem
 {
     {
+        Medlem.getAlleMedlemmer().clear();
         PersistensReader.laesMedlemmer();
     }
 

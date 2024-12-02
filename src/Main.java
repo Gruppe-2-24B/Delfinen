@@ -34,9 +34,9 @@ public class Main {
             System.out.println(medlemm);
 
 
-          /*  // sidi test
+            // sidi test
             RedigerMedlem redigerMedlem = new RedigerMedlem();
-            redigerMedlem.visMenu(); */
+            redigerMedlem.visMenu();
 
         }
     }
