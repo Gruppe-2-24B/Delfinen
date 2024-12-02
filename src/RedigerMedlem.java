@@ -49,41 +49,120 @@ public class RedigerMedlem
 
     protected void redigerOplysninger (Medlem medlem, Scanner scanner)
     {
-        // Rediger mail
+     // MAIL
         System.out.println("Nuværende mail: " + medlem.getMail());
-        System.out.println("Indtast ny mail (eller 0 for at springe over):");
-        String nyMail = scanner.nextLine();
+        String nyMail;
+        do
+        {
+            System.out.println("Indtast ny mail (eller 0 for at springe over):");
+            nyMail = scanner.nextLine();
+            if ("0".equals(nyMail))
+            {
+                break;
+            }
+            if (!nyMail.contains("@"))
+            {
+                System.out.println("Ugyldig mail. Prøv igen.");
+            }
+        } while (!"0".equals(nyMail) && !nyMail.contains("@"));
+
         if (!"0".equals(nyMail))
         {
             medlem.setMail(nyMail);
         }
 
-        // Rediger telefonnummer
+     // TLF
         System.out.println("Nuværende telefonnummer: " + medlem.getTlf());
-        System.out.println("Indtast nyt telefonnummer (eller 0 for at springe over):");
-        int nytTlf = scanner.nextInt();
+        int nytTlf;
+        do
+        {
+            System.out.println("Indtast nyt telefonnummer (eller 0 for at springe over):");
+            while (!scanner.hasNextInt())
+            {
+                System.out.println("Ugyldigt input. Indtast venligst et gyldigt telefonnummer.");
+                scanner.next();
+            }
+            nytTlf = scanner.nextInt();
+            scanner.nextLine();
+            if (nytTlf < 0 && nytTlf != 0)
+            {
+                System.out.println("Telefonnummer kan ikke være negativt. Prøv igen.");
+            }
+        } while (nytTlf < 0 && nytTlf != 0);
+
         if (nytTlf != 0)
         {
             medlem.setTlf(nytTlf);
         }
-        scanner.nextLine();
 
-        // Rediger aktivitetsform
+     // FORM
         System.out.println("Nuværende aktivitetsform: " + medlem.getAktivitetsForm());
-        System.out.println("Indtast ny aktivitetsform (eller 0 for at springe over):");
-        String nyAktivitetsForm = scanner.nextLine();
-        if (!"0".equals(nyAktivitetsForm))
+        String[] aktivitetsformer = {"Motionist", "Konkurrencesvømmer"};
+        int aktivitetsValg;
+        while (true)
         {
-            medlem.setAktivitetsForm(nyAktivitetsForm);
+            System.out.println("Vælg ny aktivitetsform:");
+            for (int i = 0; i < aktivitetsformer.length; i++)
+            {
+                System.out.println((i + 1) + ". " + aktivitetsformer[i]);
+            }
+            System.out.println("0. Behold nuværende aktivitetsform");
+
+            if (scanner.hasNextInt())
+            {
+                aktivitetsValg = scanner.nextInt();
+                scanner.nextLine(); // Rens scanner-bufferen
+                if (aktivitetsValg >= 0 && aktivitetsValg <= aktivitetsformer.length)
+                {
+                    break; // Gå videre, hvis valget er gyldigt
+                }
+                System.out.println("Ugyldigt valg. Prøv igen.");
+            }
+            else
+            {
+                System.out.println("Ugyldigt input. Indtast venligst et gyldigt valg.");
+                scanner.next(); // Rens ugyldigt input
+            }
         }
 
-        // Rediger medlemsstatus
-        System.out.println("Nuværende medlemsstatus: " + medlem.getMedlemsStatus());
-        System.out.println("Indtast ny medlemsstatus (eller 0 for at springe over):");
-        String nyMedlemsStatus = scanner.nextLine();
-        if (!"0".equals(nyMedlemsStatus))
+        if (aktivitetsValg > 0)
         {
-            medlem.setMedlemsStatus(nyMedlemsStatus);
+            medlem.setAktivitetsForm(aktivitetsformer[aktivitetsValg - 1]);
+        }
+
+    //  STATUS
+        System.out.println("Nuværende medlemsstatus: " + medlem.getMedlemsStatus());
+        String[] medlemsstatusser = {"aktiv", "passiv"};
+        int medlemsstatusValg;
+        while (true)
+        {
+            System.out.println("Vælg ny medlemsstatus:");
+            for (int i = 0; i < medlemsstatusser.length; i++)
+            {
+                System.out.println((i + 1) + ". " + medlemsstatusser[i].substring(0, 1).toUpperCase() + medlemsstatusser[i].substring(1));
+            }
+            System.out.println("0. Behold nuværende medlemsstatus");
+
+            if (scanner.hasNextInt())
+            {
+                medlemsstatusValg = scanner.nextInt();
+                scanner.nextLine(); // Rens scanner-bufferen
+                if (medlemsstatusValg >= 0 && medlemsstatusValg <= medlemsstatusser.length)
+                {
+                    break; // Gå videre, hvis valget er gyldigt
+                }
+                System.out.println("Ugyldigt valg. Prøv igen.");
+            }
+            else
+            {
+                System.out.println("Ugyldigt input. Indtast venligst et gyldigt valg.");
+                scanner.next(); // Rens ugyldigt input
+            }
+        }
+
+        if (medlemsstatusValg > 0)
+        {
+            medlem.setMedlemsStatus(medlemsstatusser[medlemsstatusValg - 1]);
         }
     }
 }

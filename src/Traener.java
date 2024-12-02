@@ -3,7 +3,7 @@ public class Traener extends Person {
     private String medlemsType;
 
     public Traener(String navn, int cprNr, int tlf, String mail, String disciplinSpeciale, String medlemsType) {
-        super(navn, cprNr, tlf, mail);
+        super(navn, String.valueOf(cprNr), tlf, mail);
         this.disciplinSpeciale = disciplinSpeciale;
         this.medlemsType = medlemsType;
     }

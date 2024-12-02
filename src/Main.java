@@ -14,18 +14,18 @@ public class Main {
 
 
 
-        MedlemsGenerator generator = new MedlemsGenerator();
+       /* MedlemsGenerator generator = new MedlemsGenerator();
 
         generator.medlemsGenerator();
 
         for (Medlem medlemm : Medlem.getAlleMedlemmer()) {
             System.out.println(medlemm);
-        }
+        } */
 
 
-        /* // sidi test
+        // sidi test
         RedigerMedlem redigerMedlem = new RedigerMedlem();
         redigerMedlem.visMenu();
-        */
+
     }
 }
