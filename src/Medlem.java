@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
+
 public class Medlem extends Person {
 
-    private ArrayList<Medlem> medlemmer = new ArrayList<Medlem>();
-    private int sidsteMedlemsNr = 1;
+
+    private static ArrayList<Medlem> medlemmer = new ArrayList<>();
 
     private String aktivitetsForm;
     private String medlemsStatus;
@@ -11,27 +12,34 @@ public class Medlem extends Person {
     private int medlemsNr;
     private int alder;
     private CprNr cpr;
+    private String disciplinNavn;
 
-    public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus) {
-        super(navn, Integer.parseInt(cprNr), tlf, mail);
+    public String getDisciplinNavn() {
+        return disciplinNavn;
+    }
+
+    public void setDisciplinNavn(String disciplinNavn) {
+        this.disciplinNavn = disciplinNavn;
+    }
+
+    public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String disciplinNavn) {
+        super(navn, cprNr, tlf, mail);
         setAktivitetsForm(aktivitetsForm);
         setMedlemsStatus(medlemsStatus);
         this.cpr = new CprNr(cprNr);
-        this.medlemsNr = genererMedlemsNr();
+        this.medlemsNr = getTlf();
         this.medlemsType = udregnMedlemsType();
         this.alder = cpr.getAlder();
+        this.disciplinNavn = disciplinNavn;
         medlemmer.add(this);
     }
 
-    private int genererMedlemsNr() {
-        return sidsteMedlemsNr++;
-    }
 
     public String getAktivitetsForm() {
         return aktivitetsForm;
     }
 
-    public void setAktivitetsForm(String aktivitetsForm) {
+    public void setAktivitetsForm(String aktivitetsForm) { // Denne her funktion fungerer ligesom enum, man kan kun værem otionist eller konkurrencesvømmer
         aktivitetsForm = aktivitetsForm.trim().toLowerCase();
         if ("motionist".equals(aktivitetsForm) || "konkurrencesvømmer".equals(aktivitetsForm)) {
             this.aktivitetsForm = aktivitetsForm;
@@ -39,6 +47,7 @@ public class Medlem extends Person {
             throw new IllegalArgumentException("Aktivitetsformen skal enten være 'motionist' eller 'konkurrencesvømmer'");
         }
     }
+
 
     public void setMedlemsStatus(String status) {
         status = status.trim().toLowerCase();
@@ -60,6 +69,7 @@ public class Medlem extends Person {
 
     public boolean getMedlemsStatus() {
         return "aktiv".equalsIgnoreCase(medlemsStatus); // Jeg er i tvivl om der skal returnes true eller false.
+
     }
 
     public String getMedlemsType() {
@@ -74,16 +84,19 @@ public class Medlem extends Person {
         return medlemsNr;
     }
 
-    public Medlem findMedlemVedNummer(int medlemsNr) {
+
+    public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
+
+
         for (Medlem medlem : medlemmer) {
-            if(medlem.getMedlemsNr() == medlemsNr) {
+            if (medlem.getTlf() == telefonnummer) {
                 return medlem;
             }
         }
         return null;
     }
 
-    public ArrayList<Medlem> getAlleMedlemmer() {
+    public static ArrayList<Medlem> getAlleMedlemmer() {
         return new ArrayList<>(medlemmer);
     }
 
@@ -96,7 +109,8 @@ public class Medlem extends Person {
                 "\nMail: " + mail +
                 "\nAktivitetsform: " + aktivitetsForm +
                 "\nMedlemstype: " + medlemsType +
-                "\nStatus: " + medlemsStatus;
+                "\nStatus: " + medlemsStatus+
+                "\nDisciplin: " + disciplinNavn;
      }
 
 }

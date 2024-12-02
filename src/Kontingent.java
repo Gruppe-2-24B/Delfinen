@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Kontingent {
     private Medlem medlem;
+    private int pris;
     private ArrayList<Integer> prisListe;
     private Dato dato;
 
@@ -10,7 +11,7 @@ public class Kontingent {
     }
 
     public int getPris() {
-        int alder = medlem.getCprNr().getAlder();
+        int alder = medlem.getAlder();
         String aktivitetsForm = medlem.getAktivitetsForm();
 
         //passive medlemmer
@@ -29,6 +30,25 @@ public class Kontingent {
     }
 
     public boolean erIRestance() {
-        return !medlem.getMedlemsStatus();
+
+        if (medlem.getMedlemsStatus()) {
+            return false; //ikke i restance
+        } else {
+            return true; //i restance
+        }
+    }
+
+    public void visKontingentListe() {
+        ArrayList<Medlem> medlemmer = medlem.getAlleMedlemmer();
+        System.out.println("Liste over medlemmer og deres kontingenter:");
+        for (Medlem medlem : medlemmer) {
+            System.out.println("Medlemsnummer: " + medlem.getMedlemsNr());
+            System.out.println("Navn: " + medlem.getNavn());
+            System.out.println("Alder:" + medlem.getAlder() + " år");
+            System.out.println("Type: " + medlem.getMedlemsType());
+            System.out.println("Aktivitetsform: " + medlem.getAktivitetsForm());
+            System.out.println("Kontingentpris: " + getPris());
+            System.out.println("Er i restance: " + (erIRestance() ? "Ja" : "Nej"));
+        }
     }
 }
