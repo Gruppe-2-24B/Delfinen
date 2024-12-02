@@ -31,7 +31,7 @@ public class Kontingent {
 
     public boolean erIRestance() {
 
-        if (medlem.getMedlemsStatus()) {
+        if (medlem.getMedlemsStatus().equals("passiv")) {
             return false; //ikke i restance
         } else {
             return true; //i restance

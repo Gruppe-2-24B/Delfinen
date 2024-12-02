@@ -1,31 +1,28 @@
 public class Disciplin {
 
-    private String bryst;
-    private String crawl;
-    private String rygcrawl;
-    private String butterfly;
+    private String disciplinNavn;
 
-    public Disciplin(String bryst, String crawl, String rygcrawl, String butterfly) {
-        this.bryst = bryst;
-        this.crawl = crawl;
-        this.rygcrawl = rygcrawl;
-        this.butterfly = butterfly;
+    public Disciplin(String disciplinNavn) {
+        this.disciplinNavn = disciplinNavn;
     }
 
-    public String getBryst() {
-        return bryst;
-    }
-    public String getCrawl() {
-        return crawl;
-    }
-    public String getRygcrawl() {
-        return rygcrawl;
-    }
-    public String getbutterfly() {
-        return butterfly;
+    public String getDisciplinNavn() {
+        return disciplinNavn;
     }
 
+    public void setDisciplinNavn(String disciplinNavn) {
+        this.disciplinNavn = disciplinNavn;
+    }
 
+    public static Disciplin[] getStandardDiscipliner()
+    {
+        return new Disciplin[]{
+                new Disciplin("Bryst"),
+                new Disciplin("Crawl"),
+                new Disciplin("Rygcrawl"),
+                new Disciplin("Butterfly")
+        };
+    }
 }
 
 

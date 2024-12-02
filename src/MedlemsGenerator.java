@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MedlemsGenerator {
@@ -68,9 +69,33 @@ public class MedlemsGenerator {
             System.out.println("Ugyldigt valg. Prøv igen");
         }
 
+        System.out.println("Vælg disciplin:");
+        Disciplin[] standardDiscipliner = Disciplin.getStandardDiscipliner();
+        for (int i = 0; i < standardDiscipliner.length; i++) {
+            System.out.println((i + 1) + ". " + standardDiscipliner[i].getDisciplinNavn());
+        }
 
-        Medlem nytMedlem = new Medlem(navn, cprNr, tlf, mail, aktivitetsForm, medlemsStatus);
+        Disciplin valgtDisciplin = null;
+        while (true) {
+            System.out.println("Indtast valg (1-" + standardDiscipliner.length + "): ");
+            String valg = scanner.nextLine();
+            try {
+                int index = Integer.parseInt(valg) - 1;
+                if (index >= 0 && index < standardDiscipliner.length) {
+                    valgtDisciplin = standardDiscipliner[index];
+                    break;
+                }
+                System.out.println("Ugyldigt valg. Prøv igen");
+            } catch (NumberFormatException e) {
+                System.out.println("Ugyldigt valg. Prøv igen");
+            }
+        }
+
+        Medlem nytMedlem = new Medlem(navn, cprNr, tlf, mail, aktivitetsForm, medlemsStatus, valgtDisciplin.getDisciplinNavn());
         System.out.println("\nNyt medlem oprettet med medlemsnummer: " + nytMedlem.getMedlemsNr());
         System.out.println(nytMedlem);
+
+        // Gem medlem til fil
+        PersistensWriter.medlemsWriter(Medlem.getAlleMedlemmer());
     }
 }

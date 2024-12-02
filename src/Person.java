@@ -5,6 +5,8 @@ public abstract class Person {
     protected String mail;
     protected CprNr cpr;
 
+    public Person() {}
+
     public Person(String navn, String cprNr, int tlf, String mail) {
         this.navn = navn;
         this.cprNr = cprNr;
