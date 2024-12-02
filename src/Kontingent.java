@@ -32,6 +32,16 @@ public class Kontingent {
         }
     }
 
+
+    public boolean erIRestance() {
+
+        if (medlem.getMedlemsStatus().equals("passiv")) {
+            return false; //ikke i restance
+        } else {
+            return true; //i restance
+        }
+    }
+
     public void visKontingentListe() {
             System.out.println("Medlemsnummer: " + medlem.getMedlemsNr());
             System.out.println("Navn: " + medlem.getNavn());

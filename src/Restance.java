@@ -21,4 +21,6 @@ public class Restance {
     public boolean getErBetalt() {
         return erBetalt;
     }
+
 }
+
