@@ -3,17 +3,26 @@ import java.util.ArrayList;
 
 public class Medlem extends Person {
 
+
     private static ArrayList<Medlem> medlemmer = new ArrayList<>();
-    private int sidsteMedlemsNr = 1;
+
     private String aktivitetsForm;
     private String medlemsStatus;
     private String medlemsType;
     private int medlemsNr;
     private int alder;
     private CprNr cpr;
+    private String disciplinNavn;
 
+    public String getDisciplinNavn() {
+        return disciplinNavn;
+    }
 
-    public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus) {
+    public void setDisciplinNavn(String disciplinNavn) {
+        this.disciplinNavn = disciplinNavn;
+    }
+
+    public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String disciplinNavn) {
         super(navn, cprNr, tlf, mail);
         setAktivitetsForm(aktivitetsForm);
         setMedlemsStatus(medlemsStatus);
@@ -21,6 +30,7 @@ public class Medlem extends Person {
         this.medlemsNr = getTlf();
         this.medlemsType = udregnMedlemsType();
         this.alder = cpr.getAlder();
+        this.disciplinNavn = disciplinNavn;
         medlemmer.add(this);
     }
 
@@ -37,6 +47,7 @@ public class Medlem extends Person {
             throw new IllegalArgumentException("Aktivitetsformen skal enten være 'motionist' eller 'konkurrencesvømmer'");
         }
     }
+
 
     public void setMedlemsStatus(String status) {
         status = status.trim().toLowerCase();
@@ -58,6 +69,7 @@ public class Medlem extends Person {
 
     public boolean getMedlemsStatus() {
         return "aktiv".equalsIgnoreCase(medlemsStatus); // Jeg er i tvivl om der skal returnes true eller false.
+
     }
 
     public String getMedlemsType() {
@@ -72,7 +84,10 @@ public class Medlem extends Person {
         return medlemsNr;
     }
 
-   public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
+
+    public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
+
+
         for (Medlem medlem : medlemmer) {
             if (medlem.getTlf() == telefonnummer) {
                 return medlem;
@@ -94,7 +109,8 @@ public class Medlem extends Person {
                 "\nMail: " + mail +
                 "\nAktivitetsform: " + aktivitetsForm +
                 "\nMedlemstype: " + medlemsType +
-                "\nStatus: " + medlemsStatus;
+                "\nStatus: " + medlemsStatus+
+                "\nDisciplin: " + disciplinNavn;
      }
 
 }
