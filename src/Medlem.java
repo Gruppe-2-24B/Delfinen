@@ -22,6 +22,8 @@ public class Medlem extends Person {
         this.disciplinNavn = disciplinNavn;
     }
 
+    public Medlem() {}
+
     public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String disciplinNavn) {
         super(navn, cprNr, tlf, mail);
         setAktivitetsForm(aktivitetsForm);
@@ -67,9 +69,8 @@ public class Medlem extends Person {
         return medlemsType;
     }
 
-    public boolean getMedlemsStatus() {
-        return "aktiv".equalsIgnoreCase(medlemsStatus); // Jeg er i tvivl om der skal returnes true eller false.
-
+    public String getMedlemsStatus() {
+        return medlemsStatus; // Jeg er i tvivl om der skal returnes true eller false.
     }
 
     public String getMedlemsType() {

@@ -9,4 +9,6 @@ public class Restance {
     public boolean geterBetalt() {
         return erBetalt;
     }
+
+
 }

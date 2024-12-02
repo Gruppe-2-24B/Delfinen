@@ -11,16 +11,16 @@ public class PersistensReader {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 7) {
-                    int medlemsNr = Integer.parseInt(data[0]);
-                    String navn = data[1];
-                    int alder = Integer.parseInt(data[2]);
-                    String cpr = data[3];
+                if (data.length == 8) {
+                    String navn = data[0];
+                    String cpr = data[1];
+                    int tlf = Integer.parseInt(data[2]);
+                    String mail = data[3];
                     String aktivitetsForm = data[4];
                     String medlemsStatus = data[5];
-                    String medlemsType = data[6];
+                    String disciplin = data[6];
 
-                    Medlem medlem = new Medlem(navn, cpr, medlemsNr, aktivitetsForm, medlemsStatus, medlemsType);
+                    Medlem medlem = new Medlem(navn, cpr, tlf, mail, aktivitetsForm, medlemsStatus, disciplin);
                     Medlem.getAlleMedlemmer().add(medlem);
                 }
             }
