@@ -25,4 +25,14 @@ public abstract class Person {
     public String getMail() {
         return mail;
     }
+
+    public void setMail(String mail)
+    {
+        this.mail = mail;
+    }
+    public void setTlf(int tlf)
+    {
+        this.tlf = tlf;
+    }
+
 }
