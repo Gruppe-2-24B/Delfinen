@@ -76,5 +76,7 @@ public class TraenerGenerator {
         Traener nyTraener = new Traener(navn, Integer.parseInt(cprNr), tlf, mail, medlemsType, valgtDisciplin);
         System.out.println("\nNy træner oprettet:");
         System.out.println(nyTraener);
+
+        PersistensWriter.traenerWriter(Traener.getAlleTraenere());
     }
 }
