@@ -1,16 +1,18 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.*;
 
 public class PersistensReader {
+
+    private static final String FIL_NAVN = "medlemmer.txt";
+    private static final String FIL_HOLD = "hold.txt";
 
     // sidi
     public static void rydMedlemmer()   // sidi
     {
         Medlem.getAlleMedlemmer().clear();  // sidi
     }
-
-    private static final String FIL_NAVN = "medlemmer.txt";
 
     public static void laesMedlemmer() {
         Medlem.getAlleMedlemmer().clear(); // sidi
@@ -35,7 +37,46 @@ public class PersistensReader {
             System.out.println("Medlemmer er indlæst fra fil.");
         } catch (IOException e) {
             e.printStackTrace();
-            }
         }
     }
+
+    public static List<HoldIndeling> laesHold() {
+        List<HoldIndeling> holdListe = new ArrayList<>();
+
+        try(BufferedReader br = new BufferedReader(new FileReader(FIL_HOLD))) {
+            String line;
+            while((line = br.readLine()) !=null) {
+                String[] data = line.split(",");
+                if (data.length >= 3) {
+                    String holdType = data[0];
+                    int holdNr = Integer.parseInt(data[1]);
+                    int traenerTlf = Integer.parseInt(data[2]);
+
+                    Traener traener = Traener.findTraenerVedTelefonnummer(traenerTlf);
+                    if (traener != null) {
+                        HoldIndeling hold = new HoldIndeling(holdType, holdNr, traener);
+
+
+                        if (data.length > 3) {
+                            String[] medlemsId = data[3].split(";");
+                            for (String id : medlemsId) {
+                                int telefonNummer = Integer.parseInt(id);
+                                Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonNummer);
+                                if (medlem != null) {
+                                    hold.addMedlem(medlem);
+                                }
+                            }
+                        }
+                        holdListe.add(hold);
+                    }
+                }
+            }
+            System.out.println("Hold er indlæst fra fil!");
+        } catch (IOException e) {
+        e.printStackTrace();
+    }
+        return holdListe;
+
+    }
+}
 

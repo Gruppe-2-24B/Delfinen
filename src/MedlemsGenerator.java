@@ -47,7 +47,7 @@ public class MedlemsGenerator {
                 aktivitetsForm = "motionist";
                 break;
             } else if (valg.equals("2")) {
-                aktivitetsForm = "konkurrence";
+                aktivitetsForm = "konkurrencesvømmer";
                 break;
             }
             System.out.println("Ugyldigt valg. Prøv igen");
@@ -76,7 +76,7 @@ public class MedlemsGenerator {
             System.out.println((i + 1) + ". " + standardDiscipliner[i].getDisciplinNavn());
         }
 
-        Disciplin valgtDisciplin = null;
+        Disciplin valgtDisciplin;
         while (true) {
             System.out.println("Indtast valg (1-" + standardDiscipliner.length + "): ");
             String valg = scanner.nextLine();
