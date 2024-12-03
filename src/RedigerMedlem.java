@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 public class RedigerMedlem
 {
+    {
+        Medlem.getAlleMedlemmer().clear();
+        PersistensReader.laesMedlemmer();
+    }
+
     public void visMenu()
     {
         Scanner scanner = new Scanner(System.in);
@@ -33,6 +38,8 @@ public class RedigerMedlem
 
         System.out.println("\n Medlemmet er korrekt opdateret:");
         System.out.println(valgtMedlem);
+
+        PersistensWriter.medlemsWriter(Medlem.getAlleMedlemmer());
     }
 
     protected Medlem findMedlemVedMedlemsNr(int medlemsNr)
@@ -111,17 +118,17 @@ public class RedigerMedlem
             if (scanner.hasNextInt())
             {
                 aktivitetsValg = scanner.nextInt();
-                scanner.nextLine(); // Rens scanner-bufferen
+                scanner.nextLine();
                 if (aktivitetsValg >= 0 && aktivitetsValg <= aktivitetsformer.length)
                 {
-                    break; // Gå videre, hvis valget er gyldigt
+                    break;
                 }
                 System.out.println("Ugyldigt valg. Prøv igen.");
             }
             else
             {
                 System.out.println("Ugyldigt input. Indtast venligst et gyldigt valg.");
-                scanner.next(); // Rens ugyldigt input
+                scanner.next();
             }
         }
 
@@ -146,23 +153,59 @@ public class RedigerMedlem
             if (scanner.hasNextInt())
             {
                 medlemsstatusValg = scanner.nextInt();
-                scanner.nextLine(); // Rens scanner-bufferen
+                scanner.nextLine();
                 if (medlemsstatusValg >= 0 && medlemsstatusValg <= medlemsstatusser.length)
                 {
-                    break; // Gå videre, hvis valget er gyldigt
+                    break;
                 }
                 System.out.println("Ugyldigt valg. Prøv igen.");
             }
             else
             {
                 System.out.println("Ugyldigt input. Indtast venligst et gyldigt valg.");
-                scanner.next(); // Rens ugyldigt input
+                scanner.next();
             }
         }
 
         if (medlemsstatusValg > 0)
         {
             medlem.setMedlemsStatus(medlemsstatusser[medlemsstatusValg - 1]);
+        }
+
+    //  DISCIPLIN
+        System.out.println("Nuværende disciplin: " + medlem.getDisciplinNavn());
+        Disciplin[] discipliner = Disciplin.getStandardDiscipliner();
+        int disciplinValg;
+        while (true)
+        {
+            System.out.println("Vælg ny disciplin:");
+            for (int i = 0; i < discipliner.length; i++)
+            {
+                System.out.println((i + 1) + ". " + discipliner[i].getDisciplinNavn());
+            }
+            System.out.println("0. Behold nuværende disciplin");
+
+            if (scanner.hasNextInt())
+            {
+                disciplinValg = scanner.nextInt();
+                scanner.nextLine();
+                if (disciplinValg >= 0 && disciplinValg <= discipliner.length)
+                {
+                    break;
+                }
+                System.out.println("Ugyldigt valg. Prøv igen.");
+            }
+            else
+            {
+                System.out.println("Ugyldigt input. Indtast venligst et gyldigt valg.");
+                scanner.next();
+            }
+        }
+
+        if (disciplinValg > 0)
+        {
+
+            medlem.setDisciplinNavn(discipliner[disciplinValg - 1].getDisciplinNavn());
         }
     }
 }
