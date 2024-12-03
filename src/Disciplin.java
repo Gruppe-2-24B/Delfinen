@@ -23,6 +23,11 @@ public class Disciplin {
                 new Disciplin("Butterfly")
         };
     }
+
+    @Override
+    public String toString() {
+        return disciplinNavn;
+    }
 }
 
 

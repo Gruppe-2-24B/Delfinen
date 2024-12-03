@@ -11,6 +11,8 @@ public class RedigerMedlem
     {
         Scanner scanner = new Scanner(System.in);
 
+        PersistensReader reader = new PersistensReader();
+        reader.laesMedlemmer();
 
         System.out.println("Liste over medlemmer:");
         for (Medlem medlem : Medlem.getAlleMedlemmer())
@@ -19,7 +21,7 @@ public class RedigerMedlem
         }
 
 
-        System.out.println("\n Indtast telefonnummer for at vælge et medlem:");
+        System.out.println("\nIndtast telefonnummer for at vælge et medlem:");
         int medlemsNr = scanner.nextInt();
         scanner.nextLine();
 
@@ -36,7 +38,7 @@ public class RedigerMedlem
         redigerOplysninger(valgtMedlem, scanner);
 
 
-        System.out.println("\n Medlemmet er korrekt opdateret:");
+        System.out.println("\nMedlemmet er korrekt opdateret:");
         System.out.println(valgtMedlem);
 
         PersistensWriter.medlemsWriter(Medlem.getAlleMedlemmer());
