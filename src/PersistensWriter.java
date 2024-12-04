@@ -54,16 +54,17 @@ public class PersistensWriter {
                 writer.write(holdIndeling.getHoldNr() + ",");
                 writer.write(holdIndeling.getTraener().getTlf() + ",");
 
-                for(Medlem medlem : holdIndeling.getMedlemmer())
+                for (Medlem medlem : holdIndeling.getMedlemmer())
                     writer.write(medlem.getTlf() + ";");
             }
             writer.write("\n");
             System.out.print("Træner er gemt til fil!");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
-      public static void resultatWriter(List<Resultat> resultater)
-    {
+
+        public static void resultatWriter(List<Resultat> resultater) {
         try (FileWriter writer = new FileWriter(fil3, false))
         {
             for (Resultat resultat : resultater)
@@ -77,7 +78,6 @@ public class PersistensWriter {
         }
         catch (IOException e)
         {
-
             e.printStackTrace();
         }
     }

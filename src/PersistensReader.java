@@ -2,12 +2,15 @@ import javax.swing.plaf.basic.BasicDesktopIconUI;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class PersistensReader {
 
     private static final String FIL_NAVN = "medlemmer.txt";
     private static final String FIL_HOLD = "hold.txt";
+    private static final String RESULTAT_FIL = "resultater.txt";
 
     // sidi
     public static void rydMedlemmer()   // sidi
@@ -40,8 +43,8 @@ public class PersistensReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-    private static final String RESULTAT_FIL = "resultater.txt";
 
     public static List<Resultat> laesResultater()
     {
@@ -79,7 +82,7 @@ public class PersistensReader {
     }
 
 
-    }
+
 
     public static List<HoldIndeling> laesHold() {
         List<HoldIndeling> holdListe = new ArrayList<>();
