@@ -2,6 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
+import java.io.File;
 
 
 public class PersistensWriter {
@@ -64,23 +65,39 @@ public class PersistensWriter {
         }
     }
 
-        public static void resultatWriter(List<Resultat> resultater) {
-        try (FileWriter writer = new FileWriter(fil3, false))
+        public static void resultatWriter(List<Resultat> resultater)
         {
-            for (Resultat resultat : resultater)
+            File resultaterFile = new File(fil3);
+
+            if (!resultaterFile.exists())
             {
-                writer.write(resultat.getPoint() + ",");
-                writer.write(resultat.getDisciplin() + ",");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                writer.write(resultat.getDato().format(formatter) + "\n");
+                try
+                {
+                    resultaterFile.createNewFile();
+                    System.out.println("Fil oprettet: resultater.txt");
+                }
+                catch (IOException e)
+                {
+                    System.err.println("Fejl ved oprettelse af filen: " + e.getMessage());
+                }
             }
-            System.out.print("Resultater er gemt til fil!");
+
+            try (FileWriter writer = new FileWriter(fil3, false))
+            {
+                for (Resultat resultat : resultater)
+                {
+                    writer.write(resultat.getPoint() + ",");
+                    writer.write(resultat.getDisciplin() + ",");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    writer.write(resultat.getDato().format(formatter) + "\n");
+                }
+                System.out.print("Resultater er gemt til fil!");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
 }
 
 
