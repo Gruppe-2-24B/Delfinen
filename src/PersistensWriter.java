@@ -8,7 +8,9 @@ public class PersistensWriter {
 
     private static final String fil = "medlemmer.txt";
     private static final String fil2 = "traenere.txt";
+    private static final String HOLD_FIL = "hold.txt";
     private static final String fil3 = "resultater.txt";
+
 
     public static void medlemsWriter(List<Medlem> medlemmer) {
         try (FileWriter writer = new FileWriter(fil, false)) {
@@ -29,7 +31,7 @@ public class PersistensWriter {
     }
 
     public static void traenerWriter(List<Traener> traenere) {
-        try (FileWriter writer = new FileWriter(fil2, true)) {
+        try (FileWriter writer = new FileWriter(fil2, false)) {
             for (Traener medlem : traenere) {
                 writer.write(medlem.getNavn() + ",");
                 writer.write(medlem.getCprNr() + ",");
@@ -38,13 +40,29 @@ public class PersistensWriter {
                 writer.write(medlem.getMedlemsType() + ",");
                 writer.write(medlem.getTildeltDisciplin() + "\n");
             }
-            System.out.print("Medlemmet er gemt til fil!");
+            System.out.print("Træner er gemt til fil!");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void resultatWriter(List<Resultat> resultater)
+
+    public static void holdWriter(List<HoldIndeling> hold) {
+        try (FileWriter writer = new FileWriter(HOLD_FIL, false)) {
+            for (HoldIndeling holdIndeling : hold) {
+                writer.write(holdIndeling.getHoldType() + ",");
+                writer.write(holdIndeling.getHoldNr() + ",");
+                writer.write(holdIndeling.getTraener().getTlf() + ",");
+
+                for(Medlem medlem : holdIndeling.getMedlemmer())
+                    writer.write(medlem.getTlf() + ";");
+            }
+            writer.write("\n");
+            System.out.print("Træner er gemt til fil!");
+        } catch (IOException e) {
+    }
+    
+      public static void resultatWriter(List<Resultat> resultater)
     {
         try (FileWriter writer = new FileWriter(fil3, false))
         {
@@ -59,6 +77,7 @@ public class PersistensWriter {
         }
         catch (IOException e)
         {
+
             e.printStackTrace();
         }
     }
