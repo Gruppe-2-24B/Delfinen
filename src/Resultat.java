@@ -212,10 +212,13 @@ protected static void tilfoejResultat(Scanner scanner)
     }
 
 //  FIND RESULTAT VED MEDLEM OG DISCIPLIN
-    private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin) {
+    private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
+    {
         List<Resultat> resultater = PersistensReader.laesResultater();
-        for (Resultat resultat : resultater) {
-            if (resultat.getMedlem().equals(medlem) && resultat.getDisciplin().equalsIgnoreCase(disciplin)) {
+        for (Resultat resultat : resultater)
+        {
+            if (resultat.getMedlem().equals(medlem) && resultat.getDisciplin().equalsIgnoreCase(disciplin))
+            {
                 return resultat;
             }
         }
