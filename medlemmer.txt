@@ -1,0 +1,3 @@
+seb,2812882855,30115855,seb@seb.dk,motionist,aktiv,Senior,Bryst
+seb,2808881999,20115544,seb22ada.dk,konkurrencesvømmer,aktiv,Senior,Bryst
+seb,2808942855,20912521,seb,motionist,aktiv,Senior,Crawl
