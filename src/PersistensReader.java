@@ -5,14 +5,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+import java.util.List;
+import java.util.ArrayList;
 public class PersistensReader {
 
     private static final String FIL_NAVN = "medlemmer.txt";
     private static final String FIL_HOLD = "hold.txt";
     private static final String RESULTAT_FIL = "resultater.txt";
     private static final String TRAENER_FIL = "traenere.txt";
-
 
 
     public static void rydMedlemmer() {
@@ -129,24 +129,21 @@ public class PersistensReader {
             while ((line = br.readLine()) != null)
             {
                 String[] data = line.split(",");
-                if (data.length == 4)
-                {
+                if (data.length == 4) {
                     int point = Integer.parseInt(data[0]);
                     String disciplin = data[1];
                     LocalDate dato = LocalDate.parse(data[2], formatter);
 
                     int telefonnummer = Integer.parseInt(data[3]);
-                            Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
-                    if (medlem != null)
-                    {
+                    Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+                    if (medlem != null) {
                         Resultat resultat = new Resultat(point, disciplin, dato, telefonnummer);
                         resultater.add(resultat);
                     }
                 }
             }
             System.out.println("Resultater er indlæst fra fil.");
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -159,9 +156,9 @@ public class PersistensReader {
     public static List<HoldIndeling> laesHold() {
         List<HoldIndeling> holdListe = new ArrayList<>();
 
-        try(BufferedReader br = new BufferedReader(new FileReader(FIL_HOLD))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FIL_HOLD))) {
             String line;
-            while((line = br.readLine()) !=null) {
+            while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data.length >= 3) {
                     String holdType = data[0];
@@ -189,8 +186,8 @@ public class PersistensReader {
             }
             System.out.println("Hold er indlæst fra fil!");
         } catch (IOException e) {
-        e.printStackTrace();
-    }
+            e.printStackTrace();
+        }
         return holdListe;
 
     }

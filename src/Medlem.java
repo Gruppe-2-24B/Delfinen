@@ -113,5 +113,4 @@ public class Medlem extends Person {
                 "\nStatus: " + medlemsStatus+
                 "\nDisciplin: " + disciplinNavn;
      }
-
 }
