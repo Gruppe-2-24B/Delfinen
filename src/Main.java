@@ -18,6 +18,7 @@ import java.util.Scanner;
             System.out.println("1. Medlemsmenu");
             System.out.println("2. Hold og træner:");
             System.out.println("3. Kontingent");
+            System.out.println("4. Resultatmenu");
             System.out.println("0. Luk program");
 
             int valg = input.nextInt();
@@ -30,6 +31,10 @@ import java.util.Scanner;
 
                 case 3:
                     kontingentMenu(kontingent, input);
+                    break;
+
+                case 4:
+                    Resultat.resultatMenu();
                     break;
 
                 case 0:
@@ -137,9 +142,9 @@ import java.util.Scanner;
 
 
 
-        // sidi test
+         sidi test
         RedigerMedlem redigerMedlem = new RedigerMedlem();
-       // redigerMedlem.visMenu();
+        redigerMedlem.visMenu();
 
         TraenerGenerator generator2 = new TraenerGenerator();
 

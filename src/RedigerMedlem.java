@@ -22,10 +22,10 @@ public class RedigerMedlem
 
 
         System.out.println("\nIndtast telefonnummer for at vælge et medlem:");
-        int medlemsNr = scanner.nextInt();
+        int telefonnummer = scanner.nextInt();
         scanner.nextLine();
 
-        Medlem valgtMedlem = findMedlemVedMedlemsNr(medlemsNr);
+        Medlem valgtMedlem = findMedlemVedMedlemsNr(telefonnummer);
 
         if (valgtMedlem == null)
         {
@@ -34,7 +34,7 @@ public class RedigerMedlem
         }
 
 
-        System.out.println("Rediger oplysninger for medlem #" + medlemsNr);
+        System.out.println("Rediger oplysninger for medlem #" + telefonnummer);
         redigerOplysninger(valgtMedlem, scanner);
 
 

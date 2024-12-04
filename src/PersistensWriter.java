@@ -12,6 +12,40 @@ public class PersistensWriter {
     private static final String HOLD_FIL = "hold.txt";
     private static final String fil3 = "resultater.txt";
 
+    public static void resultatWriter(List<Resultat> resultater)
+    {
+        File resultaterFile = new File(fil3);
+
+        if (!resultaterFile.exists())
+        {
+            try
+            {
+                resultaterFile.createNewFile();
+                System.out.println("Fil oprettet: resultater.txt");
+            }
+            catch (IOException e)
+            {
+                System.err.println("Fejl ved oprettelse af filen: " + e.getMessage());
+            }
+        }
+
+        try (FileWriter writer = new FileWriter(fil3, false))
+        {
+            for (Resultat resultat : resultater)
+            {
+                writer.write(resultat.getPoint() + ", ");
+                writer.write(resultat.getDisciplin() + ", ");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                writer.write(resultat.getDato().format(formatter) + ", ");
+                writer.write(resultat.getTelefonnummer() + "\n");
+            }
+            System.out.print("Resultater er gemt til fil!");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public static void medlemsWriter(List<Medlem> medlemmer) {
         try (FileWriter writer = new FileWriter(fil, true)) {
@@ -108,39 +142,7 @@ public class PersistensWriter {
         }
     }
 
-        public static void resultatWriter(List<Resultat> resultater)
-        {
-            File resultaterFile = new File(fil3);
 
-            if (!resultaterFile.exists())
-            {
-                try
-                {
-                    resultaterFile.createNewFile();
-                    System.out.println("Fil oprettet: resultater.txt");
-                }
-                catch (IOException e)
-                {
-                    System.err.println("Fejl ved oprettelse af filen: " + e.getMessage());
-                }
-            }
-
-            try (FileWriter writer = new FileWriter(fil3, false))
-            {
-                for (Resultat resultat : resultater)
-                {
-                    writer.write(resultat.getPoint() + ",");
-                    writer.write(resultat.getDisciplin() + ",");
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    writer.write(resultat.getDato().format(formatter) + "\n");
-                }
-                System.out.print("Resultater er gemt til fil!");
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
 }
 
 
