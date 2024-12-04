@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
     public class Main {
@@ -66,7 +67,44 @@ import java.util.Scanner;
             }
         }
     }
-}
+
+    private static void kontingentMenu(Kontingent kontingent, Scanner input) {
+        boolean iKontingentMenu = true;
+        while (iKontingentMenu) {
+            System.out.println("\nKontingentmenu:");
+            System.out.println("1. Vis medlemsinfo og kontingent");
+            System.out.println("2. Vis medlemmer i restance");
+            System.out.println("3. Beregn samlet kontingent");
+            System.out.println("0. Tilbage til hovedmenu");
+
+            int valg2 = input.nextInt();
+            input.nextLine();
+
+            switch (valg2) {
+                case 1:
+                    kontingent.visKontingentListe();
+                    break;
+
+                case 2:
+                    ArrayList<Kontingent> restanceListe = Kontingent.genererRestanceListe(new ArrayList<>());
+                    Kontingent.visRestanceListe(restanceListe);
+                    break;
+
+                case 3:
+                    ArrayList<Kontingent> alleKontingenter = new ArrayList<>();
+                    kontingent.visSum(alleKontingenter);
+                    break;
+
+                case 0:
+                    iKontingentMenu = false;
+                    break;
+
+                default:
+                    System.out.println("Ugyldigt valg. Prøv igen");
+            }
+        }
+    }
+} //slut klasse
 
 /*
         Medlem medlem = new Medlem("Frederik", "1710961111", 20484247, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","crawl");
