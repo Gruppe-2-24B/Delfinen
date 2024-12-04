@@ -12,34 +12,107 @@ public class PersistensReader {
     private static final String FIL_NAVN = "medlemmer.txt";
     private static final String FIL_HOLD = "hold.txt";
     private static final String RESULTAT_FIL = "resultater.txt";
+    private static final String TRAENER_FIL = "traenere.txt";
 
 
     public static void rydMedlemmer() {
         Medlem.getAlleMedlemmer().clear();
     }
 
+
+
     public static void laesMedlemmer() {
-        Medlem.getAlleMedlemmer().clear();
+
+        System.out.println("Starter indlæsning af medlemmer fra: " + FIL_NAVN); // Tilføjet til test
+        Medlem.getAlleMedlemmer().clear(); // sidi
+
+
         try (BufferedReader br = new BufferedReader(new FileReader(FIL_NAVN))) {
             String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length == 8) {
-                    String navn = data[0];
-                    String cpr = data[1];
-                    int tlf = Integer.parseInt(data[2]);
-                    String mail = data[3];
-                    String aktivitetsForm = data[4];
-                    String medlemsStatus = data[5];
-                    String medlemsType = data[6];
-                    String disciplin = data[7];
+            int lineNumber = 0; // Tilføjet til test
 
-                    Medlem medlem = new Medlem(navn, cpr, tlf, mail, aktivitetsForm, medlemsStatus, medlemsType, disciplin);
-                    Medlem.getAlleMedlemmer().add(medlem);
+            while ((line = br.readLine()) != null) {
+
+                    lineNumber++;
+                    System.out.println("Læser linje " + lineNumber + ": " + line); // Tilføjet til test
+
+                    String[] data = line.split(",");
+                    System.out.println("ANtal felter fundet: " + data.length); // Tilføjet til test
+
+                    if (data.length == 8) {
+                        try {
+                        String navn = data[0];
+                        String cpr = data[1];
+                        int tlf = Integer.parseInt(data[2]);
+                        String mail = data[3];
+                        String aktivitetsForm = data[4];
+                        String medlemsStatus = data[5];
+                        //String medlemsType = data[6];
+                        String disciplin = data[7];
+
+                        Medlem medlem = new Medlem(navn, cpr, tlf, mail, aktivitetsForm, medlemsStatus, disciplin);
+                        // Medlem.getAlleMedlemmer().add(medlem);
+                        System.out.println("Indlæst medlem: " + medlem.getNavn());
+                    } catch (Exception e) {
+                        System.err.println("Fejl ved behandling af linje " + lineNumber + ": " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                } else{
+                    System.err.println("Ugyldig linje " + lineNumber + ": Forventede 7 felter, men fandt " + data.length);
                 }
             }
-            System.out.println("Medlemmer er indlæst fra fil.");
+            System.out.println("Afsluttet indlæsning. Antal medlemmer: " + Medlem.getAlleMedlemmer().size());
         } catch (IOException e) {
+            System.err.println("Fejl ved åbning/læsning af fil: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void laesTraenere() {
+        System.out.println("Starter indlæsning af trænere fra: " + TRAENER_FIL);
+
+        Traener.getAlleTraenere().clear();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(TRAENER_FIL))) {
+            String line;
+            int lineNumber = 0;
+
+            while ((line = br.readLine()) != null) {
+                lineNumber++;
+                System.out.println("Læser linje " + lineNumber + ": " + line);
+
+                String[] data = line.split(",");
+                System.out.println("Antal felter fundet: " + data.length);
+
+                if (data.length == 6) { // Tilpas til det forventede antal felter
+                    try {
+                        String navn = data[0];
+                        String cprNr = data[1];
+                        int tlf = Integer.parseInt(data[2]);
+                        String mail = data[3];
+                        String medlemsType = data[4];
+                        String tildeltDisciplin = data[5];
+
+                        // Opret disciplin-objekt baseret på navnet, hvis nødvendigt
+                        Disciplin disciplin = new Disciplin(tildeltDisciplin);
+
+                        // Opret og tilføj træner
+                        Traener traener = new Traener(navn, cprNr, tlf, mail, medlemsType, disciplin);
+                        System.out.println("Indlæst træner: " + traener);
+
+                    } catch (Exception e) {
+                        System.err.println("Fejl ved behandling af linje " + lineNumber + ": " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.err.println("Ugyldig linje " + lineNumber + ": Forventede 6 felter, men fandt " + data.length);
+                }
+            }
+
+            System.out.println("Afsluttet indlæsning. Antal trænere: " + Traener.getAlleTraenere().size());
+        } catch (IOException e) {
+            System.err.println("Fejl ved åbning/læsning af fil: " + e.getMessage());
             e.printStackTrace();
         }
     }

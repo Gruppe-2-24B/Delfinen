@@ -235,6 +235,7 @@ public class Resultat
         }
     }
 
+
 //  FIND RESULTAT VED MEDLEM OG DISCIPLIN
 
     private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
@@ -249,6 +250,7 @@ public class Resultat
         }
         return null;
     }
+
 
 //  FIND MEDLEM VED TELEFONNUMMER
 
