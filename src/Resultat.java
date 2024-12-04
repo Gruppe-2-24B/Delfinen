@@ -8,6 +8,7 @@ public class Resultat
     protected String disciplin;
     protected LocalDate dato;
     protected Medlem medlem;
+    protected int telefonnummer;
 
     public Resultat(int point, String disciplin, LocalDate dato, int telefonnummer)
     {
@@ -15,6 +16,9 @@ public class Resultat
         this.disciplin = disciplin;
         this.dato = dato;
         this.medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+        this.telefonnummer = telefonnummer;
+
+        System.out.println("Nyt resultat oprettet: " + this);
     }
 
     public int getPoint()
@@ -49,6 +53,25 @@ public class Resultat
     {
         this.medlem = medlem;
     }
+
+    public int getTlf()
+    {
+        return telefonnummer;
+    }
+    public void setTlf(int telefonnummer)
+    {
+        this.telefonnummer = telefonnummer;
+    }
+    public int getTelefonnummer()
+    {
+        return telefonnummer;
+    }
+    public void setTelefonnummer(int telefonnummer)
+    {
+        this.telefonnummer = telefonnummer;
+    }
+
+
 //  RESULTAT MENU
     public static void resultatMenu()
     {
@@ -213,6 +236,7 @@ public class Resultat
     }
 
 //  FIND RESULTAT VED MEDLEM OG DISCIPLIN
+
     private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
     {
         List<Resultat> resultater = PersistensReader.laesResultater();
@@ -227,10 +251,12 @@ public class Resultat
     }
 
 //  FIND MEDLEM VED TELEFONNUMMER
+
     private static Medlem findMedlemVedTelefonnummer(String telefonnummer)
     {
         return null;
     }
+
 
 
 
@@ -244,5 +270,4 @@ public class Resultat
                 ", medlem=" + medlem.getNavn() +
                 '}';
     }
-
 }
