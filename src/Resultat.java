@@ -275,6 +275,7 @@ public static void visResultater()
         }
     }
 
+
 //  FIND RESULTAT VED MEDLEM OG DISCIPLIN
 
     private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
@@ -289,6 +290,7 @@ public static void visResultater()
         }
         return null;
     }
+
 
 //  FIND MEDLEM VED TELEFONNUMMER
 
