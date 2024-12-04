@@ -42,6 +42,49 @@ public class PersistensWriter {
         }
     }
 
+    public static void kontingentWriter(List<Kontingent> kontingenter) {
+        String fil = "kontingenter.txt";
+        try (FileWriter writer = new FileWriter(fil, false)) {
+            writer.write("Medlemsnummer,Navn,Alder,Medlemstype,Aktivitetsform,Kontingentpris,Restance\n");
+
+            int samletKontingentBeloeb = 0;
+            int antalMedlemmer = 0;
+            int antalIRestance = 0;
+
+            for (Kontingent kontingent : kontingenter) {
+                Medlem medlemsDetaljer = kontingent.getMedlem();
+                int kontingentPris = kontingent.getPris();
+                boolean erIRestance = kontingent.erIRestance();
+
+                writer.write(
+                        medlemsDetaljer.getMedlemsNr() + "," +
+                                medlemsDetaljer.getNavn() + "," +
+                                medlemsDetaljer.getAlder() + "," +
+                                medlemsDetaljer.getMedlemsType() + "," +
+                                medlemsDetaljer.getAktivitetsForm() + "," +
+                                kontingentPris + "," +
+                                (erIRestance ? "Ja" : "Nej") + "\n"
+                );
+
+
+                samletKontingentBeloeb += kontingentPris;
+                antalMedlemmer++;
+                if (erIRestance) {
+                    antalIRestance++;
+                }
+            }
+
+            writer.write("\nOpsummering:\n");
+            writer.write("Samlet kontingentbeløb: " + samletKontingentBeloeb + " kr\n");
+            writer.write("Antal medlemmer: " + antalMedlemmer + "\n");
+            writer.write("Antal medlemmer i restance: " + antalIRestance + "\n");
+
+            System.out.println("Kontingentoplysningerne er gemt til fil!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
 
