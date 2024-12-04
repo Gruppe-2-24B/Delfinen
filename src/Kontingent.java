@@ -24,7 +24,6 @@ public class Kontingent {
         if (aktivitetsForm.equals("passiv")) {
             return 500; //årlig takst som passiv medlem
         }
-
         //aktive medlemmer
         if (alder < 18) {
             return 1000; //årlig takst for juniormedlemmer

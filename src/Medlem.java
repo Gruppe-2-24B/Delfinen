@@ -14,19 +14,9 @@ public class Medlem extends Person {
     private CprNr cpr;
     private String disciplinNavn;
 
+    public Medlem(String navn, String cpr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String medlemsType, String disciplin)
+    {}
 
-    public Medlem(String navn, String cpr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String medlemsType, String disciplin) {
-    }
-
-    public String getDisciplinNavn() {
-        return disciplinNavn;
-    }
-
-    public void setDisciplinNavn(String disciplinNavn) {
-        this.disciplinNavn = disciplinNavn;
-    }
-
-    public Medlem() {}
 
     public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String disciplinNavn) {
         super(navn, cprNr, tlf, mail);
@@ -40,6 +30,13 @@ public class Medlem extends Person {
         medlemmer.add(this);
     }
 
+    public String getDisciplinNavn() {
+        return disciplinNavn;
+    }
+
+    public void setDisciplinNavn(String disciplinNavn) {
+        this.disciplinNavn = disciplinNavn;
+    }
 
     public String getAktivitetsForm() {
         return aktivitetsForm;
@@ -90,8 +87,7 @@ public class Medlem extends Person {
     }
 
 
-    public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
-
+    public static Medlem findMedlemVedTelefonnummer(int telefonnummer) {
 
         for (Medlem medlem : medlemmer) {
             if (medlem.getTlf() == telefonnummer) {

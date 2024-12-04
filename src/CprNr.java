@@ -82,7 +82,7 @@ public class CprNr
 
         if (!getDato().validerDato())
             return false;
-
+/*
         int udregnet = 0;
         int[] vaegte = {4,3,2,7,6,5,4,3,2,1};
 
@@ -91,7 +91,7 @@ public class CprNr
         //udregnet += vaegte[i] * (nummeret.charAt(i) - '0');
         if (udregnet % 11 != 0)
             return false;
-
+*/
         return true;
 
     }

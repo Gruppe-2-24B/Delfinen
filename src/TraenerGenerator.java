@@ -73,7 +73,7 @@ public class TraenerGenerator {
             }
         }
 
-        Traener nyTraener = new Traener(navn, Integer.parseInt(cprNr), tlf, mail, medlemsType, valgtDisciplin);
+        Traener nyTraener = new Traener(navn, cprNr, tlf, mail, medlemsType, valgtDisciplin);
         System.out.println("\nNy træner oprettet:");
         System.out.println(nyTraener);
 
