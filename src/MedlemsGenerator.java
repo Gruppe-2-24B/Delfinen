@@ -13,6 +13,7 @@ public class MedlemsGenerator {
     }
 
     public void medlemsGenerator() {
+
         System.out.println("=== Opret ny Medlem ===");
 
         System.out.println("Indtast navn: ");
@@ -77,6 +78,7 @@ public class MedlemsGenerator {
         }
 
         Disciplin valgtDisciplin;
+
         while (true) {
             System.out.println("Indtast valg (1-" + standardDiscipliner.length + "): ");
             String valg = scanner.nextLine();
@@ -91,6 +93,8 @@ public class MedlemsGenerator {
                 System.out.println("Ugyldigt valg. Prøv igen");
             }
         }
+
+
 
         Medlem nytMedlem = new Medlem(navn, cprNr, tlf, mail, aktivitetsForm, medlemsStatus, valgtDisciplin.getDisciplinNavn());
         System.out.println("\nNyt medlem oprettet med medlemsnummer: " + nytMedlem.getMedlemsNr());
