@@ -11,8 +11,10 @@ public class Kontingent {
     public Kontingent() {}
 
     public Kontingent(Medlem medlem) {
+
         this.medlem = medlem;
         this.restance = new Restance();
+
     }
     public Medlem getMedlem() {
         return medlem;

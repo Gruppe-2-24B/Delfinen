@@ -13,7 +13,7 @@ public class PersistensWriter {
 
 
     public static void medlemsWriter(List<Medlem> medlemmer) {
-        try (FileWriter writer = new FileWriter(fil, false)) {
+        try (FileWriter writer = new FileWriter(fil, true)) {
             for (Medlem medlem : medlemmer) {
                     writer.write(medlem.getNavn() + ",");
                     writer.write(medlem.getCprNr() + ",");

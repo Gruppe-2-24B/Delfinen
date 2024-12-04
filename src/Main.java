@@ -11,6 +11,7 @@ import java.util.Scanner;
         // Initialiser objekter
         MedlemsGenerator medlemGenerator = new MedlemsGenerator();
         RedigerMedlem redigerOplysninger = new RedigerMedlem();
+        Kontingent kontingent = new Kontingent();
 
         while (fortsaet) {
             System.out.println("\nHvad vil du gøre?");
@@ -27,10 +28,15 @@ import java.util.Scanner;
                     medlemsMenu(medlemGenerator, redigerOplysninger, input);
                     break;
 
+                case 3:
+                    kontingentMenu(kontingent, input);
+                    break;
+
                 case 0:
                     fortsaet = false;
                     System.out.println("Programmet afsluttes.");
                     break;
+
 
                 default:
                     System.out.println("Ugyldigt valg, prøv igen.");
