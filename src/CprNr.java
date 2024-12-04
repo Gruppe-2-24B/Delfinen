@@ -93,7 +93,6 @@ public class CprNr
             return false;
 
         return true;
-
     }
 
 }

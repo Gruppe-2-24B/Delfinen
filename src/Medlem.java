@@ -14,8 +14,8 @@ public class Medlem extends Person {
     private CprNr cpr;
     private String disciplinNavn;
 
-    public Medlem(String navn, String cpr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String medlemsType, String disciplin)
-    {}
+    //public Medlem(String navn, String cpr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String medlemsType, String disciplin)
+    //{}
 
 
     public Medlem(String navn, String cprNr, int tlf, String mail, String aktivitetsForm, String medlemsStatus, String disciplinNavn) {

@@ -210,6 +210,19 @@ protected static void tilfoejResultat(Scanner scanner)
         }
     }
 
+    private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
+    {
+        List<Resultat> resultater = PersistensReader.laesResultater();
+        for (Resultat resultat : resultater)
+        {
+            if (resultat.getMedlem().equals(medlem) && resultat.getDisciplin().equalsIgnoreCase(disciplin))
+            {
+                return resultat;
+            }
+        }
+        return null;
+    }
+
     private static Medlem findMedlemVedTelefonnummer(String telefonnummer)
     {
         return null;

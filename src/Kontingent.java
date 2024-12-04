@@ -7,7 +7,6 @@ public class Kontingent {
     private Dato dato;
     private Restance restance;
 
-
     public Kontingent(Medlem medlem) {
         this.medlem = medlem;
         this.restance = new Restance();
@@ -30,7 +29,6 @@ public class Kontingent {
             return 1600; //almindeligt seniormedlemskab
         }
     }
-
 
     public boolean erIRestance() {
 

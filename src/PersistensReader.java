@@ -25,18 +25,19 @@ public class PersistensReader {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 8) {
+                if (data.length == 7) {
                     String navn = data[0];
                     String cpr = data[1];
                     int tlf = Integer.parseInt(data[2]);
                     String mail = data[3];
                     String aktivitetsForm = data[4];
                     String medlemsStatus = data[5];
-                    String medlemsType = data[6];
-                    String disciplin = data[7];
+                    //String medlemsType = data[6];
+                    String disciplin = data[6];
 
-                    Medlem medlem = new Medlem(navn, cpr, tlf, mail, aktivitetsForm, medlemsStatus, medlemsType, disciplin);
+                    Medlem medlem = new Medlem(navn, cpr, tlf, mail, aktivitetsForm, medlemsStatus, disciplin);
                     Medlem.getAlleMedlemmer().add(medlem);
+                    System.out.println("Indlæst medlem: " + medlem.getNavn());
                 }
             }
             System.out.println("Medlemmer er indlæst fra fil.");
