@@ -88,6 +88,7 @@ public class Medlem extends Person {
 
 
     public static Medlem findMedlemVedTelefonnummer(int telefonnummer) {
+
         for (Medlem medlem : medlemmer) {
             if (medlem.getTlf() == telefonnummer) {
                 return medlem;

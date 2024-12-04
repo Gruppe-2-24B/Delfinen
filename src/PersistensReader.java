@@ -1,3 +1,4 @@
+import javax.swing.plaf.basic.BasicDesktopIconUI;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,8 +11,9 @@ public class PersistensReader {
 
     // sidi
     public static void rydMedlemmer()   // sidi
+
     {
-        Medlem.getAlleMedlemmer().clear();  // sidi
+        Medlem.getAlleMedlemmer().clear();
     }
 
     public static void laesMedlemmer() {
@@ -38,6 +40,45 @@ public class PersistensReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    private static final String RESULTAT_FIL = "resultater.txt";
+
+    public static List<Resultat> laesResultater()
+    {
+        List<Resultat> resultater = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(RESULTAT_FIL)))
+        {
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                String[] data = line.split(",");
+                if (data.length == 3)
+                {
+                    int point = Integer.parseInt(data[0]);
+                    String disciplin = data[1];
+                    LocalDate dato = LocalDate.parse(data[2], formatter);
+
+                    int telefonnummer =Integer.parseInt(data[3]);
+                            Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+                    if (medlem != null)
+                    {
+                        Resultat resultat = new Resultat(point, disciplin, dato, medlem);
+                        resultater.add(resultat);
+                    }
+                }
+            }
+            System.out.println("Resultater er indlæst fra fil.");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return resultater;
+    }
+
+
     }
 
     public static List<HoldIndeling> laesHold() {
