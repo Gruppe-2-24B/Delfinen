@@ -81,61 +81,61 @@ public class Resultat
     }
 
 //  TILFØJ RESULTAT
-protected static void tilfoejResultat(Scanner scanner)
-{
-    System.out.print("Indtast medlemsnummer: ");
-    String telefonnummer = scanner.nextLine();
-
-    System.out.println("Vælg disciplin:");
-    System.out.println("1. Crawl");
-    System.out.println("2. Bryst");
-    System.out.println("3. Rygcrawl");
-    System.out.println("4. Butterfly");
-    int disciplinValg = scanner.nextInt();
-    scanner.nextLine();
-
-    String disciplin = "";
-
-    switch (disciplinValg)
+    protected static void tilfoejResultat(Scanner scanner)
     {
-        case 1:
-            disciplin = "Crawl";
-            break;
-            case 2:
-                disciplin = "Bryst";
+        System.out.print("Indtast medlemsnummer: ");
+        String telefonnummer = scanner.nextLine();
+
+        System.out.println("Vælg disciplin:");
+        System.out.println("1. Crawl");
+        System.out.println("2. Bryst");
+        System.out.println("3. Rygcrawl");
+        System.out.println("4. Butterfly");
+        int disciplinValg = scanner.nextInt();
+        scanner.nextLine();
+
+        String disciplin = "";
+
+        switch (disciplinValg)
+        {
+            case 1:
+                disciplin = "Crawl";
                 break;
-                case 3:
-                    disciplin = "Rygcrawl";
+                case 2:
+                    disciplin = "Bryst";
                     break;
-                    case 4:
-                        disciplin = "Butterfly";
+                    case 3:
+                        disciplin = "Rygcrawl";
                         break;
-                        default:
-                            System.out.println("Ugyldigt valg. Standarddisciplin 'Crawl' valgt.");
-                            disciplin = "Crawl";
+                        case 4:
+                            disciplin = "Butterfly";
                             break;
-    }
+                            default:
+                                System.out.println("Ugyldigt valg. Standarddisciplin 'Crawl' valgt.");
+                                disciplin = "Crawl";
+                                break;
+        }
 
-    System.out.print("Indtast point: ");
-    int point = scanner.nextInt();
-    scanner.nextLine();
+        System.out.print("Indtast point: ");
+        int point = scanner.nextInt();
+        scanner.nextLine();
 
-    Medlem medlem = Medlem.findMedlemVedTelefonnummer(Integer.parseInt(telefonnummer));
-    if (medlem != null)
-    {
-        LocalDate dato = LocalDate.now();
-        Resultat resultat = new Resultat(point, disciplin, dato, medlem);
-        System.out.println("Nyt resultat tilføjet: " + resultat);
+        Medlem medlem = Medlem.findMedlemVedTelefonnummer(Integer.parseInt(telefonnummer));
+        if (medlem != null)
+        {
+            LocalDate dato = LocalDate.now();
+            Resultat resultat = new Resultat(point, disciplin, dato, medlem);
+            System.out.println("Nyt resultat tilføjet: " + resultat);
 
-        List<Resultat> resultater = PersistensReader.laesResultater();
-        resultater.add(resultat);
-        PersistensWriter.resultatWriter(resultater);
+            List<Resultat> resultater = PersistensReader.laesResultater();
+            resultater.add(resultat);
+            PersistensWriter.resultatWriter(resultater);
+        }
+        else
+        {
+            System.out.println("Medlem med medlemsnummer " + telefonnummer + " findes ikke.");
+        }
     }
-    else
-    {
-        System.out.println("Medlem med medlemsnummer " + telefonnummer + " findes ikke.");
-    }
-}
 
 //  OPDATÉR RESULTAT
 
@@ -191,10 +191,11 @@ protected static void tilfoejResultat(Scanner scanner)
                 List<Resultat> resultater = PersistensReader.laesResultater();
 
                 for (int i = 0; i < resultater.size(); i++)
-                {if (resultater.get(i).getMedlem().equals(medlem) && resultater.get(i).getDisciplin().equals(disciplin))
                 {
-                    resultater.set(i, eksisterendeResultat);
-                }
+                    if (resultater.get(i).getMedlem().equals(medlem) && resultater.get(i).getDisciplin().equals(disciplin))
+                    {
+                        resultater.set(i, eksisterendeResultat);
+                    }
                 }
 
                 PersistensWriter.resultatWriter(resultater);
@@ -210,6 +211,21 @@ protected static void tilfoejResultat(Scanner scanner)
         }
     }
 
+//  FIND RESULTAT VED MEDLEM OG DISCIPLIN
+    private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
+    {
+        List<Resultat> resultater = PersistensReader.laesResultater();
+        for (Resultat resultat : resultater)
+        {
+            if (resultat.getMedlem().equals(medlem) && resultat.getDisciplin().equalsIgnoreCase(disciplin))
+            {
+                return resultat;
+            }
+        }
+        return null;
+    }
+
+//  FIND MEDLEM VED TELEFONNUMMER
     private static Medlem findMedlemVedTelefonnummer(String telefonnummer)
     {
         return null;
