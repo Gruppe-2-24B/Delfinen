@@ -102,7 +102,7 @@ public class PersistensWriter {
                     writer.write(medlem.getTlf() + ";");
             }
             writer.write("\n");
-            System.out.print("Træner er gemt til fil!");
+            System.out.print("Hold er gemt til fil!");
         } catch (IOException e) {
             e.printStackTrace();
         }

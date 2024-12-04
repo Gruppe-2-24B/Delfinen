@@ -13,6 +13,24 @@ import java.util.Scanner;
         RedigerMedlem redigerOplysninger = new RedigerMedlem();
         Kontingent kontingent = new Kontingent();
 
+        // Indlæs eksisterende data
+        System.out.println("Indlæser medlemmer...");
+        PersistensReader.laesMedlemmer();
+        AutomatiskHoldIndeling.indlaesAlleHold();
+
+        // Tildel hold til alle medlemmer
+        System.out.println("Tildeler hold til medlemmer...");
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            AutomatiskHoldIndeling.tildelHold(medlem);
+        }
+
+        // Gem og vis alle hold
+        System.out.println("Gemmer og viser alle hold...");
+        AutomatiskHoldIndeling.gemAlleHold();
+        AutomatiskHoldIndeling.visAlleHold();
+
+
+
         while (fortsaet) {
             System.out.println("\nHvad vil du gøre?");
             System.out.println("1. Medlemsmenu");
@@ -105,6 +123,7 @@ import java.util.Scanner;
                     iKontingentMenu = false;
                     break;
 
+
                 default:
                     System.out.println("Ugyldigt valg. Prøv igen");
             }
@@ -116,6 +135,7 @@ import java.util.Scanner;
         Medlem medlem = new Medlem("Frederik", "1710961111", 20484247, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","crawl");
         Medlem medlem2 = new Medlem("Birger", "1705961543", 40329453, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","rygcrawl");
         Medlem medlem3 = new Medlem("Seb", "2009963211", 20859323, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","bryst");
+
 
 
         //System.out.println(medlem);

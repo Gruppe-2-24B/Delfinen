@@ -212,7 +212,9 @@ public class Resultat
         }
     }
 
+
 //  FIND RESULTAT VED MEDLEM OG DISCIPLIN
+
     private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
     {
         List<Resultat> resultater = PersistensReader.laesResultater();
@@ -226,7 +228,9 @@ public class Resultat
         return null;
     }
 
+
 //  FIND MEDLEM VED TELEFONNUMMER
+   
     private static Medlem findMedlemVedTelefonnummer(String telefonnummer)
     {
         return null;
