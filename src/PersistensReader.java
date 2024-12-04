@@ -57,17 +57,17 @@ public class PersistensReader {
             while ((line = br.readLine()) != null)
             {
                 String[] data = line.split(",");
-                if (data.length == 3)
+                if (data.length == 4)
                 {
                     int point = Integer.parseInt(data[0]);
                     String disciplin = data[1];
                     LocalDate dato = LocalDate.parse(data[2], formatter);
 
-                    int telefonnummer =Integer.parseInt(data[3]);
+                    int telefonnummer = Integer.parseInt(data[3]);
                             Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
                     if (medlem != null)
                     {
-                        Resultat resultat = new Resultat(point, disciplin, dato, medlem);
+                        Resultat resultat = new Resultat(point, disciplin, dato, telefonnummer);
                         resultater.add(resultat);
                     }
                 }

@@ -9,12 +9,12 @@ public class Resultat
     protected LocalDate dato;
     protected Medlem medlem;
 
-    public Resultat(int point, String disciplin, LocalDate dato, Medlem medlem)
+    public Resultat(int point, String disciplin, LocalDate dato, int telefonnummer)
     {
         this.point = point;
         this.disciplin = disciplin;
         this.dato = dato;
-        this.medlem = medlem;
+        this.medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
     }
 
     public int getPoint()
@@ -121,10 +121,11 @@ public class Resultat
         scanner.nextLine();
 
         Medlem medlem = Medlem.findMedlemVedTelefonnummer(Integer.parseInt(telefonnummer));
+
         if (medlem != null)
         {
             LocalDate dato = LocalDate.now();
-            Resultat resultat = new Resultat(point, disciplin, dato, medlem);
+            Resultat resultat = new Resultat(point, disciplin, dato, Integer.parseInt(telefonnummer));
             System.out.println("Nyt resultat tilføjet: " + resultat);
 
             List<Resultat> resultater = PersistensReader.laesResultater();
@@ -230,6 +231,8 @@ public class Resultat
     {
         return null;
     }
+
+
 
     @Override
     public String toString()
