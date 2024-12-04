@@ -89,7 +89,7 @@ public class Medlem extends Person {
     }
 
 
-    public Medlem findMedlemVedTelefonnummer(int telefonnummer) {
+    public static Medlem findMedlemVedTelefonnummer(int telefonnummer) {
 
 
         for (Medlem medlem : medlemmer) {
