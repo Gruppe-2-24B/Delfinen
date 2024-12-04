@@ -14,9 +14,6 @@ public class PersistensReader {
     private static final String RESULTAT_FIL = "resultater.txt";
 
 
-    public static void rydMedlemmer() {
-        Medlem.getAlleMedlemmer().clear();
-    }
 
     public static void laesMedlemmer() {
         Medlem.getAlleMedlemmer().clear();
@@ -48,7 +45,6 @@ public class PersistensReader {
     public static List<Resultat> laesResultater()
     {
         List<Resultat> resultater = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try (BufferedReader br = new BufferedReader(new FileReader(RESULTAT_FIL)))
         {
@@ -56,19 +52,23 @@ public class PersistensReader {
             while ((line = br.readLine()) != null)
             {
                 String[] data = line.split(",");
-                if (data.length == 4) {
+                if (data.length == 4)
+                {
                     int point = Integer.parseInt(data[0]);
                     String disciplin = data[1];
-                    LocalDate dato = LocalDate.parse(data[2], formatter);
+                    String dateStr = data[2].trim();
+                    LocalDate dato = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
                     int telefonnummer = Integer.parseInt(data[3]);
                     Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
-                    if (medlem != null) {
+                    if (medlem != null)
+                    {
                         Resultat resultat = new Resultat(point, disciplin, dato, telefonnummer);
                         resultater.add(resultat);
                     }
                 }
             }
+
             System.out.println("Resultater er indlæst fra fil.");
         } catch (IOException e)
         {
