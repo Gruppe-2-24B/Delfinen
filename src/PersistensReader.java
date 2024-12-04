@@ -12,15 +12,15 @@ public class PersistensReader {
     private static final String FIL_HOLD = "hold.txt";
     private static final String RESULTAT_FIL = "resultater.txt";
 
-    // sidi
-    public static void rydMedlemmer()   // sidi
+
+    public static void rydMedlemmer()
 
     {
         Medlem.getAlleMedlemmer().clear();
     }
 
     public static void laesMedlemmer() {
-        Medlem.getAlleMedlemmer().clear(); // sidi
+        Medlem.getAlleMedlemmer().clear();
         try (BufferedReader br = new BufferedReader(new FileReader(FIL_NAVN))) {
             String line;
             while ((line = br.readLine()) != null) {
