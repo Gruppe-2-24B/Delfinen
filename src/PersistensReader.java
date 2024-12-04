@@ -13,17 +13,19 @@ public class PersistensReader {
     private static final String RESULTAT_FIL = "resultater.txt";
     private static final String TRAENER_FIL = "traenere.txt";
 
-    // sidi
-    public static void rydMedlemmer()   // sidi
-    {
+
+
+    public static void rydMedlemmer() {
         Medlem.getAlleMedlemmer().clear();
     }
 
 
 
     public static void laesMedlemmer() {
+
         System.out.println("Starter indlæsning af medlemmer fra: " + FIL_NAVN); // Tilføjet til test
         Medlem.getAlleMedlemmer().clear(); // sidi
+
 
         try (BufferedReader br = new BufferedReader(new FileReader(FIL_NAVN))) {
             String line;
@@ -127,17 +129,17 @@ public class PersistensReader {
             while ((line = br.readLine()) != null)
             {
                 String[] data = line.split(",");
-                if (data.length == 3)
+                if (data.length == 4)
                 {
                     int point = Integer.parseInt(data[0]);
                     String disciplin = data[1];
                     LocalDate dato = LocalDate.parse(data[2], formatter);
 
-                    int telefonnummer =Integer.parseInt(data[3]);
+                    int telefonnummer = Integer.parseInt(data[3]);
                             Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
                     if (medlem != null)
                     {
-                        Resultat resultat = new Resultat(point, disciplin, dato, medlem);
+                        Resultat resultat = new Resultat(point, disciplin, dato, telefonnummer);
                         resultater.add(resultat);
                     }
                 }

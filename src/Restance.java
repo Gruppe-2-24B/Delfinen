@@ -1,5 +1,5 @@
 public class Restance {
-    public boolean erBetalt;
+    private boolean erBetalt;
 
     public Restance() {
         this.erBetalt = false;
@@ -11,7 +11,11 @@ public class Restance {
 
     public void setRestanceStatus(boolean status) {
         erBetalt = status;
-        System.out.println("Betalingsstatus opdateret: " + (status ? "Betalt" : "Ikke betalt"));
+        if (status) {
+            System.out.println("Betalingsstatus opdateret: Betalt");
+        } else {
+            System.out.println("Betalingsstatus opdateret: Ikke betalt");
+        }
     }
 
     public void redigerRestanceStatus(boolean status) {
@@ -21,6 +25,5 @@ public class Restance {
     public boolean getErBetalt() {
         return erBetalt;
     }
-
-}
+} //klasse slut
 
