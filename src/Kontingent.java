@@ -12,6 +12,9 @@ public class Kontingent {
         this.medlem = medlem;
         this.restance = new Restance();
     }
+    public Medlem getMedlem() {
+        return medlem;
+    }
 
     public int getPris() {
         int alder = medlem.getAlder();
