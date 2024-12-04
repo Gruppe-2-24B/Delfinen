@@ -44,6 +44,7 @@ import java.util.Scanner;
             System.out.println("2. Ret stamkort");
             System.out.println("0. Tilbage til hovedmenu");
 
+
             int valg2 = input.nextInt();
             input.nextLine();
 
@@ -67,7 +68,7 @@ import java.util.Scanner;
     }
 }
 
-
+/*
         Medlem medlem = new Medlem("Frederik", "1710961111", 20484247, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","crawl");
         Medlem medlem2 = new Medlem("Birger", "1705961543", 40329453, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","rygcrawl");
         Medlem medlem3 = new Medlem("Seb", "2009963211", 20859323, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","bryst");
