@@ -191,10 +191,11 @@ protected static void tilfoejResultat(Scanner scanner)
                 List<Resultat> resultater = PersistensReader.laesResultater();
 
                 for (int i = 0; i < resultater.size(); i++)
-                {if (resultater.get(i).getMedlem().equals(medlem) && resultater.get(i).getDisciplin().equals(disciplin))
                 {
-                    resultater.set(i, eksisterendeResultat);
-                }
+                    if (resultater.get(i).getMedlem().equals(medlem) && resultater.get(i).getDisciplin().equals(disciplin))
+                    {
+                        resultater.set(i, eksisterendeResultat);
+                    }
                 }
 
                 PersistensWriter.resultatWriter(resultater);
@@ -210,6 +211,18 @@ protected static void tilfoejResultat(Scanner scanner)
         }
     }
 
+//  FIND RESULTAT VED MEDLEM OG DISCIPLIN
+    private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin) {
+        List<Resultat> resultater = PersistensReader.laesResultater();
+        for (Resultat resultat : resultater) {
+            if (resultat.getMedlem().equals(medlem) && resultat.getDisciplin().equalsIgnoreCase(disciplin)) {
+                return resultat;
+            }
+        }
+        return null;
+    }
+
+//  FIND MEDLEM VED TELEFONNUMMER
     private static Medlem findMedlemVedTelefonnummer(String telefonnummer)
     {
         return null;
