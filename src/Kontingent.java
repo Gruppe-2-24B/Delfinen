@@ -56,8 +56,16 @@ public class Kontingent {
         }
     }
 
-    public void visKontingentListe() {
-            udskrivMedlemsInfo();
+    public void visKontingentListe(ArrayList<Medlem> medlemmer) {
+        if (medlemmer.isEmpty()) {
+            System.out.println("Ingen medlemmer at vise.");
+            return;
+        }
+
+        for (Medlem medlem : medlemmer) {
+
+            System.out.println(medlem);
+        }
     }
 
     public static ArrayList<Kontingent> genererRestanceListe(ArrayList<Kontingent> kontingentListe) {

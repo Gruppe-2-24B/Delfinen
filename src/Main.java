@@ -5,7 +5,7 @@ import java.util.Scanner;
 
     public static void main(String[] args) {
 
-        Scanner input = new Scanner(System.in);
+     Scanner input = new Scanner(System.in);
         boolean fortsaet = true;
 
         // Initialiser objekter
@@ -75,7 +75,10 @@ import java.util.Scanner;
     }
 
     private static void kontingentMenu(Kontingent kontingent, Scanner input) {
+
+
         boolean iKontingentMenu = true;
+
         while (iKontingentMenu) {
             System.out.println("\nKontingentmenu:");
             System.out.println("1. Vis medlemsinfo og kontingent");
@@ -88,7 +91,12 @@ import java.util.Scanner;
 
             switch (valg2) {
                 case 1:
-                    kontingent.visKontingentListe();
+                    ArrayList<Medlem> medlemmer = Medlem.getAlleMedlemmer(); // Hent listen af medlemmer
+                    if (medlemmer.isEmpty()) {
+                        System.out.println("Ingen medlemmer i systemet.");
+                    } else {
+                        kontingent.visKontingentListe(medlemmer); // Send listen til metoden
+                    }
                     break;
 
                 case 2:
