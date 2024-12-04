@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
     public class Main {
@@ -10,12 +11,14 @@ import java.util.Scanner;
         // Initialiser objekter
         MedlemsGenerator medlemGenerator = new MedlemsGenerator();
         RedigerMedlem redigerOplysninger = new RedigerMedlem();
+        Kontingent kontingent = new Kontingent();
 
         while (fortsaet) {
             System.out.println("\nHvad vil du gøre?");
             System.out.println("1. Medlemsmenu");
             System.out.println("2. Hold og træner:");
             System.out.println("3. Kontingent");
+            System.out.println("4. Resultatmenu");
             System.out.println("0. Luk program");
 
             int valg = input.nextInt();
@@ -26,10 +29,19 @@ import java.util.Scanner;
                     medlemsMenu(medlemGenerator, redigerOplysninger, input);
                     break;
 
+                case 3:
+                    kontingentMenu(kontingent, input);
+                    break;
+
+                case 4:
+                    Resultat.resultatMenu();
+                    break;
+
                 case 0:
                     fortsaet = false;
                     System.out.println("Programmet afsluttes.");
                     break;
+
 
                 default:
                     System.out.println("Ugyldigt valg, prøv igen.");
@@ -43,6 +55,7 @@ import java.util.Scanner;
             System.out.println("1. Opret medlem");
             System.out.println("2. Ret stamkort");
             System.out.println("0. Tilbage til hovedmenu");
+
 
             int valg2 = input.nextInt();
             input.nextLine();
@@ -65,9 +78,46 @@ import java.util.Scanner;
             }
         }
     }
-}
 
+    private static void kontingentMenu(Kontingent kontingent, Scanner input) {
+        boolean iKontingentMenu = true;
+        while (iKontingentMenu) {
+            System.out.println("\nKontingentmenu:");
+            System.out.println("1. Vis medlemsinfo og kontingent");
+            System.out.println("2. Vis medlemmer i restance");
+            System.out.println("3. Beregn samlet kontingent");
+            System.out.println("0. Tilbage til hovedmenu");
 
+            int valg2 = input.nextInt();
+            input.nextLine();
+
+            switch (valg2) {
+                case 1:
+                    kontingent.visKontingentListe();
+                    break;
+
+                case 2:
+                    ArrayList<Kontingent> restanceListe = Kontingent.genererRestanceListe(new ArrayList<>());
+                    Kontingent.visRestanceListe(restanceListe);
+                    break;
+
+                case 3:
+                    ArrayList<Kontingent> alleKontingenter = new ArrayList<>();
+                    kontingent.visSum(alleKontingenter);
+                    break;
+
+                case 0:
+                    iKontingentMenu = false;
+                    break;
+
+                default:
+                    System.out.println("Ugyldigt valg. Prøv igen");
+            }
+        }
+    }
+} //slut klasse
+
+/*
         Medlem medlem = new Medlem("Frederik", "1710961111", 20484247, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","crawl");
         Medlem medlem2 = new Medlem("Birger", "1705961543", 40329453, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","rygcrawl");
         Medlem medlem3 = new Medlem("Seb", "2009963211", 20859323, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","bryst");
@@ -92,9 +142,9 @@ import java.util.Scanner;
 
 
 
-        // sidi test
+         sidi test
         RedigerMedlem redigerMedlem = new RedigerMedlem();
-       // redigerMedlem.visMenu();
+        redigerMedlem.visMenu();
 
         TraenerGenerator generator2 = new TraenerGenerator();
 

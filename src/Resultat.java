@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+import java.io.*;
 
 public class Resultat
 {
@@ -59,6 +60,7 @@ public class Resultat
             System.out.println("Tilføj eller opdatér resultat.");
             System.out.println("1. Tilføj nyt resultat.");
             System.out.println("2. Opdatér eksisterende resultat.");
+            System.out.println("3. Vis liste over resultater.");
             System.out.println("0. Gå tilbage.");
             int valg = scanner.nextInt();
             scanner.nextLine();
@@ -71,11 +73,49 @@ public class Resultat
                 case 2:
                     opdaterResultat(scanner);
                     break;
+                case 3:
+                    visResultater();
+                    break;
                 case 0:
                     System.out.println("Går tilbage.");
                     return;
                 default:
                     System.out.println("Ugyldigt valg. Prøv igen.");
+            }
+        }
+    }
+
+//  VIS LISTE OVER RESULTATER
+public static void visResultater()
+{
+    try (BufferedReader br = new BufferedReader(new FileReader("resultater.txt")))
+    {
+        String line;
+        while ((line = br.readLine()) != null)
+        {
+            System.out.println(line);
+        }
+    } catch (IOException e)
+    {
+        System.out.println("Fejl ved læsning af filen: " + e.getMessage());
+    }
+}
+
+
+
+//  VIS NUVÆRENDE MEDLEMMERE
+    private static void visMedlemmere()
+    {
+        if (Medlem.getAlleMedlemmer().isEmpty())
+        {
+            System.out.println("Der er ingen medlemmer.");
+        }
+        else
+        {
+            System.out.println("\nListe over medlemmere:");
+            for (Medlem medlem : Medlem.getAlleMedlemmer())
+            {
+                System.out.println("Navn: " + medlem.getNavn() + ", Medlemsnummer: " + medlem.getTlf());
             }
         }
     }

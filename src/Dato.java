@@ -1,5 +1,11 @@
+import java.time.format.DateTimeFormatter;
+
 public class Dato
 {
+
+    // DATE FORMATTER
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 
     static public final
     String[] MAANED_TABEL = {"januar","februar","marts",
