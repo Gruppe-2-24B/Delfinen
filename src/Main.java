@@ -8,10 +8,23 @@ import java.util.Scanner;
         Scanner input = new Scanner(System.in);
         boolean fortsaet = true;
 
+        Medlem.getAlleMedlemmer().clear();
+
+        // Initialiser Automatisk Hold Indeling
+
+        PersistensReader.laesMedlemmer();
+        PersistensReader.laesTraenere();
+        AutomatiskHoldIndeling.indlaesAlleHold();
+
         // Initialiser objekter
         MedlemsGenerator medlemGenerator = new MedlemsGenerator();
-        RedigerMedlem redigerOplysninger = new RedigerMedlem();
+        RedigerMedlem redigerOplysninger = new RedigerMedlem(); // Medlemmer læses
         Kontingent kontingent = new Kontingent();
+
+
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            AutomatiskHoldIndeling.tildelHold(medlem);
+        }
 
 
         while (fortsaet) {
@@ -20,6 +33,7 @@ import java.util.Scanner;
             System.out.println("2. Hold og træner:");
             System.out.println("3. Kontingent");
             System.out.println("4. Resultater");
+            System.out.println("5. Konkurrence Hold");
             System.out.println("0. Luk program");
 
             int valg = input.nextInt();
@@ -38,9 +52,14 @@ import java.util.Scanner;
                     Resultat.resultatMenu();
                     break;
 
+                case 5:
+                    holdMenu(input);
+                    break;
+
                 case 0:
                     fortsaet = false;
                     System.out.println("Programmet afsluttes.");
+                    AutomatiskHoldIndeling.gemAlleHold();
                     break;
 
                 default:
@@ -168,6 +187,35 @@ import java.util.Scanner;
 
                 default:
                     System.out.println("Ugyldigt valg. Prøv igen");
+            }
+        }
+    }
+
+    private static void holdMenu(Scanner input) {
+        boolean iHoldMenu = true;
+        while (iHoldMenu) {
+            System.out.println("\nVis hold:");
+            System.out.println("1. Vis Junior hold");
+            System.out.println("2. Vis Senior hold");
+            System.out.println("0. Tilbage til hovedmenu");
+
+            int valg = input.nextInt();
+            input.nextLine();
+            switch (valg) {
+                case 1:
+                    AutomatiskHoldIndeling.visSpecifiktHold("Junior");
+                    break;
+
+                case 2:
+                    AutomatiskHoldIndeling.visSpecifiktHold("Senior");
+                    break;
+
+                    case 0:
+                        iHoldMenu = false;
+                        break;
+
+                default:
+                    System.out.println("Ugyldigt valg, prøv igen");
             }
         }
     }

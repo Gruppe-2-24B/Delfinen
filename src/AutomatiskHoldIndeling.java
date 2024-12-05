@@ -16,8 +16,8 @@ public class AutomatiskHoldIndeling {
             HoldIndeling relevantHold = findHold(holdType, nytMedlem.getDisciplinNavn());
             relevantHold.addMedlem(nytMedlem);
             System.out.println("Medlem tildelt til hold: " + holdType);
-        } else {
-            System.out.println("Medlem er ikke en konkurrencesvømmer: " + nytMedlem.getNavn());
+        //} else {
+          //  System.out.println("Medlem er ikke en konkurrencesvømmer: " + nytMedlem.getNavn());
         }
     }
 
@@ -89,13 +89,30 @@ public class AutomatiskHoldIndeling {
         }
     }
 
+    public static void visSpecifiktHold(String holdType) {
+        HoldIndeling hold = null;
+
+        if ("Junior".equals(holdType)) {
+            hold = juniorHold;
+        } else if ("Senior".equals(holdType)) {
+            hold = seniorHold;
+        }
+
+        if (hold != null) {
+            System.out.println("\n=== " + holdType + " Hold ===");
+            visHoldInfo(hold);
+        } else {
+            System.out.println("Ingen " + holdType.toUpperCase() + " Hold oprettet endnu.");
+        }
+    }
+
     public static void visHoldInfo(HoldIndeling hold) {
         System.out.println("\nHold " + hold.getHoldNr());
-        System.out.println("Træner: " + hold.getTraener().getNavn());
+        System.out.println("Træner: " + hold.getTraener().getNavn() + " (" + hold.getTraener().getTildeltDisciplin() + ")");
         System.out.println("Antal medlemmer: " + hold.getMedlemmer().size());
         System.out.println("Medlemmer:");
         for (Medlem medlem : hold.getMedlemmer()) {
-            System.out.println("- " + medlem.getNavn() + " (" + medlem.getDisciplinNavn() + ")");
+            System.out.println("- " + medlem.getNavn() + " (" + medlem.getDisciplinNavn() + ")" + " #" + medlem.getMedlemsNr());
         }
     }
 }

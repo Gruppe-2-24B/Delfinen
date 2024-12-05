@@ -19,7 +19,7 @@ public class Resultat
         this.medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
         this.telefonnummer = telefonnummer;
 
-        System.out.println("Nyt resultat oprettet: " + this);
+        // System.out.println("Nyt resultat oprettet: " + this);
     }
 
     public int getPoint()

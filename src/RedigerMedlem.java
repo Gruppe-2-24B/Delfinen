@@ -6,8 +6,7 @@ public class RedigerMedlem
 {
 
     public RedigerMedlem() {
-        Medlem.getAlleMedlemmer().clear();
-        PersistensReader.laesMedlemmer();
+
     }
 
     public void visMenu()

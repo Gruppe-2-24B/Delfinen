@@ -55,8 +55,9 @@ public class PersistensReader {
                 } else{
                     System.err.println("Ugyldig linje " + lineNumber + ": Forventede 7 felter, men fandt " + data.length);
                 }
+
             }
-            //System.out.println("Afsluttet indlæsning. Antal medlemmer: " + Medlem.getAlleMedlemmer().size());
+            System.out.println("Afsluttet indlæsning. Antal medlemmer: " + Medlem.getAlleMedlemmer().size());
         } catch (IOException e) {
             System.err.println("Fejl ved åbning/læsning af fil: " + e.getMessage());
             e.printStackTrace();
@@ -65,7 +66,7 @@ public class PersistensReader {
     }
 
     public static void laesTraenere() {
-        System.out.println("Starter indlæsning af trænere fra: " + TRAENER_FIL);
+        // System.out.println("Starter indlæsning af trænere fra: " + TRAENER_FIL);
 
         Traener.getAlleTraenere().clear();
 
@@ -75,10 +76,10 @@ public class PersistensReader {
 
             while ((line = br.readLine()) != null) {
                 lineNumber++;
-                System.out.println("Læser linje " + lineNumber + ": " + line);
+                // System.out.println("Læser linje " + lineNumber + ": " + line);
 
                 String[] data = line.split(",");
-                System.out.println("Antal felter fundet: " + data.length);
+                // System.out.println("Antal felter fundet: " + data.length);
 
                 if (data.length == 6) { // Tilpas til det forventede antal felter
                     try {
@@ -94,7 +95,7 @@ public class PersistensReader {
 
                         // Opret og tilføj træner
                         Traener traener = new Traener(navn, cprNr, tlf, mail, medlemsType, disciplin);
-                        System.out.println("Indlæst træner: " + traener);
+                        // System.out.println("Indlæst træner: " + traener);
 
                     } catch (Exception e) {
                         System.err.println("Fejl ved behandling af linje " + lineNumber + ": " + e.getMessage());
