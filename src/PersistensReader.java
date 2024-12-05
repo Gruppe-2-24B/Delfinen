@@ -15,13 +15,10 @@ public class PersistensReader {
     private static final String TRAENER_FIL = "traenere.txt";
 
 
-
-
-
     public static void laesMedlemmer() {
 
        // System.out.println("Starter indlæsning af medlemmer fra: " + FIL_NAVN); // Tilføjet til test
-        Medlem.getAlleMedlemmer().clear(); // sidi
+       Medlem.getAlleMedlemmer().clear(); // sidi
 
 
         try (BufferedReader br = new BufferedReader(new FileReader(FIL_NAVN))) {
@@ -46,9 +43,11 @@ public class PersistensReader {
                         String medlemsStatus = data[5];
                         String disciplin = data[7];
 
+
                         Medlem medlem = new Medlem(navn, cpr, tlf, mail, aktivitetsForm, medlemsStatus, disciplin);
-                        // Medlem.getAlleMedlemmer().add(medlem);
-                        //System.out.println("Indlæst medlem: " + medlem.getNavn());
+                                // Medlem.getAlleMedlemmer().add(medlem);
+                                //System.out.println("Indlæst medlem: " + medlem.getNavn());
+
                     } catch (Exception e) {
                         System.err.println("Fejl ved behandling af linje " + lineNumber + ": " + e.getMessage());
                         e.printStackTrace();
