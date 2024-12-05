@@ -13,12 +13,16 @@ import java.util.Scanner;
         RedigerMedlem redigerOplysninger = new RedigerMedlem();
         Kontingent kontingent = new Kontingent();
 
+
+
+
+
         while (fortsaet) {
             System.out.println("\nHvad vil du gøre?");
             System.out.println("1. Medlemsmenu");
             System.out.println("2. Hold og træner:");
             System.out.println("3. Kontingent");
-            System.out.println("4. Resultatmenu");
+            System.out.println("4. Resultater");
             System.out.println("0. Luk program");
 
             int valg = input.nextInt();
@@ -42,7 +46,6 @@ import java.util.Scanner;
                     System.out.println("Programmet afsluttes.");
                     break;
 
-
                 default:
                     System.out.println("Ugyldigt valg, prøv igen.");
             }
@@ -53,7 +56,7 @@ import java.util.Scanner;
         boolean iMedlemsMenu = true;
         while (iMedlemsMenu) {
             System.out.println("1. Opret medlem");
-            System.out.println("2. Ret stamkort");
+            System.out.println("2. Ret medlem");
             System.out.println("0. Tilbage til hovedmenu");
 
 
@@ -110,6 +113,7 @@ import java.util.Scanner;
                     iKontingentMenu = false;
                     break;
 
+
                 default:
                     System.out.println("Ugyldigt valg. Prøv igen");
             }
@@ -121,6 +125,7 @@ import java.util.Scanner;
         Medlem medlem = new Medlem("Frederik", "1710961111", 20484247, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","crawl");
         Medlem medlem2 = new Medlem("Birger", "1705961543", 40329453, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","rygcrawl");
         Medlem medlem3 = new Medlem("Seb", "2009963211", 20859323, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","bryst");
+
 
 
         //System.out.println(medlem);
