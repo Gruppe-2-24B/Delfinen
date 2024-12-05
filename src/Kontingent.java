@@ -121,12 +121,7 @@ public class Kontingent {
     }
 
     public boolean erIRestance() {
-
-        if (medlem.getMedlemsStatus().equals("passiv")) {
-            return false; //ikke i restance
-        } else {
-            return true; //i restance
-        }
+        return !restance.getErBetalt();
     }
 
     public void redigerRestanceStatus(boolean status) {
