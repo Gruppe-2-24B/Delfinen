@@ -168,8 +168,6 @@ import java.util.Scanner;
                 case 6:
                     ArrayList<Kontingent> kontingentListe = new ArrayList<>();
 
-                    PersistensReader reader = new PersistensReader();
-                    reader.laesMedlemmer();
                     for (Medlem medlem : Medlem.getAlleMedlemmer()) {
                         Kontingent nyKontingent = new Kontingent();
                         nyKontingent.setMedlem(medlem);
@@ -221,41 +219,3 @@ import java.util.Scanner;
     }
 } //slut klasse
 
-/*
-        Medlem medlem = new Medlem("Frederik", "1710961111", 20484247, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","crawl");
-        Medlem medlem2 = new Medlem("Birger", "1705961543", 40329453, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","rygcrawl");
-        Medlem medlem3 = new Medlem("Seb", "2009963211", 20859323, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","bryst");
-
-
-
-        //System.out.println(medlem);
-        //Kontingent kontingent = new Kontingent(medlem);
-        //System.out.println(kontingent);
-/*
-
-        MedlemsGenerator generator = new MedlemsGenerator();
-
-        generator.medlemsGenerator();
-
-
-        //for (Medlem medlemm : Medlem.getAlleMedlemmer()) {
-        //  System.out.println(medlemm);
-        // }
-
-
-        PersistensReader reader = new PersistensReader();
-
-
-
-         sidi test
-        RedigerMedlem redigerMedlem = new RedigerMedlem();
-        redigerMedlem.visMenu();
-
-        TraenerGenerator generator2 = new TraenerGenerator();
-
-        // generator2.traenerGenerator();
-
-
-
-    }
-*/
