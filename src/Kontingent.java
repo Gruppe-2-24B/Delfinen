@@ -67,9 +67,10 @@ public class Kontingent {
         System.out.println("Mail-adresse: " + valgtMedlem.getMail());
         System.out.println("Navn: " + valgtMedlem.getNavn());
         System.out.println("Alder:" + valgtMedlem.getAlder() + " år");
-        System.out.println("Medlemsstatus:" + valgtMedlem.getMedlemsStatus());
+        System.out.println("Medlemsstatus: " + valgtMedlem.getMedlemsStatus());
         System.out.println("Medlemstype: " + valgtMedlem.getMedlemsType());
         System.out.println("Aktivitetsform: " + valgtMedlem.getAktivitetsForm());
+        System.out.println("Disciplin: " + valgtMedlem.getDisciplinNavn());
         System.out.println("Kontingentpris: " + getPris(valgtMedlem));
         if (restance.erIRestance()) {
             System.out.println("Er i restance: Ja");
