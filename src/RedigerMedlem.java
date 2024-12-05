@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class RedigerMedlem
 {
-    {
+
+    public RedigerMedlem() {
         Medlem.getAlleMedlemmer().clear();
         PersistensReader.laesMedlemmer();
     }
@@ -11,8 +14,8 @@ public class RedigerMedlem
     {
         Scanner scanner = new Scanner(System.in);
 
-        PersistensReader reader = new PersistensReader();
-        reader.laesMedlemmer();
+        // PersistensReader reader = new PersistensReader();
+        // reader.laesMedlemmer();
 
         System.out.println("Liste over medlemmer:");
         for (Medlem medlem : Medlem.getAlleMedlemmer())
@@ -27,12 +30,10 @@ public class RedigerMedlem
 
         Medlem valgtMedlem = findMedlemVedMedlemsNr(telefonnummer);
 
-        if (valgtMedlem == null)
-        {
+        if (valgtMedlem == null) {
             System.out.println("Intet medlem fundet med det medlemsnummer.");
             return;
         }
-
 
         System.out.println("Rediger oplysninger for medlem #" + telefonnummer);
         redigerOplysninger(valgtMedlem, scanner);
@@ -41,7 +42,17 @@ public class RedigerMedlem
         System.out.println("\nMedlemmet er korrekt opdateret:");
         System.out.println(valgtMedlem);
 
-        PersistensWriter.medlemsWriter(Medlem.getAlleMedlemmer());
+        // Ensure no duplicates before writing
+        List<Medlem> uniqueMedlemmer = new ArrayList<>();
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            if (!uniqueMedlemmer.contains(medlem)) {
+                uniqueMedlemmer.add(medlem);
+            }
+        }
+
+        PersistensWriter.medlemsWriter(uniqueMedlemmer);
+
+
     }
 
     protected Medlem findMedlemVedMedlemsNr(int medlemsNr)
