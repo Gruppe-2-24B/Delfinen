@@ -31,10 +31,10 @@ public class PersistensReader {
             while ((line = br.readLine()) != null) {
 
                     lineNumber++;
-                   // System.out.println("Læser linje " + lineNumber + ": " + line); // Tilføjet til test
+                    //System.out.println("Læser linje " + lineNumber + ": " + line); // Tilføjet til test
 
                     String[] data = line.split(",");
-                   // System.out.println("ANtal felter fundet: " + data.length); // Tilføjet til test
+                    //System.out.println("ANtal felter fundet: " + data.length); // Tilføjet til test
 
                     if (data.length == 8) {
                         try {
@@ -44,12 +44,11 @@ public class PersistensReader {
                         String mail = data[3];
                         String aktivitetsForm = data[4];
                         String medlemsStatus = data[5];
-                        //String medlemsType = data[6];
                         String disciplin = data[7];
 
                         Medlem medlem = new Medlem(navn, cpr, tlf, mail, aktivitetsForm, medlemsStatus, disciplin);
                         // Medlem.getAlleMedlemmer().add(medlem);
-                        System.out.println("Indlæst medlem: " + medlem.getNavn());
+                        //System.out.println("Indlæst medlem: " + medlem.getNavn());
                     } catch (Exception e) {
                         System.err.println("Fejl ved behandling af linje " + lineNumber + ": " + e.getMessage());
                         e.printStackTrace();
