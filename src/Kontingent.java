@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.*;
 
 public class Kontingent {
     private Medlem medlem;
@@ -7,19 +8,14 @@ public class Kontingent {
     private Dato dato;
     private Restance restance;
 
-    public Kontingent() {}
-
-    public Kontingent(Medlem medlem) {
-
-        this.medlem = medlem;
-        this.restance = new Restance();
-
+    public Kontingent() {
+        this.restance = new Restance(); // Fjernet tom konstruktør
     }
     public Medlem getMedlem() {
         return medlem;
     }
 
-    public int getPris() {
+    public int getPris(Medlem medlem) { // Sat getPris til Medlem medlem.
         int alder = medlem.getAlder();
         String medlemsStatus = medlem.getMedlemsStatus();
 
@@ -37,18 +33,44 @@ public class Kontingent {
         }
     }
 
+    public void setMedlem(Medlem medlem) {
+        this.medlem = medlem;
+    }
 
     public void udskrivMedlemsInfo() {
-        System.out.println("Medlemsnummer: " + medlem.getMedlemsNr());
-        System.out.println("CPR-nr: " + medlem.getCprNr());
-        System.out.println("Telefon-nr:" + medlem.getTlf());
-        System.out.println("Mail-adresse: " + medlem.getMail());
-        System.out.println("Navn: " + medlem.getNavn());
-        System.out.println("Alder:" + medlem.getAlder() + " år");
-        System.out.println("Medlemsstatus:" + medlem.getMedlemsStatus());
-        System.out.println("Medlemstype: " + medlem.getMedlemsType());
-        System.out.println("Aktivitetsform: " + medlem.getAktivitetsForm());
-        System.out.println("Kontingentpris: " + getPris());
+
+        //Tilføjet en scanner, så vi kan indtaste et telefonnummer, og få specifik medlem vi gerne vil have info på.
+        // Ligesom Sidi har gjort. Før henviste vi til medlem, men den er jo tom i klassen medlem.
+        // Nu får vi info på specifik medlem, efter vi har laestmedlemmer fra persistens og lagt det i en liste.
+        Scanner scanner = new Scanner(System.in);
+        PersistensReader reader = new PersistensReader();
+        reader.laesMedlemmer();
+
+        System.out.println("\nIndtast telefonnummer for at vælge et medlem:");
+
+        int telefonnummer = scanner.nextInt();
+        scanner.nextLine();
+
+        Medlem valgtMedlem =  Medlem.findMedlemVedTelefonnummer(telefonnummer);
+
+        if (valgtMedlem == null)
+        {
+            System.out.println("Intet medlem fundet med det medlemsnummer.");
+            return;
+        }
+
+        setMedlem(valgtMedlem); // Her sætter vi objektet medlem til valgtMedlem.
+
+        System.out.println("Medlemsnummer: " + valgtMedlem.getMedlemsNr());
+        System.out.println("CPR-nr: " + valgtMedlem.getCprNr());
+        System.out.println("Telefon-nr:" + valgtMedlem.getTlf());
+        System.out.println("Mail-adresse: " + valgtMedlem.getMail());
+        System.out.println("Navn: " + valgtMedlem.getNavn());
+        System.out.println("Alder:" + valgtMedlem.getAlder() + " år");
+        System.out.println("Medlemsstatus:" + valgtMedlem.getMedlemsStatus());
+        System.out.println("Medlemstype: " + valgtMedlem.getMedlemsType());
+        System.out.println("Aktivitetsform: " + valgtMedlem.getAktivitetsForm());
+        System.out.println("Kontingentpris: " + getPris(valgtMedlem));
         if (restance.erIRestance()) {
             System.out.println("Er i restance: Ja");
         } else {
@@ -86,7 +108,7 @@ public class Kontingent {
 
         for (Kontingent kontingent : kontingentListe) {
             if (!kontingent.erIRestance()) {
-                samletIndbetaling += kontingent.getPris();
+                samletIndbetaling += kontingent.getPris(kontingent.getMedlem());
             }
         }
         return samletIndbetaling;
