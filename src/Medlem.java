@@ -42,6 +42,8 @@ public class Medlem extends Person {
         return aktivitetsForm;
     }
 
+
+
     public void setAktivitetsForm(String aktivitetsForm) { // Denne her funktion fungerer ligesom enum, man kan kun værem otionist eller konkurrencesvømmer
         aktivitetsForm = aktivitetsForm.trim().toLowerCase();
         if ("motionist".equals(aktivitetsForm) || "konkurrencesvømmer".equals(aktivitetsForm)) {

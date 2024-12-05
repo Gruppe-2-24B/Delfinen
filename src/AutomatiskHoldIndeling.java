@@ -39,20 +39,6 @@ public class AutomatiskHoldIndeling {
 
     public static Traener findTilgaengeligTraener(String disciplinNavn, String holdType) {
 
-        /*
-        // Konverter disciplinNavn til disciplinObjekt
-        Disciplin disciplin = null;
-
-        for (Disciplin d : Disciplin.getStandardDiscipliner()) {
-            if (d.getDisciplinNavn().equals(disciplinNavn)) {
-                disciplin = d;
-                break;
-            }
-        }
-        if (disciplin == null) {
-            throw new IllegalArgumentException("Kunne ikke finde disciplin" + disciplinNavn);
-        }*/
-
         for (Traener traener : Traener.getAlleTraenere()) {
             if (traener.getTildeltDisciplin().getDisciplinNavn().equals(disciplinNavn) && traener.getMedlemsType().equals(holdType)) {
                 return traener;
@@ -64,7 +50,6 @@ public class AutomatiskHoldIndeling {
                 return traener;
             }
         }
-
         throw new IllegalArgumentException("Ingen tilgængelige trænere fundet " + disciplinNavn + " i " + holdType);
     }
 

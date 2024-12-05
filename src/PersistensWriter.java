@@ -92,7 +92,7 @@ public class PersistensWriter {
 
             for (Kontingent kontingent : kontingenter) {
                 Medlem medlemsDetaljer = kontingent.getMedlem();
-                int kontingentPris = kontingent.getPris();
+                int kontingentPris = kontingent.getPris(kontingent.getMedlem());
                 boolean erIRestance = kontingent.erIRestance();
 
                 writer.write(

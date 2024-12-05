@@ -1,6 +1,6 @@
 public class TestAutomatiskHoldIndeling {
     public static void main(String[] args) {
-        PersistensReader.rydMedlemmer();
+       // PersistensReader.rydMedlemmer();
         PersistensReader.laesTraenere();
 
         System.out.println("Program starter...");
@@ -14,6 +14,10 @@ public class TestAutomatiskHoldIndeling {
         System.out.println("Tildeler hold til medlemmer...");
         for (Medlem medlem : Medlem.getAlleMedlemmer()) {
             AutomatiskHoldIndeling.tildelHold(medlem);
+        }
+
+        if(AutomatiskHoldIndeling.findHold("Senior", "disciplin")!=null) {
+            AutomatiskHoldIndeling.visHoldInfo(AutomatiskHoldIndeling.findHold("Senior", "disciplin"));
         }
 
         System.out.println("Gemmer og viser alle hold...");

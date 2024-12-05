@@ -20,7 +20,7 @@ public class PersistensReader {
 
     public static void laesMedlemmer() {
 
-        System.out.println("Starter indlæsning af medlemmer fra: " + FIL_NAVN); // Tilføjet til test
+       // System.out.println("Starter indlæsning af medlemmer fra: " + FIL_NAVN); // Tilføjet til test
         Medlem.getAlleMedlemmer().clear(); // sidi
 
 
@@ -31,10 +31,10 @@ public class PersistensReader {
             while ((line = br.readLine()) != null) {
 
                     lineNumber++;
-                    System.out.println("Læser linje " + lineNumber + ": " + line); // Tilføjet til test
+                   // System.out.println("Læser linje " + lineNumber + ": " + line); // Tilføjet til test
 
                     String[] data = line.split(",");
-                    System.out.println("ANtal felter fundet: " + data.length); // Tilføjet til test
+                   // System.out.println("ANtal felter fundet: " + data.length); // Tilføjet til test
 
                     if (data.length == 8) {
                         try {
@@ -58,7 +58,7 @@ public class PersistensReader {
                     System.err.println("Ugyldig linje " + lineNumber + ": Forventede 7 felter, men fandt " + data.length);
                 }
             }
-            System.out.println("Afsluttet indlæsning. Antal medlemmer: " + Medlem.getAlleMedlemmer().size());
+            //System.out.println("Afsluttet indlæsning. Antal medlemmer: " + Medlem.getAlleMedlemmer().size());
         } catch (IOException e) {
             System.err.println("Fejl ved åbning/læsning af fil: " + e.getMessage());
             e.printStackTrace();

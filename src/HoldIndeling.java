@@ -17,7 +17,7 @@ public class HoldIndeling {
 
     public void addMedlem(Medlem medlem) {
         if("konkurrencesvømmer".equals(medlem.getAktivitetsForm())) {
-            if("Junior".equals(holdType) || "Senior".equals(holdType)) {
+            if("Junior".equals(holdType) || "Senior".equals(holdType) && !medlemmer.contains(medlem)) {
                 medlemmer.add(medlem);
             }
         }
