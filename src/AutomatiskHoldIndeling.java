@@ -15,7 +15,7 @@ public class AutomatiskHoldIndeling {
             String holdType = nytMedlem.getMedlemsType();
             HoldIndeling relevantHold = findHold(holdType, nytMedlem.getDisciplinNavn());
             relevantHold.addMedlem(nytMedlem);
-            System.out.println("Medlem tildelt til hold: " + holdType);
+            // System.out.println("Medlem tildelt til hold: " + holdType);
         //} else {
           //  System.out.println("Medlem er ikke en konkurrencesvømmer: " + nytMedlem.getNavn());
         }

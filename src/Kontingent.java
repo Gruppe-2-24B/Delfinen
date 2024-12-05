@@ -3,14 +3,12 @@ import java.util.*;
 
 public class Kontingent {
     private Medlem medlem;
-    private int pris;
-    private ArrayList<Integer> prisListe;
-    private Dato dato;
     private Restance restance;
 
     public Kontingent() {
         this.restance = new Restance(); // Fjernet tom konstruktør
     }
+
     public Medlem getMedlem() {
         return medlem;
     }
@@ -43,8 +41,6 @@ public class Kontingent {
         // Ligesom Sidi har gjort. Før henviste vi til medlem, men den er jo tom i klassen medlem.
         // Nu får vi info på specifik medlem, efter vi har laestmedlemmer fra persistens og lagt det i en liste.
         Scanner scanner = new Scanner(System.in);
-        PersistensReader reader = new PersistensReader();
-        reader.laesMedlemmer();
 
         System.out.println("\nIndtast telefonnummer for at vælge et medlem:");
 
