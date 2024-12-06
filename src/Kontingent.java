@@ -111,29 +111,42 @@ public class Kontingent {
         return samletIndbetaling;
     }
 
-    public static void visSum(ArrayList<Kontingent> kontingentListe) {
+    public void visSum(ArrayList<Kontingent> kontingentListe) {
         int samletBeloeb = beregnSum(kontingentListe);
         System.out.println("Samlede kontingentindbetalinger: " + samletBeloeb + " kr.");
     }
 
-    public static void redigerRestanceStatus(Kontingent kontingent) {
+    public void redigerRestanceStatus(Kontingent kontingent) {
         Scanner input = new Scanner(System.in);
         System.out.println("Indtast telefonnummer for medlemmet:");
-        int telefonnummer = input.nextInt();
-        input.nextLine();
-
-        Medlem medlemTilRedigering = Medlem.findMedlemVedTelefonnummer(telefonnummer);
-        if (medlemTilRedigering != null) {
-            System.out.println("Indtast ny restance-status (true for betalt, false for ikke betalt");
-            boolean nyStatus = input.nextBoolean();
+        try {
+            int telefonnummer = input.nextInt();
             input.nextLine();
 
-            kontingent.setMedlem(medlemTilRedigering);
-            kontingent.redigerRestanceStatus(nyStatus);
-        } else {
-            System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+            Medlem medlemTilRedigering = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+            if (medlemTilRedigering != null) {
+                System.out.println("Indtast ny restance-status \nSkriv: (true for betalt eller false for ikke betalt)");
+
+                // Læs input som streng og valider
+                String statusInput = input.nextLine().trim().toLowerCase();
+                if (!statusInput.equals("true") && !statusInput.equals("false")) {
+                    System.out.println("Ugyldig input. Indtast venligst kun 'true' eller 'false'.");
+                    return; // Afbryd metoden, hvis input er ugyldigt
+                }
+
+                boolean nyStatus = Boolean.parseBoolean(statusInput);
+                kontingent.setMedlem(medlemTilRedigering);
+                kontingent.redigerRestanceStatus(nyStatus);
+                System.out.println("Restance-status er blevet opdateret");
+            } else {
+                System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Ugyldigt input. Telefonnummer skal være et heltal.");
+            input.nextLine();
         }
     }
+
 
     public static void visBetalingsStatusForMedlem(Kontingent kontingent) {
         Scanner input = new Scanner(System.in);

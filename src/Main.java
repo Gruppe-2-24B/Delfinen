@@ -129,26 +129,12 @@ import java.util.Scanner;
                     break;
 
                 case 4:
-                    System.out.println("Indtast telefonnummer for medlemmet:");
-                    int telefonnummer = input.nextInt();
-                    input.nextLine();
-
-                    Medlem medlemTilRedigering = Medlem.findMedlemVedTelefonnummer(telefonnummer);
-                    if (medlemTilRedigering != null) {
-                        System.out.println("Indtast ny restance-status (true for betalt, false for ikke betalt");
-                        boolean nyStatus = input.nextBoolean();
-                        input.nextLine();
-
-                        kontingent.setMedlem(medlemTilRedigering);
-                        kontingent.redigerRestanceStatus(nyStatus);
-                    } else {
-                        System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
-                    }
+                    kontingent.redigerRestanceStatus(kontingent);
                     break;
 
                 case 5:
                     System.out.println("Indtast telefonnummer for medlemmet:");
-                    telefonnummer = input.nextInt();
+                    int telefonnummer = input.nextInt();
                     input.nextLine();
 
                     Medlem medlemTilTjek = Medlem.findMedlemVedTelefonnummer(telefonnummer);
