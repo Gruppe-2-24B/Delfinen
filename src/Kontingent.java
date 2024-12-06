@@ -80,6 +80,15 @@ public class Kontingent {
     }
 
     public static ArrayList<Kontingent> genererRestanceListe(ArrayList<Kontingent> kontingentListe) {
+
+        if (kontingentListe.isEmpty()) {
+            for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+                Kontingent kontingent = new Kontingent();
+                kontingent.setMedlem(medlem);
+                kontingentListe.add(kontingent);
+            }
+        }
+
         ArrayList<Kontingent> restanceListe = new ArrayList<>();
         for (Kontingent kontingent : kontingentListe) {
             if (kontingent.erIRestance()) {
