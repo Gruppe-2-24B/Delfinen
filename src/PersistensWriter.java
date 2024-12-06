@@ -33,7 +33,7 @@ public class PersistensWriter {
         {
             for (Resultat resultat : resultater)
             {
-                writer.write(resultat.getPoint() + ",");
+                writer.write(resultat.getSvommeTid() + ",");
                 writer.write(resultat.getDisciplin() + ",");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 writer.write(resultat.getDato().format(formatter) + ",");
