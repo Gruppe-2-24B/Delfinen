@@ -5,15 +5,15 @@ import java.io.*;
 
 public class Resultat
 {
-    protected int point;
+    protected double svommeTid;
     protected String disciplin;
     protected LocalDate dato;
     protected Medlem medlem;
     protected int telefonnummer;
 
-    public Resultat(int point, String disciplin, LocalDate dato, int telefonnummer)
+    public Resultat(double svommeTid, String disciplin, LocalDate dato, int telefonnummer)
     {
-        this.point = point;
+        this.svommeTid = svommeTid;
         this.disciplin = disciplin;
         this.dato = dato;
         this.medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
@@ -22,13 +22,13 @@ public class Resultat
         // System.out.println("Nyt resultat oprettet: " + this);
     }
 
-    public int getPoint()
+    public double getSvommeTid()
     {
-        return point;
+        return svommeTid;
     }
-    public void setPoint(int point)
+    public void setSvommeTid(double svommeTid)
     {
-        this.point = point;
+        this.svommeTid = svommeTid;
     }
     public String getDisciplin()
     {
@@ -127,7 +127,7 @@ public static void visResultater()
 
 
 //  VIS NUVÆRENDE MEDLEMMERE
-    private static void visMedlemmere()
+    protected static void visMedlemmere()
     {
         if (Medlem.getAlleMedlemmer().isEmpty())
         {
@@ -179,8 +179,8 @@ public static void visResultater()
                                 break;
         }
 
-        System.out.print("Indtast point: ");
-        int point = scanner.nextInt();
+        System.out.print("Indtast svømmetid: ");
+        double svommeTid = scanner.nextInt();
         scanner.nextLine();
 
         Medlem medlem = Medlem.findMedlemVedTelefonnummer(Integer.parseInt(telefonnummer));
@@ -188,7 +188,7 @@ public static void visResultater()
         if (medlem != null)
         {
             LocalDate dato = LocalDate.now();
-            Resultat resultat = new Resultat(point, disciplin, dato, Integer.parseInt(telefonnummer));
+            Resultat resultat = new Resultat(svommeTid, disciplin, dato, Integer.parseInt(telefonnummer));
             System.out.println("Nyt resultat tilføjet: " + resultat);
 
             List<Resultat> resultater = PersistensReader.laesResultater();
@@ -209,7 +209,8 @@ public static void visResultater()
         String telefonnummer = scanner.nextLine();
 
         Medlem medlem = Medlem.findMedlemVedTelefonnummer(Integer.parseInt(telefonnummer));
-        if (medlem != null) {
+        if (medlem != null)
+        {
 
             System.out.println("Vælg disciplin:");
             System.out.println("1. Crawl");
@@ -241,14 +242,15 @@ public static void visResultater()
                                     break;
             }
 
-            System.out.print("Indtast nye point: ");
-            int nyePoint = scanner.nextInt();
+            System.out.print("Indtast ny svømmetid: ");
+            double nySvommeTid = scanner.nextInt();
             scanner.nextLine();
 
             Resultat eksisterendeResultat = findResultatVedMedlemOgDisciplin(medlem, disciplin);
 
-            if (eksisterendeResultat != null) {
-                eksisterendeResultat.setPoint(nyePoint);
+            if (eksisterendeResultat != null)
+            {
+                eksisterendeResultat.setSvommeTid(nySvommeTid);
                 eksisterendeResultat.setDato(LocalDate.now());
                 System.out.println("Resultat opdateret: " + eksisterendeResultat);
 
@@ -278,7 +280,7 @@ public static void visResultater()
 
 //  FIND RESULTAT VED MEDLEM OG DISCIPLIN
 
-    private static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
+    protected static Resultat findResultatVedMedlemOgDisciplin(Medlem medlem, String disciplin)
     {
         List<Resultat> resultater = PersistensReader.laesResultater();
         for (Resultat resultat : resultater)
@@ -294,7 +296,7 @@ public static void visResultater()
 
 //  FIND MEDLEM VED TELEFONNUMMER
 
-    private static Medlem findMedlemVedTelefonnummer(String telefonnummer)
+    protected static Medlem findMedlemVedTelefonnummer(String telefonnummer)
     {
         return null;
     }
@@ -306,7 +308,7 @@ public static void visResultater()
     public String toString()
     {
         return "Resultat{" +
-                "point=" + point +
+                "point=" + svommeTid +
                 ", disciplin='" + disciplin + '\'' +
                 ", dato=" + dato +
                 ", medlem=" + medlem.getNavn() +
