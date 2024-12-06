@@ -155,16 +155,7 @@ import java.util.Scanner;
                     break;
 
                 case 6:
-                    ArrayList<Kontingent> kontingentListe = new ArrayList<>();
-
-                    for (Medlem medlem : Medlem.getAlleMedlemmer()) {
-                        Kontingent nyKontingent = new Kontingent();
-                        nyKontingent.setMedlem(medlem);
-                        kontingentListe.add(nyKontingent);
-                    }
-
-                    int samletBeloeb = Kontingent.beregnSum(kontingentListe);
-                    System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
+                    Kontingent.beregnSumAfMedlemmer();
                     break;
 
                 case 0:
