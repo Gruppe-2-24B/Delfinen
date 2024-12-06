@@ -66,6 +66,12 @@ public class PersistensWriter {
     }
 
     public static void traenerWriter(List<Traener> traenere) {
+        if(traenere.size() > 2) {
+            System.out.println("Fejl: Der må maksimalt kun være 2 trænere." +
+                    "\nDu skal fyre en træner, hvis du vil tilføje ny");
+            return;
+        }
+
         try (FileWriter writer = new FileWriter(fil2, false)) {
             for (Traener medlem : traenere) {
                 writer.write(medlem.getNavn() + ",");
@@ -73,7 +79,7 @@ public class PersistensWriter {
                 writer.write(medlem.getTlf()+ ",");
                 writer.write(medlem.getMail() + ",");
                 writer.write(medlem.getMedlemsType() + ",");
-                writer.write(medlem.getTildeltDisciplin() + "\n");
+                //writer.write(medlem.getTildeltDisciplin() + "\n");
             }
             System.out.print("Træner er gemt til fil!");
         } catch (IOException e) {

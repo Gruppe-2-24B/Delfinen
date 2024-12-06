@@ -51,6 +51,7 @@ public class TraenerGenerator {
             System.out.println("Ugyldigt valg. Prøv igen");
         }
 
+        /*
         System.out.println("Vælg disciplin:");
         Disciplin[] standardDiscipliner = Disciplin.getStandardDiscipliner();
         for (int i = 0; i < standardDiscipliner.length; i++) {
@@ -72,8 +73,8 @@ public class TraenerGenerator {
                 System.out.println("Ugyldigt valg. Prøv igen");
             }
         }
-
-        Traener nyTraener = new Traener(navn, cprNr, tlf, mail, medlemsType, valgtDisciplin);
+*/
+        Traener nyTraener = new Traener(navn, cprNr, tlf, mail, medlemsType); //valgtDisciplin
         System.out.println("\nNy træner oprettet:");
         System.out.println(nyTraener);
 
