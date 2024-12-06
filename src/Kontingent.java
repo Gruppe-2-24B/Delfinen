@@ -13,7 +13,7 @@ public class Kontingent {
         return medlem;
     }
 
-    public int getPris(Medlem medlem) { // Sat getPris til Medlem medlem.
+    public static int getPris(Medlem medlem) { // Sat getPris til Medlem medlem.
         int alder = medlem.getAlder();
         String medlemsStatus = medlem.getMedlemsStatus();
 
@@ -168,15 +168,18 @@ public class Kontingent {
         }
     }
 
-    public static void beregnSumAfMedlemmer(ArrayList<Kontingent> kontingentListe){
+    public static void beregnSumAfMedlemmer(){
+
+        int samletBeloeb = 0;
 
         for (Medlem medlem : Medlem.getAlleMedlemmer()) {
-            Kontingent nyKontingent = new Kontingent();
-            nyKontingent.setMedlem(medlem);
-            kontingentListe.add(nyKontingent);
+
+            int medlemsPris = getPris(medlem);
+
+            samletBeloeb += medlemsPris;
         }
 
-        int samletBeloeb = Kontingent.beregnSum(kontingentListe);
+
         System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
     }
 
