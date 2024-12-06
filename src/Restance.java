@@ -1,4 +1,5 @@
 public class Restance {
+
     private boolean erBetalt;
 
     public Restance() {

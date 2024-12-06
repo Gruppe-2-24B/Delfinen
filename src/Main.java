@@ -8,13 +8,23 @@ import java.util.Scanner;
         Scanner input = new Scanner(System.in);
         boolean fortsaet = true;
 
+        Medlem.getAlleMedlemmer().clear();
+
+        // Initialiser Automatisk Hold Indeling
+
+        PersistensReader.laesMedlemmer();
+        PersistensReader.laesTraenere();
+        AutomatiskHoldIndeling.indlaesAlleHold();
+
         // Initialiser objekter
         MedlemsGenerator medlemGenerator = new MedlemsGenerator();
-        RedigerMedlem redigerOplysninger = new RedigerMedlem();
+        RedigerMedlem redigerOplysninger = new RedigerMedlem(); // Medlemmer læses
         Kontingent kontingent = new Kontingent();
 
 
-
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            AutomatiskHoldIndeling.tildelHold(medlem);
+        }
 
 
         while (fortsaet) {
@@ -23,6 +33,7 @@ import java.util.Scanner;
             System.out.println("2. Hold og træner:");
             System.out.println("3. Kontingent");
             System.out.println("4. Resultater");
+            System.out.println("5. Konkurrence Hold");
             System.out.println("0. Luk program");
 
             int valg = input.nextInt();
@@ -41,9 +52,14 @@ import java.util.Scanner;
                     Resultat.resultatMenu();
                     break;
 
+                case 5:
+                    holdMenu(input);
+                    break;
+
                 case 0:
                     fortsaet = false;
                     System.out.println("Programmet afsluttes.");
+                    AutomatiskHoldIndeling.gemAlleHold();
                     break;
 
                 default:
@@ -89,6 +105,9 @@ import java.util.Scanner;
             System.out.println("1. Vis medlemsinfo og kontingent");
             System.out.println("2. Vis medlemmer i restance");
             System.out.println("3. Beregn samlet kontingent");
+            System.out.println("4. Rediger restance-status");
+            System.out.println("5. Vis betalingsstatus for medlem");
+            System.out.println("6. Beregn summen af alle kontingenter");
             System.out.println("0. Tilbage til hovedmenu");
 
             int valg2 = input.nextInt();
@@ -109,6 +128,42 @@ import java.util.Scanner;
                     kontingent.visSum(alleKontingenter);
                     break;
 
+                case 4:
+                    kontingent.redigerRestanceStatus(kontingent);
+                    break;
+
+                case 5:
+                    System.out.println("Indtast telefonnummer for medlemmet:");
+                    int telefonnummer = input.nextInt();
+                    input.nextLine();
+
+                    Medlem medlemTilTjek = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+                    if (medlemTilTjek != null) {
+                        kontingent.setMedlem(medlemTilTjek);
+                        System.out.println("Betalingsstatus for " + medlemTilTjek.getNavn() + ":");
+                        if (kontingent.erIRestance()) {
+                            System.out.println("Medlemmet er i restance");
+                        } else {
+                            System.out.println("Medlemmet har betalt");
+                        }
+                    } else {
+                        System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+                    }
+                    break;
+
+                case 6:
+                    ArrayList<Kontingent> kontingentListe = new ArrayList<>();
+
+                    for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+                        Kontingent nyKontingent = new Kontingent();
+                        nyKontingent.setMedlem(medlem);
+                        kontingentListe.add(nyKontingent);
+                    }
+
+                    int samletBeloeb = Kontingent.beregnSum(kontingentListe);
+                    System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
+                    break;
+
                 case 0:
                     iKontingentMenu = false;
                     break;
@@ -119,43 +174,34 @@ import java.util.Scanner;
             }
         }
     }
+
+    private static void holdMenu(Scanner input) {
+        boolean iHoldMenu = true;
+        while (iHoldMenu) {
+            System.out.println("\nVis hold:");
+            System.out.println("1. Vis Junior hold");
+            System.out.println("2. Vis Senior hold");
+            System.out.println("0. Tilbage til hovedmenu");
+
+            int valg = input.nextInt();
+            input.nextLine();
+            switch (valg) {
+                case 1:
+                    AutomatiskHoldIndeling.visSpecifiktHold("Junior");
+                    break;
+
+                case 2:
+                    AutomatiskHoldIndeling.visSpecifiktHold("Senior");
+                    break;
+
+                    case 0:
+                        iHoldMenu = false;
+                        break;
+
+                default:
+                    System.out.println("Ugyldigt valg, prøv igen");
+            }
+        }
+    }
 } //slut klasse
 
-/*
-        Medlem medlem = new Medlem("Frederik", "1710961111", 20484247, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","crawl");
-        Medlem medlem2 = new Medlem("Birger", "1705961543", 40329453, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","rygcrawl");
-        Medlem medlem3 = new Medlem("Seb", "2009963211", 20859323, "frederikrasmus@hotmail.dk", "Motionist", "Aktiv","bryst");
-
-
-
-        //System.out.println(medlem);
-        //Kontingent kontingent = new Kontingent(medlem);
-        //System.out.println(kontingent);
-/*
-
-        MedlemsGenerator generator = new MedlemsGenerator();
-
-        generator.medlemsGenerator();
-
-
-        //for (Medlem medlemm : Medlem.getAlleMedlemmer()) {
-        //  System.out.println(medlemm);
-        // }
-
-
-        PersistensReader reader = new PersistensReader();
-
-
-
-         sidi test
-        RedigerMedlem redigerMedlem = new RedigerMedlem();
-        redigerMedlem.visMenu();
-
-        TraenerGenerator generator2 = new TraenerGenerator();
-
-        // generator2.traenerGenerator();
-
-
-
-    }
-*/

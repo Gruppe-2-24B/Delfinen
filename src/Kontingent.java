@@ -3,14 +3,12 @@ import java.util.*;
 
 public class Kontingent {
     private Medlem medlem;
-    private int pris;
-    private ArrayList<Integer> prisListe;
-    private Dato dato;
     private Restance restance;
 
     public Kontingent() {
         this.restance = new Restance(); // Fjernet tom konstruktør
     }
+
     public Medlem getMedlem() {
         return medlem;
     }
@@ -43,8 +41,6 @@ public class Kontingent {
         // Ligesom Sidi har gjort. Før henviste vi til medlem, men den er jo tom i klassen medlem.
         // Nu får vi info på specifik medlem, efter vi har laestmedlemmer fra persistens og lagt det i en liste.
         Scanner scanner = new Scanner(System.in);
-        PersistensReader reader = new PersistensReader();
-        reader.laesMedlemmer();
 
         System.out.println("\nIndtast telefonnummer for at vælge et medlem:");
 
@@ -115,18 +111,77 @@ public class Kontingent {
         return samletIndbetaling;
     }
 
-    public static void visSum(ArrayList<Kontingent> kontingentListe) {
+    public void visSum(ArrayList<Kontingent> kontingentListe) {
         int samletBeloeb = beregnSum(kontingentListe);
         System.out.println("Samlede kontingentindbetalinger: " + samletBeloeb + " kr.");
     }
 
-    public boolean erIRestance() {
+    public void redigerRestanceStatus(Kontingent kontingent) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast telefonnummer for medlemmet:");
+        try {
+            int telefonnummer = input.nextInt();
+            input.nextLine();
 
-        if (medlem.getMedlemsStatus().equals("passiv")) {
-            return false; //ikke i restance
-        } else {
-            return true; //i restance
+            Medlem medlemTilRedigering = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+            if (medlemTilRedigering != null) {
+                System.out.println("Indtast ny restance-status \nSkriv: (true for betalt eller false for ikke betalt)");
+
+                // Læs input som streng og valider
+                String statusInput = input.nextLine().trim().toLowerCase();
+                if (!statusInput.equals("true") && !statusInput.equals("false")) {
+                    System.out.println("Ugyldig input. Indtast venligst kun 'true' eller 'false'.");
+                    return; // Afbryd metoden, hvis input er ugyldigt
+                }
+
+                boolean nyStatus = Boolean.parseBoolean(statusInput);
+                kontingent.setMedlem(medlemTilRedigering);
+                kontingent.redigerRestanceStatus(nyStatus);
+                System.out.println("Restance-status er blevet opdateret");
+            } else {
+                System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Ugyldigt input. Telefonnummer skal være et heltal.");
+            input.nextLine();
         }
+    }
+
+
+    public static void visBetalingsStatusForMedlem(Kontingent kontingent) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast telefonnummer for medlemmet:");
+        int telefonnummer = input.nextInt();
+        input.nextLine();
+
+        Medlem medlemTilTjek = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+        if (medlemTilTjek != null) {
+            kontingent.setMedlem(medlemTilTjek);
+            System.out.println("Betalingsstatus for " + medlemTilTjek.getNavn() + ":");
+            if (kontingent.erIRestance()) {
+                System.out.println("Medlemmet er i restance");
+            } else {
+                System.out.println("Medlemmet har betalt");
+            }
+        } else {
+            System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+        }
+    }
+
+    public static void beregnSumAfMedlemmer(ArrayList<Kontingent> kontingentListe){
+
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            Kontingent nyKontingent = new Kontingent();
+            nyKontingent.setMedlem(medlem);
+            kontingentListe.add(nyKontingent);
+        }
+
+        int samletBeloeb = Kontingent.beregnSum(kontingentListe);
+        System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
+    }
+
+    public boolean erIRestance() {
+        return !restance.getErBetalt();
     }
 
     public void redigerRestanceStatus(boolean status) {
