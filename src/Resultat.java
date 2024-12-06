@@ -111,18 +111,20 @@ public class Resultat
 //  VIS LISTE OVER RESULTATER
 public static void visResultater()
 {
-    try (BufferedReader br = new BufferedReader(new FileReader("resultater.txt")))
+    try
     {
-        String line;
-        while ((line = br.readLine()) != null)
+        List<Resultat> resultater = PersistensReader.laesResultater();
+
+        for (Resultat resultat : resultater)
         {
-            System.out.println(line);
+            System.out.println(resultat);
         }
-    } catch (IOException e)
+    } catch (Exception e)
     {
-        System.out.println("Fejl ved læsning af filen: " + e.getMessage());
+        System.out.println("Fejl ved læsning af resultater: " + e.getMessage());
     }
 }
+
 
 
 
@@ -311,6 +313,7 @@ public static void visResultater()
                 "svømmetid: " + svommeTid +
                 ", disciplin: '" + disciplin + '\'' +
                 ", dato: " + dato +
+                ", medlems #: " + telefonnummer +
                 ", medlem: " + medlem.getNavn() +
                 '}';
     }
