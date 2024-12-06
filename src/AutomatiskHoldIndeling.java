@@ -14,43 +14,47 @@ public class AutomatiskHoldIndeling {
         if ("konkurrencesvømmer".equals(nytMedlem.getAktivitetsForm())) {
             String holdType = nytMedlem.getMedlemsType();
             HoldIndeling relevantHold = findHold(holdType, nytMedlem.getDisciplinNavn());
-            relevantHold.addMedlem(nytMedlem);
-            // System.out.println("Medlem tildelt til hold: " + holdType);
-        //} else {
-          //  System.out.println("Medlem er ikke en konkurrencesvømmer: " + nytMedlem.getNavn());
+            if (relevantHold != null) {
+                relevantHold.addMedlem(nytMedlem);
+            } else {
+                System.out.println("Ingen tilgængelige trænere. Kan ikke tildele medlem til et hold");
+            }
         }
     }
 
     public static HoldIndeling findHold(String holdType, String disciplin) {
         if ("Junior".equals(holdType)) {
             if (juniorHold == null) {
-                Traener traener = findTilgaengeligTraener(disciplin, holdType);
-                juniorHold = new HoldIndeling(holdType, 1, traener);
+                Traener traener = findTilgaengeligTraener(holdType);
+                if(traener != null) {
+                    juniorHold = new HoldIndeling(holdType, 1, traener);
+                }
             }
             return juniorHold;
         } else {
             if (seniorHold == null) {
-                Traener traener = findTilgaengeligTraener(disciplin, holdType);
-                seniorHold = new HoldIndeling(holdType, 2, traener);
+                Traener traener = findTilgaengeligTraener(holdType);
+                if(traener != null) {
+                    seniorHold = new HoldIndeling(holdType, 2, traener);
+                }
             }
             return seniorHold;
         }
     }
 
-    public static Traener findTilgaengeligTraener(String disciplinNavn, String holdType) {
+    public static Traener findTilgaengeligTraener(String holdType) {
+        List<Traener> alleTraenere = Traener.getAlleTraenere();
 
-        for (Traener traener : Traener.getAlleTraenere()) {
-            if (traener.getTildeltDisciplin().getDisciplinNavn().equals(disciplinNavn) && traener.getMedlemsType().equals(holdType)) {
-                return traener;
-            }
+        if (alleTraenere == null || alleTraenere.isEmpty()) {
+            return null;
         }
 
         for (Traener traener : Traener.getAlleTraenere()) {
-            if (traener.getTildeltDisciplin().getDisciplinNavn().equals(disciplinNavn)) {
+            if (traener.getMedlemsType().equals(holdType)) {
                 return traener;
             }
         }
-        throw new IllegalArgumentException("Ingen tilgængelige trænere fundet " + disciplinNavn + " i " + holdType);
+        return null;
     }
 
     public static void indlaesAlleHold() {
@@ -106,9 +110,18 @@ public class AutomatiskHoldIndeling {
         }
     }
 
+    public static void fjernMedlemFraHold(Medlem medlem) {
+        if (juniorHold != null) {
+            juniorHold.removeMedlem(medlem);
+        }
+        if (seniorHold != null) {
+            seniorHold.removeMedlem(medlem);
+        }
+    }
+
     public static void visHoldInfo(HoldIndeling hold) {
         System.out.println("\nHold " + hold.getHoldNr());
-        System.out.println("Træner: " + hold.getTraener().getNavn() + " (" + hold.getTraener().getTildeltDisciplin() + ")");
+        System.out.println("Træner: " + hold.getTraener().getNavn());
         System.out.println("Antal medlemmer: " + hold.getMedlemmer().size());
         System.out.println("Medlemmer:");
         for (Medlem medlem : hold.getMedlemmer()) {

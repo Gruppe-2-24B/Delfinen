@@ -35,6 +35,10 @@ public class HoldIndeling {
         return traener;
     }
 
+    public void removeMedlem(Medlem medlem) {
+        medlemmer.remove(medlem);
+    }
+
     public ArrayList<Medlem> getMedlemmer() {
         return new ArrayList<>(medlemmer);
     }

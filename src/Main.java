@@ -33,7 +33,6 @@ import java.util.Scanner;
             System.out.println("2. Hold og træner:");
             System.out.println("3. Kontingent");
             System.out.println("4. Resultater");
-            System.out.println("5. Konkurrence Hold");
             System.out.println("0. Luk program");
 
             int valg = input.nextInt();
@@ -43,6 +42,9 @@ import java.util.Scanner;
                 case 1:
                     medlemsMenu(medlemGenerator, redigerOplysninger, input);
                     break;
+                case 2:
+                    traenerHoldMenu(input);
+                    break;
 
                 case 3:
                     kontingentMenu(kontingent, input);
@@ -50,10 +52,6 @@ import java.util.Scanner;
 
                 case 4:
                     Resultat.resultatMenu();
-                    break;
-
-                case 5:
-                    holdMenu(input);
                     break;
 
                 case 0:
@@ -73,6 +71,7 @@ import java.util.Scanner;
         while (iMedlemsMenu) {
             System.out.println("1. Opret medlem");
             System.out.println("2. Ret medlem");
+            System.out.println("3. Medlems liste");
             System.out.println("0. Tilbage til hovedmenu");
 
 
@@ -86,6 +85,10 @@ import java.util.Scanner;
 
                 case 2:
                     redigerOplysninger.visMenu(); // Kald redigeringsmetode
+                    break;
+
+                case 3:
+                    Medlem.udskrivAlleMedlemmer();
                     break;
 
                 case 0:
@@ -129,26 +132,12 @@ import java.util.Scanner;
                     break;
 
                 case 4:
-                    System.out.println("Indtast telefonnummer for medlemmet:");
-                    int telefonnummer = input.nextInt();
-                    input.nextLine();
-
-                    Medlem medlemTilRedigering = Medlem.findMedlemVedTelefonnummer(telefonnummer);
-                    if (medlemTilRedigering != null) {
-                        System.out.println("Indtast ny restance-status (true for betalt, false for ikke betalt");
-                        boolean nyStatus = input.nextBoolean();
-                        input.nextLine();
-
-                        kontingent.setMedlem(medlemTilRedigering);
-                        kontingent.redigerRestanceStatus(nyStatus);
-                    } else {
-                        System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
-                    }
+                    kontingent.redigerRestanceStatus(kontingent);
                     break;
 
                 case 5:
                     System.out.println("Indtast telefonnummer for medlemmet:");
-                    telefonnummer = input.nextInt();
+                    int telefonnummer = input.nextInt();
                     input.nextLine();
 
                     Medlem medlemTilTjek = Medlem.findMedlemVedTelefonnummer(telefonnummer);
@@ -166,16 +155,7 @@ import java.util.Scanner;
                     break;
 
                 case 6:
-                    ArrayList<Kontingent> kontingentListe = new ArrayList<>();
-
-                    for (Medlem medlem : Medlem.getAlleMedlemmer()) {
-                        Kontingent nyKontingent = new Kontingent();
-                        nyKontingent.setMedlem(medlem);
-                        kontingentListe.add(nyKontingent);
-                    }
-
-                    int samletBeloeb = Kontingent.beregnSum(kontingentListe);
-                    System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
+                    Kontingent.beregnSumAfMedlemmer();
                     break;
 
                 case 0:
@@ -189,22 +169,28 @@ import java.util.Scanner;
         }
     }
 
-    private static void holdMenu(Scanner input) {
+    private static void traenerHoldMenu(Scanner input) {
         boolean iHoldMenu = true;
         while (iHoldMenu) {
             System.out.println("\nVis hold:");
-            System.out.println("1. Vis Junior hold");
-            System.out.println("2. Vis Senior hold");
+            System.out.println("1. Opret træner");
+            System.out.println("2. Vis Junior hold");
+            System.out.println("3. Vis Senior hold");
             System.out.println("0. Tilbage til hovedmenu");
 
             int valg = input.nextInt();
             input.nextLine();
             switch (valg) {
                 case 1:
-                    AutomatiskHoldIndeling.visSpecifiktHold("Junior");
+                    TraenerGenerator tg = new TraenerGenerator();
+                    tg.traenerGenerator();
                     break;
 
                 case 2:
+                    AutomatiskHoldIndeling.visSpecifiktHold("Junior");
+                    break;
+
+                case 3:
                     AutomatiskHoldIndeling.visSpecifiktHold("Senior");
                     break;
 

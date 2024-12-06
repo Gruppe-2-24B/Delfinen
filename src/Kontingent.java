@@ -13,7 +13,7 @@ public class Kontingent {
         return medlem;
     }
 
-    public int getPris(Medlem medlem) { // Sat getPris til Medlem medlem.
+    public static int getPris(Medlem medlem) { // Sat getPris til Medlem medlem.
         int alder = medlem.getAlder();
         String medlemsStatus = medlem.getMedlemsStatus();
 
@@ -111,9 +111,76 @@ public class Kontingent {
         return samletIndbetaling;
     }
 
-    public static void visSum(ArrayList<Kontingent> kontingentListe) {
+    public void visSum(ArrayList<Kontingent> kontingentListe) {
         int samletBeloeb = beregnSum(kontingentListe);
         System.out.println("Samlede kontingentindbetalinger: " + samletBeloeb + " kr.");
+    }
+
+    public void redigerRestanceStatus(Kontingent kontingent) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast telefonnummer for medlemmet:");
+        try {
+            int telefonnummer = input.nextInt();
+            input.nextLine();
+
+            Medlem medlemTilRedigering = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+            if (medlemTilRedigering != null) {
+                System.out.println("Indtast ny restance-status \nSkriv: (true for betalt eller false for ikke betalt)");
+
+                // Læs input som streng og valider
+                String statusInput = input.nextLine().trim().toLowerCase();
+                if (!statusInput.equals("true") && !statusInput.equals("false")) {
+                    System.out.println("Ugyldig input. Indtast venligst kun 'true' eller 'false'.");
+                    return; // Afbryd metoden, hvis input er ugyldigt
+                }
+
+                boolean nyStatus = Boolean.parseBoolean(statusInput);
+                kontingent.setMedlem(medlemTilRedigering);
+                kontingent.redigerRestanceStatus(nyStatus);
+                System.out.println("Restance-status er blevet opdateret");
+            } else {
+                System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Ugyldigt input. Telefonnummer skal være et heltal.");
+            input.nextLine();
+        }
+    }
+
+
+    public static void visBetalingsStatusForMedlem(Kontingent kontingent) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast telefonnummer for medlemmet:");
+        int telefonnummer = input.nextInt();
+        input.nextLine();
+
+        Medlem medlemTilTjek = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+        if (medlemTilTjek != null) {
+            kontingent.setMedlem(medlemTilTjek);
+            System.out.println("Betalingsstatus for " + medlemTilTjek.getNavn() + ":");
+            if (kontingent.erIRestance()) {
+                System.out.println("Medlemmet er i restance");
+            } else {
+                System.out.println("Medlemmet har betalt");
+            }
+        } else {
+            System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+        }
+    }
+
+    public static void beregnSumAfMedlemmer(){
+
+        int samletBeloeb = 0;
+
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+
+            int medlemsPris = getPris(medlem);
+
+            samletBeloeb += medlemsPris;
+        }
+
+
+        System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
     }
 
     public boolean erIRestance() {
