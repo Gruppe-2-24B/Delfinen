@@ -116,6 +116,57 @@ public class Kontingent {
         System.out.println("Samlede kontingentindbetalinger: " + samletBeloeb + " kr.");
     }
 
+    public static void redigerRestanceStatus(Kontingent kontingent) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast telefonnummer for medlemmet:");
+        int telefonnummer = input.nextInt();
+        input.nextLine();
+
+        Medlem medlemTilRedigering = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+        if (medlemTilRedigering != null) {
+            System.out.println("Indtast ny restance-status (true for betalt, false for ikke betalt");
+            boolean nyStatus = input.nextBoolean();
+            input.nextLine();
+
+            kontingent.setMedlem(medlemTilRedigering);
+            kontingent.redigerRestanceStatus(nyStatus);
+        } else {
+            System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+        }
+    }
+
+    public static void visBetalingsStatusForMedlem(Kontingent kontingent) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast telefonnummer for medlemmet:");
+        int telefonnummer = input.nextInt();
+        input.nextLine();
+
+        Medlem medlemTilTjek = Medlem.findMedlemVedTelefonnummer(telefonnummer);
+        if (medlemTilTjek != null) {
+            kontingent.setMedlem(medlemTilTjek);
+            System.out.println("Betalingsstatus for " + medlemTilTjek.getNavn() + ":");
+            if (kontingent.erIRestance()) {
+                System.out.println("Medlemmet er i restance");
+            } else {
+                System.out.println("Medlemmet har betalt");
+            }
+        } else {
+            System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
+        }
+    }
+
+    public static void beregnSumAfMedlemmer(ArrayList<Kontingent> kontingentListe){
+
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            Kontingent nyKontingent = new Kontingent();
+            nyKontingent.setMedlem(medlem);
+            kontingentListe.add(nyKontingent);
+        }
+
+        int samletBeloeb = Kontingent.beregnSum(kontingentListe);
+        System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
+    }
+
     public boolean erIRestance() {
         return !restance.getErBetalt();
     }

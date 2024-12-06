@@ -132,10 +132,12 @@ public class PersistensWriter {
                 writer.write(holdIndeling.getHoldNr() + ",");
                 writer.write(holdIndeling.getTraener().getTlf() + ",");
 
-                for (Medlem medlem : holdIndeling.getMedlemmer())
+                for (Medlem medlem : holdIndeling.getMedlemmer()) {
                     writer.write(medlem.getTlf() + ";");
+                }
+                writer.write("\n");
             }
-            writer.write("\n");
+
             System.out.print("Hold er gemt til fil!");
         } catch (IOException e) {
             e.printStackTrace();

@@ -106,6 +106,15 @@ public class AutomatiskHoldIndeling {
         }
     }
 
+    public static void fjernMedlemFraHold(Medlem medlem) {
+        if (juniorHold != null) {
+            juniorHold.removeMedlem(medlem);
+        }
+        if (seniorHold != null) {
+            seniorHold.removeMedlem(medlem);
+        }
+    }
+
     public static void visHoldInfo(HoldIndeling hold) {
         System.out.println("\nHold " + hold.getHoldNr());
         System.out.println("Træner: " + hold.getTraener().getNavn() + " (" + hold.getTraener().getTildeltDisciplin() + ")");
