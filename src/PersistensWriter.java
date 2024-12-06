@@ -39,7 +39,7 @@ public class PersistensWriter {
                 writer.write(resultat.getDato().format(formatter) + ",");
                 writer.write(resultat.getTelefonnummer() + "\n");
             }
-            System.out.print("Resultater er gemt til fil!");
+            System.out.println("Resultater er gemt til fil!");
         }
         catch (IOException e)
         {
