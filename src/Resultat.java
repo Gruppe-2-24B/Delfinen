@@ -180,7 +180,7 @@ public static void visResultater()
         }
 
         System.out.print("Indtast svømmetid: ");
-        double svommeTid = scanner.nextInt();
+        double svommeTid = scanner.nextDouble();
         scanner.nextLine();
 
         Medlem medlem = Medlem.findMedlemVedTelefonnummer(Integer.parseInt(telefonnummer));
@@ -243,7 +243,7 @@ public static void visResultater()
             }
 
             System.out.print("Indtast ny svømmetid: ");
-            double nySvommeTid = scanner.nextInt();
+            double nySvommeTid = scanner.nextDouble();
             scanner.nextLine();
 
             Resultat eksisterendeResultat = findResultatVedMedlemOgDisciplin(medlem, disciplin);
@@ -307,11 +307,11 @@ public static void visResultater()
     @Override
     public String toString()
     {
-        return "Resultat{" +
-                "point=" + svommeTid +
-                ", disciplin='" + disciplin + '\'' +
-                ", dato=" + dato +
-                ", medlem=" + medlem.getNavn() +
+        return "Resultat: {" +
+                "svømmetid: " + svommeTid +
+                ", disciplin: '" + disciplin + '\'' +
+                ", dato: " + dato +
+                ", medlem: " + medlem.getNavn() +
                 '}';
     }
 }
