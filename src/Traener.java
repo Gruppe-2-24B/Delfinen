@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public class Traener extends Person {
     private String medlemsType;
-    private Disciplin tildeltDisciplin;
+    //private Disciplin tildeltDisciplin;
     private static ArrayList<Traener> traenere = new ArrayList<>();
     private CprNr cpr;
 
-    public Traener(String navn, String cprNr, int tlf, String mail, String medlemsType, Disciplin tildeltDisciplin) {
+    public Traener(String navn, String cprNr, int tlf, String mail, String medlemsType) {
         super(navn, cprNr, tlf, mail);
         this.medlemsType = medlemsType;
-        this.tildeltDisciplin = tildeltDisciplin;
+        //this.tildeltDisciplin = tildeltDisciplin;
         this.cpr = new CprNr(cprNr);
         traenere.add(this);
     }
@@ -31,9 +31,12 @@ public class Traener extends Person {
         return medlemsType;
     }
 
+    /*
     public Disciplin getTildeltDisciplin() {
         return tildeltDisciplin;
     }
+
+     */
 
     public String getMedlemsType () {
         return medlemsType;
@@ -49,7 +52,7 @@ public class Traener extends Person {
                 "\nCpr: " + cpr.getCprNr() +
                 "\nTlf: " + tlf +
                 "\nMail: " + mail +
-                "\nMedlemstype: " + medlemsType +
-                "\nDisciplin: " + tildeltDisciplin;
+                "\nMedlemstype: " + medlemsType;
+               // "\nDisciplin: " + tildeltDisciplin;
     }
 }
