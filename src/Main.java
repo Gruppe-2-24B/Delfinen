@@ -57,7 +57,7 @@ import java.util.Scanner;
                 case 0:
                     fortsaet = false;
                     System.out.println("Programmet afsluttes.");
-                    AutomatiskHoldIndeling.gemAlleHold();
+                    // AutomatiskHoldIndeling.gemAlleHold();
                     break;
 
                 default:
