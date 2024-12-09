@@ -30,7 +30,7 @@ import java.util.Scanner;
         while (fortsaet) {
             System.out.println("\nHvad vil du gøre?");
             System.out.println("1. Medlemsmenu");
-            System.out.println("2. Hold og træner:");
+            System.out.println("2. Hold og træner");
             System.out.println("3. Kontingent");
             System.out.println("4. Resultater");
             System.out.println("0. Luk program");
