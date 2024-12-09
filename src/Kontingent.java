@@ -138,11 +138,6 @@ public class Kontingent {
         return samletIndbetaling;
     }
 
-    public void visSum(ArrayList<Kontingent> kontingentListe) {
-        int samletBeloeb = beregnSum(kontingentListe);
-        System.out.println("Samlede kontingentindbetalinger: " + samletBeloeb + " kr.");
-    }
-
     public void redigerRestanceStatus(Kontingent kontingent) {
         Scanner input = new Scanner(System.in);
         System.out.println("Indtast telefonnummer for medlemmet:");
@@ -202,20 +197,27 @@ public class Kontingent {
         for (Medlem medlem : Medlem.getAlleMedlemmer()) {
 
             int medlemsPris = getPris(medlem);
-
             samletBeloeb += medlemsPris;
         }
-
-
         System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
     }
 
+    public void visSum(ArrayList<Kontingent> kontingentListe) {
+        int samletBeloeb = beregnSum(kontingentListe);
+        System.out.println("Samlede kontingentindbetalinger: " + samletBeloeb + " kr.");
+    }
+
     public boolean erIRestance() {
-        return !restance.getErBetalt();
+        if (medlem == null) {
+            return true;
+        }
+        return !restance.getErBetalt(medlem.getMedlemsNr());
     }
 
     public void redigerRestanceStatus(boolean status) {
-        restance.redigerRestanceStatus(status);
+        if (medlem != null) {
+            restance.redigerRestanceStatus(status, medlem.getMedlemsNr());
+        }
     }
 } //klasse slut
 

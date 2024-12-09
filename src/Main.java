@@ -108,8 +108,7 @@ import java.util.Scanner;
             System.out.println("1. Vis medlemsinfo og kontingent");
             System.out.println("2. Vis medlemmer i restance");
             System.out.println("3. Rediger restance-status");
-            System.out.println("4. Vis betalingsstatus for medlem");
-            System.out.println("5. Beregn summen af alle kontingenter");
+            System.out.println("4. Beregn summen af alle kontingenter");
             System.out.println("0. Tilbage til hovedmenu");
 
             int valg2 = input.nextInt();
@@ -129,10 +128,6 @@ import java.util.Scanner;
                     break;
 
                 case 4:
-                    Kontingent.visBetalingsStatusForMedlem(kontingent);
-                    break;
-
-                case 5:
                     Kontingent.beregnSumAfMedlemmer();
                     break;
 
