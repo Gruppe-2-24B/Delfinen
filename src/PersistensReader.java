@@ -129,7 +129,7 @@ public class PersistensReader {
                 String[] data = line.split(",");
                 if (data.length == 4)
                 {
-                    int point = Integer.parseInt(data[0]);
+                    double svommeTid = Double.parseDouble(data[0]);
                     String disciplin = data[1];
                     String dateStr = data[2].trim();
                     LocalDate dato = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -138,7 +138,7 @@ public class PersistensReader {
                     Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
                     if (medlem != null)
                     {
-                        Resultat resultat = new Resultat(point, disciplin, dato, telefonnummer);
+                        Resultat resultat = new Resultat(svommeTid, disciplin, dato, telefonnummer);
                         resultater.add(resultat);
                     }
                 }

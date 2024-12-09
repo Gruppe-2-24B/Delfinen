@@ -33,13 +33,13 @@ public class PersistensWriter {
         {
             for (Resultat resultat : resultater)
             {
-                writer.write(resultat.getPoint() + ",");
+                writer.write(resultat.getSvommeTid() + ",");
                 writer.write(resultat.getDisciplin() + ",");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 writer.write(resultat.getDato().format(formatter) + ",");
                 writer.write(resultat.getTelefonnummer() + "\n");
             }
-            System.out.print("Resultater er gemt til fil!");
+            System.out.println("Resultater er gemt til fil!");
         }
         catch (IOException e)
         {
