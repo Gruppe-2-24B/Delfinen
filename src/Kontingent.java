@@ -69,9 +69,9 @@ public class Kontingent {
         System.out.println("Disciplin: " + valgtMedlem.getDisciplinNavn());
         System.out.println("Kontingentpris: " + getPris(valgtMedlem));
         if (restance.erIRestance()) {
-            System.out.println("Er i restance: Ja");
+            System.out.println("Restance-status: Ikke betalt");
         } else {
-            System.out.println("Er i restance: Nej");
+            System.out.println("Restance-status: Betalt");
         }
     }
 
@@ -98,14 +98,32 @@ public class Kontingent {
         return restanceListe;
     }
 
-    public static void visRestanceListe(ArrayList<Kontingent> restanceListe) {
+    public static void visRestanceListe() {
+        ArrayList<Kontingent> restanceListe = new ArrayList<>();
+
+        // Iterate through all members and create a Kontingent object for those in restance
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            Kontingent kontingent = new Kontingent();
+            kontingent.setMedlem(medlem);
+
+            if (kontingent.erIRestance()) {
+                restanceListe.add(kontingent);
+            }
+        }
+
         if (restanceListe.isEmpty()) {
             System.out.println("Der er ingen medlemmer i restance.");
         } else {
+            int samletRestanceBeloeb = 0;
             System.out.println("Medlemmer i restance:");
             for (Kontingent kontingent : restanceListe) {
-                kontingent.udskrivMedlemsInfo();
+                int kontingentPris = Kontingent.getPris(kontingent.getMedlem());
+                System.out.println("Navn: " + kontingent.getMedlem().getNavn() +
+                        ", Telefonnummer: " + kontingent.getMedlem().getTlf() +
+                        ", Kontingentpris: " + kontingentPris + " kr.");
+                samletRestanceBeloeb += kontingentPris;
             }
+            System.out.println("\nSamlet kontingentpris for restance-medlemmer: " + samletRestanceBeloeb + " kr.");
         }
     }
 
