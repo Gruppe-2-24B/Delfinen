@@ -193,5 +193,30 @@ public class PersistensReader {
         return holdListe;
 
     }
+    public static void laesRestance() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("restance.txt"))) {
+            String linje;
+            reader.readLine(); // Spring header over
+
+            while ((linje = reader.readLine()) != null) {
+                String[] data = linje.split(",");
+                if (data.length == 2) {
+                    String telefonnummer = data[0];
+                    boolean erIRestance = data[1].equals("Ja");
+
+                    Medlem medlem = Medlem.findMedlemVedTelefonnummer(Integer.parseInt(telefonnummer));
+                    if (medlem != null) {
+                        Kontingent kontingent = new Kontingent();
+                        kontingent.setMedlem(medlem);
+                        kontingent.redigerRestanceStatus(erIRestance ? false : true);
+                    }
+                }
+            }
+
+            System.out.println("Restance-status indlæst!");
+        } catch (IOException e) {
+            System.out.println("Ingen eksisterende restance-fil fundet.");
+        }
+    }
 }
 

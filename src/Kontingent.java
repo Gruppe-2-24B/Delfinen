@@ -80,7 +80,6 @@ public class Kontingent {
     }
 
     public static ArrayList<Kontingent> genererRestanceListe(ArrayList<Kontingent> kontingentListe) {
-
         if (kontingentListe.isEmpty()) {
             for (Medlem medlem : Medlem.getAlleMedlemmer()) {
                 Kontingent kontingent = new Kontingent();
@@ -117,16 +116,17 @@ public class Kontingent {
             int samletRestanceBeloeb = 0;
             System.out.println("Medlemmer i restance:");
             for (Kontingent kontingent : restanceListe) {
-                int kontingentPris = Kontingent.getPris(kontingent.getMedlem());
-                System.out.println("Navn: " + kontingent.getMedlem().getNavn() +
-                        ", Telefonnummer: " + kontingent.getMedlem().getTlf() +
-                        ", Kontingentpris: " + kontingentPris + " kr.");
-                samletRestanceBeloeb += kontingentPris;
+
+                Medlem valgtMedlem = kontingent.getMedlem();
+                System.out.println("Navn: " + valgtMedlem.getNavn());
+                System.out.println("Telefon-nr: " + valgtMedlem.getTlf());
+                System.out.println("Kontingentpris: " + kontingent.getPris(valgtMedlem));
+                System.out.println("-----");
+
             }
             System.out.println("\nSamlet kontingentpris for restance-medlemmer: " + samletRestanceBeloeb + " kr.");
         }
     }
-
     public static int beregnSum(ArrayList<Kontingent> kontingentListe) {
         int samletIndbetaling = 0;
 
@@ -159,6 +159,7 @@ public class Kontingent {
                 boolean nyStatus = Boolean.parseBoolean(statusInput);
                 kontingent.setMedlem(medlemTilRedigering);
                 kontingent.redigerRestanceStatus(nyStatus);
+                PersistensWriter.restanceWriter();
                 System.out.println("Restance-status er blevet opdateret");
             } else {
                 System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
