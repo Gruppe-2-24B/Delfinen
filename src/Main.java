@@ -30,7 +30,7 @@ import java.util.Scanner;
         while (fortsaet) {
             System.out.println("\nHvad vil du gøre?");
             System.out.println("1. Medlemsmenu");
-            System.out.println("2. Hold og træner:");
+            System.out.println("2. Hold og træner");
             System.out.println("3. Kontingent");
             System.out.println("4. Resultater");
             System.out.println("0. Luk program");
@@ -107,10 +107,8 @@ import java.util.Scanner;
             System.out.println("\nKontingentmenu:");
             System.out.println("1. Vis medlemsinfo og kontingent");
             System.out.println("2. Vis medlemmer i restance");
-            System.out.println("3. Beregn samlet kontingent");
-            System.out.println("4. Rediger restance-status");
-            System.out.println("5. Vis betalingsstatus for medlem");
-            System.out.println("6. Beregn summen af alle kontingenter");
+            System.out.println("3. Rediger restance-status");
+            System.out.println("4. Beregn summen af alle kontingenter");
             System.out.println("0. Tilbage til hovedmenu");
 
             int valg2 = input.nextInt();
@@ -122,39 +120,14 @@ import java.util.Scanner;
                     break;
 
                 case 2:
-                    ArrayList<Kontingent> restanceListe = Kontingent.genererRestanceListe(new ArrayList<>());
-                    Kontingent.visRestanceListe(restanceListe);
+                    Kontingent.visRestanceListe();
                     break;
 
                 case 3:
-                    ArrayList<Kontingent> alleKontingenter = new ArrayList<>();
-                    kontingent.visSum(alleKontingenter);
-                    break;
-
-                case 4:
                     kontingent.redigerRestanceStatus(kontingent);
                     break;
 
-                case 5:
-                    System.out.println("Indtast telefonnummer for medlemmet:");
-                    int telefonnummer = input.nextInt();
-                    input.nextLine();
-
-                    Medlem medlemTilTjek = Medlem.findMedlemVedTelefonnummer(telefonnummer);
-                    if (medlemTilTjek != null) {
-                        kontingent.setMedlem(medlemTilTjek);
-                        System.out.println("Betalingsstatus for " + medlemTilTjek.getNavn() + ":");
-                        if (kontingent.erIRestance()) {
-                            System.out.println("Medlemmet er i restance");
-                        } else {
-                            System.out.println("Medlemmet har betalt");
-                        }
-                    } else {
-                        System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
-                    }
-                    break;
-
-                case 6:
+                case 4:
                     Kontingent.beregnSumAfMedlemmer();
                     break;
 
