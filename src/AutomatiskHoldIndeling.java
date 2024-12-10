@@ -57,6 +57,12 @@ public class AutomatiskHoldIndeling {
         return null;
     }
 
+    public static void opdaterHold() {
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            AutomatiskHoldIndeling.tildelHold(medlem);
+        }
+    }
+
     public static void indlaesAlleHold() {
         List<HoldIndeling> alleHold = PersistensReader.laesHold();
 

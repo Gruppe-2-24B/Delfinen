@@ -40,6 +40,9 @@ public class Kontingent {
         //Tilføjet en scanner, så vi kan indtaste et telefonnummer, og få specifik medlem vi gerne vil have info på.
         // Ligesom Sidi har gjort. Før henviste vi til medlem, men den er jo tom i klassen medlem.
         // Nu får vi info på specifik medlem, efter vi har laestmedlemmer fra persistens og lagt det i en liste.
+
+        PersistensReader.laesRestance();
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nIndtast telefonnummer for at vælge et medlem:");
@@ -98,6 +101,9 @@ public class Kontingent {
     }
 
     public static void visRestanceListe() {
+
+        PersistensReader.laesRestance();
+
         ArrayList<Kontingent> restanceListe = new ArrayList<>();
 
         // Iterate through all members and create a Kontingent object for those in restance
@@ -116,8 +122,10 @@ public class Kontingent {
             int samletRestanceBeloeb = 0;
             System.out.println("Medlemmer i restance:");
             for (Kontingent kontingent : restanceListe) {
-
                 Medlem valgtMedlem = kontingent.getMedlem();
+                int kontingentPris = kontingent.getPris(valgtMedlem);
+                samletRestanceBeloeb += kontingentPris;
+
                 System.out.println("Navn: " + valgtMedlem.getNavn());
                 System.out.println("Telefon-nr: " + valgtMedlem.getTlf());
                 System.out.println("Kontingentpris: " + kontingent.getPris(valgtMedlem));
@@ -159,7 +167,15 @@ public class Kontingent {
                 boolean nyStatus = Boolean.parseBoolean(statusInput);
                 kontingent.setMedlem(medlemTilRedigering);
                 kontingent.redigerRestanceStatus(nyStatus);
-                PersistensWriter.restanceWriter();
+
+                ArrayList<Kontingent> alleKontingenter = new ArrayList<>();
+                for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+                    Kontingent k = new Kontingent();
+                    k.setMedlem(medlem);
+                    alleKontingenter.add(k);
+                }
+                PersistensWriter.restanceWriter(alleKontingenter);
+
                 System.out.println("Restance-status er blevet opdateret");
             } else {
                 System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");

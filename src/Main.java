@@ -21,11 +21,13 @@ import java.util.Scanner;
         RedigerMedlem redigerOplysninger = new RedigerMedlem(); // Medlemmer læses
         Kontingent kontingent = new Kontingent();
 
+        AutomatiskHoldIndeling.opdaterHold();
 
+        /*
         for (Medlem medlem : Medlem.getAlleMedlemmer()) {
             AutomatiskHoldIndeling.tildelHold(medlem);
         }
-
+        */
 
         while (fortsaet) {
             System.out.println("\nHvad vil du gøre?");
@@ -57,7 +59,17 @@ import java.util.Scanner;
                 case 0:
                     fortsaet = false;
                     System.out.println("Programmet afsluttes.");
-                    // AutomatiskHoldIndeling.gemAlleHold();
+                    AutomatiskHoldIndeling.gemAlleHold();
+
+                    ArrayList<Kontingent> kontingentListe = new ArrayList<>();
+                    for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+                        Kontingent nyKontingent = new Kontingent();
+                        nyKontingent.setMedlem(medlem);
+                        kontingentListe.add(nyKontingent);
+                    }
+
+                    // Gem restance status til fil
+                    PersistensWriter.restanceWriter(kontingentListe);
                     break;
 
                 default:
@@ -67,6 +79,7 @@ import java.util.Scanner;
     }
 
     private static void medlemsMenu(MedlemsGenerator generator, RedigerMedlem redigerOplysninger, Scanner input) {
+
         boolean iMedlemsMenu = true;
         while (iMedlemsMenu) {
             System.out.println("1. Opret medlem");

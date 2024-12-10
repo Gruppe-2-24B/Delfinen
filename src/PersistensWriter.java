@@ -150,6 +150,7 @@ public class PersistensWriter {
         }
     }
     public static void restanceWriter(List<Kontingent> kontingenter) {
+
         String fil = "restance.txt";
         try (FileWriter writer = new FileWriter(fil, false)) {
             writer.write("Telefonnummer,Restance\n");
@@ -163,6 +164,7 @@ public class PersistensWriter {
             }
 
             System.out.println("Restance-status er gemt til fil!");
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -3,10 +3,11 @@ import java.util.ArrayList;
 public class Restance {
 
     private boolean erBetalt;
-    private static ArrayList<BetalingsRecord> betalingsRecords = new ArrayList<>();
+    static ArrayList<BetalingsRecord> betalingsRecords = new ArrayList<>();
+    private int currentMedlemsNr;
 
     // Indre klasse, se dette som en attribut
-    private static class BetalingsRecord {
+    static class BetalingsRecord {
         int medlemsNr;
         boolean erBetalt;
 
@@ -21,13 +22,38 @@ public class Restance {
     }
 
     public boolean erIRestance() {
-        return !erBetalt;
+        for(BetalingsRecord record : betalingsRecords) {
+            if (record.medlemsNr == currentMedlemsNr) {
+                return !record.erBetalt;
+            }
+        }
+        return true;
     }
 
-
     public void setRestanceStatus(boolean status, int medlemsNr) {
+        this.currentMedlemsNr = medlemsNr;
         erBetalt = status;
 
+        boolean found = false;
+        for (Restance.BetalingsRecord record : betalingsRecords) {
+            if (record.medlemsNr == medlemsNr) {
+                record.erBetalt = status;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            betalingsRecords.add(new Restance.BetalingsRecord(medlemsNr, status));
+        }
+        if (status) {
+            System.out.println("Betalingsstatus opdateret: Betalt");
+        } else {
+            System.out.println("Betalingsstatus opdateret: Ikke betalt");
+        }
+    }
+
+    public void redigerRestanceStatus(boolean status, int medlemsNr) {
         boolean found = false;
         for (BetalingsRecord record : betalingsRecords) {
             if (record.medlemsNr == medlemsNr) {
@@ -40,15 +66,6 @@ public class Restance {
         if (!found) {
             betalingsRecords.add(new BetalingsRecord(medlemsNr, status));
         }
-        if (status) {
-            System.out.println("Betalingsstatus opdateret: Betalt");
-        } else {
-            System.out.println("Betalingsstatus opdateret: Ikke betalt");
-        }
-    }
-
-    public void redigerRestanceStatus(boolean status, int medlemsNr) {
-        setRestanceStatus(status, medlemsNr);
     }
 
     public boolean getErBetalt(int medlemsNr) {

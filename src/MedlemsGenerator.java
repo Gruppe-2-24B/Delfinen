@@ -99,7 +99,7 @@ public class MedlemsGenerator {
         Medlem nytMedlem = new Medlem(navn, cprNr, tlf, mail, aktivitetsForm, medlemsStatus, valgtDisciplin.getDisciplinNavn());
         System.out.println("\nNyt medlem oprettet med medlemsnummer: " + nytMedlem.getMedlemsNr());
         System.out.println(nytMedlem);
-
+        AutomatiskHoldIndeling.opdaterHold();
 
         // Gem medlem til fil
         PersistensWriter.medlemsWriter(Medlem.getAlleMedlemmer());

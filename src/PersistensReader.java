@@ -208,7 +208,7 @@ public class PersistensReader {
                     if (medlem != null) {
                         Kontingent kontingent = new Kontingent();
                         kontingent.setMedlem(medlem);
-                        kontingent.redigerRestanceStatus(erIRestance ? false : true);
+                        kontingent.redigerRestanceStatus(!erIRestance);
                     }
                 }
             }
