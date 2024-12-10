@@ -15,7 +15,7 @@ import java.util.Scanner;
         PersistensReader.laesMedlemmer();
         PersistensReader.laesTraenere();
         AutomatiskHoldIndeling.indlaesAlleHold();
-
+        PersistensReader.laesRestance();
         // Initialiser objekter
         MedlemsGenerator medlemGenerator = new MedlemsGenerator();
         RedigerMedlem redigerOplysninger = new RedigerMedlem(); // Medlemmer læses
@@ -60,7 +60,17 @@ import java.util.Scanner;
                     fortsaet = false;
                     System.out.println("Programmet afsluttes.");
                     AutomatiskHoldIndeling.gemAlleHold();
+
+                    ArrayList<Kontingent> kontingentListe = new ArrayList<>();
+                    for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+                        Kontingent nyKontingent = new Kontingent();
+                        nyKontingent.setMedlem(medlem);
+                        kontingentListe.add(nyKontingent);
+                    }
+                    PersistensWriter.restanceWriter(kontingentListe);
                     break;
+
+
 
                 default:
                     System.out.println("Ugyldigt valg, prøv igen.");
@@ -203,5 +213,6 @@ import java.util.Scanner;
             }
         }
     }
+
 } //slut klasse
 
