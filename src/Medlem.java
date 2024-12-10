@@ -102,6 +102,15 @@ public class Medlem extends Person {
         return new ArrayList<>(medlemmer);
     }
 
+    public static void udskrivAlleMedlemmer() {
+        System.out.println("=== Liste over alle medlemmer ===");
+
+        for(Medlem medlem : medlemmer) {
+            System.out.println(medlem);
+            System.out.println("----------------------------------");
+        }
+    }
+
     @Override
     public String toString() {
         return "Medlem #" + medlemsNr + ": " + navn +

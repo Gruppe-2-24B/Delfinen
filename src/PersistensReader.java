@@ -1,5 +1,6 @@
 import javax.swing.plaf.basic.BasicDesktopIconUI;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -70,46 +71,48 @@ public class PersistensReader {
 
         Traener.getAlleTraenere().clear();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(TRAENER_FIL))) {
-            String line;
-            int lineNumber = 0;
+        File file = new File(TRAENER_FIL);
+        if (file.exists() && !file.isDirectory()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(TRAENER_FIL))) {
+                String line;
+                int lineNumber = 0;
 
-            while ((line = br.readLine()) != null) {
-                lineNumber++;
-                // System.out.println("Læser linje " + lineNumber + ": " + line);
+                while ((line = br.readLine()) != null) {
+                    lineNumber++;
+                    // System.out.println("Læser linje " + lineNumber + ": " + line);
 
-                String[] data = line.split(",");
-                // System.out.println("Antal felter fundet: " + data.length);
+                    String[] data = line.split(",");
+                    // System.out.println("Antal felter fundet: " + data.length);
 
-                if (data.length == 6) { // Tilpas til det forventede antal felter
-                    try {
-                        String navn = data[0];
-                        String cprNr = data[1];
-                        int tlf = Integer.parseInt(data[2]);
-                        String mail = data[3];
-                        String medlemsType = data[4];
-                        String tildeltDisciplin = data[5];
+                    if (data.length == 5) { // Tilpas til det forventede antal felter
+                        try {
+                            String navn = data[0];
+                            String cprNr = data[1];
+                            int tlf = Integer.parseInt(data[2]);
+                            String mail = data[3];
+                            String medlemsType = data[4];
+                            //String tildeltDisciplin = data[5];
 
-                        // Opret disciplin-objekt baseret på navnet, hvis nødvendigt
-                        Disciplin disciplin = new Disciplin(tildeltDisciplin);
+                            // Opret disciplin-objekt baseret på navnet, hvis nødvendigt
+                            //Disciplin disciplin = new Disciplin(tildeltDisciplin);
 
-                        // Opret og tilføj træner
-                        Traener traener = new Traener(navn, cprNr, tlf, mail, medlemsType, disciplin);
-                        // System.out.println("Indlæst træner: " + traener);
+                            // Opret og tilføj træner
+                            Traener traener = new Traener(navn, cprNr, tlf, mail, medlemsType);
+                            // System.out.println("Indlæst træner: " + traener);
 
-                    } catch (Exception e) {
-                        System.err.println("Fejl ved behandling af linje " + lineNumber + ": " + e.getMessage());
-                        e.printStackTrace();
+                        } catch (Exception e) {
+                            System.err.println("Fejl ved behandling af linje " + lineNumber + ": " + e.getMessage());
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.err.println("Ugyldig linje " + lineNumber + ": Forventede 6 felter, men fandt " + data.length);
                     }
-                } else {
-                    System.err.println("Ugyldig linje " + lineNumber + ": Forventede 6 felter, men fandt " + data.length);
                 }
+                System.out.println("Afsluttet indlæsning. Antal trænere: " + Traener.getAlleTraenere().size());
+            } catch (IOException e) {
+                System.err.println("Fejl ved åbning/læsning af fil: " + e.getMessage());
+                e.printStackTrace();
             }
-
-            System.out.println("Afsluttet indlæsning. Antal trænere: " + Traener.getAlleTraenere().size());
-        } catch (IOException e) {
-            System.err.println("Fejl ved åbning/læsning af fil: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -126,7 +129,7 @@ public class PersistensReader {
                 String[] data = line.split(",");
                 if (data.length == 4)
                 {
-                    int point = Integer.parseInt(data[0]);
+                    double svommeTid = Double.parseDouble(data[0]);
                     String disciplin = data[1];
                     String dateStr = data[2].trim();
                     LocalDate dato = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -135,7 +138,7 @@ public class PersistensReader {
                     Medlem medlem = Medlem.findMedlemVedTelefonnummer(telefonnummer);
                     if (medlem != null)
                     {
-                        Resultat resultat = new Resultat(point, disciplin, dato, telefonnummer);
+                        Resultat resultat = new Resultat(svommeTid, disciplin, dato, telefonnummer);
                         resultater.add(resultat);
                     }
                 }
