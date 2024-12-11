@@ -194,6 +194,8 @@ public class PersistensReader {
 
     }
     public static void laesRestance() {
+
+        Kontingent.clearBetalingsRecords();
         try (BufferedReader reader = new BufferedReader(new FileReader("restance.txt"))) {
             String linje;
             reader.readLine(); // Spring header over

@@ -1,0 +1,14 @@
+Frederik,1710961111,20484247,frederik@hotmail.dk,motionist,aktiv,Senior,Butterfly
+Ole,1710961111,25483247,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Crawl
+Ahmed,1710961111,20584247,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Rygcrawl
+Sebastian,1710961111,21484247,frederik@hotmail.dk,motionist,aktiv,Senior,Butterfly
+Emil,1710961111,20484287,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Crawl
+Søren,1710961111,20483247,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Butterfly
+Sidi,1710961111,23084247,frederik@hotmail.dk,motionist,aktiv,Senior,Butterfly
+Sven,1710961111,22284247,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Crawl
+Oskar,1710961111,21784247,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Rygcrawl
+Niels,1710961111,20495247,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Bryst
+Lasse,1710961111,20687297,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Bryst
+Mikkel,1710961111,23464147,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Crawl
+Erik,1710790820,24043412,Erik@mail.dk,konkurrencesvømmer,aktiv,Senior,Rygcrawl
+Mette,2009087092,84739284,mette@hotmail.dk,motionist,aktiv,Junior,Rygcrawl

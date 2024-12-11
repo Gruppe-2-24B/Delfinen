@@ -5,16 +5,20 @@ import java.util.Scanner;
 
     public static void main(String[] args) {
 
+
         Scanner input = new Scanner(System.in);
         boolean fortsaet = true;
 
         Medlem.getAlleMedlemmer().clear();
+
+
 
         // Initialiser Automatisk Hold Indeling
 
         PersistensReader.laesMedlemmer();
         PersistensReader.laesTraenere();
         AutomatiskHoldIndeling.indlaesAlleHold();
+        PersistensReader.laesRestance();
 
         // Initialiser objekter
         MedlemsGenerator medlemGenerator = new MedlemsGenerator();
@@ -129,7 +133,7 @@ import java.util.Scanner;
 
             switch (valg2) {
                 case 1:
-                    kontingent.visKontingentListe();
+                    Kontingent.visAlleKontingenter(); // Viser kontingenter for alle medlemmer
                     break;
 
                 case 2:
@@ -137,7 +141,7 @@ import java.util.Scanner;
                     break;
 
                 case 3:
-                    kontingent.redigerRestanceStatus(kontingent);
+                    kontingent.redigerRestanceStatus();
                     break;
 
                 case 4:

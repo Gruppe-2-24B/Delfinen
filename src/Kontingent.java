@@ -1,112 +1,89 @@
 import java.util.ArrayList;
-import java.util.*;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Kontingent {
+
+    private static class BetalingsRecord {
+        int medlemsNr;
+        boolean erBetalt;
+
+        BetalingsRecord(int medlemsNr, boolean erBetalt) {
+            this.medlemsNr = medlemsNr;
+            this.erBetalt = erBetalt;
+        }
+    }
+
+    private static ArrayList<BetalingsRecord> betalingsRecords = new ArrayList<>();
+
     private Medlem medlem;
-    private Restance restance;
 
     public Kontingent() {
-        this.restance = new Restance(); // Fjernet tom konstruktør
     }
 
     public Medlem getMedlem() {
         return medlem;
     }
 
-    public static int getPris(Medlem medlem) { // Sat getPris til Medlem medlem.
-        int alder = medlem.getAlder();
-        String medlemsStatus = medlem.getMedlemsStatus();
-
-        //passive medlemmer
-        if (medlemsStatus.equals("passiv")) {
-            return 500; //årlig takst som passiv medlem
-        }
-        //aktive medlemmer
-        if (alder < 18) {
-            return 1000; //årlig takst for juniormedlemmer
-        } else if (alder >= 60) {
-            return (int) (1600 * 0.75); //årlig takst for seniorer over 60 år med 25% rabat
-        } else {
-            return 1600; //almindeligt seniormedlemskab
-        }
-    }
-
     public void setMedlem(Medlem medlem) {
         this.medlem = medlem;
     }
 
-    public void udskrivMedlemsInfo() {
+    public static int getPris(Medlem medlem) {
+        int alder = medlem.getAlder();
+        String medlemsStatus = medlem.getMedlemsStatus();
 
-        //Tilføjet en scanner, så vi kan indtaste et telefonnummer, og få specifik medlem vi gerne vil have info på.
-        // Ligesom Sidi har gjort. Før henviste vi til medlem, men den er jo tom i klassen medlem.
-        // Nu får vi info på specifik medlem, efter vi har laestmedlemmer fra persistens og lagt det i en liste.
-
-        PersistensReader.laesRestance();
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("\nIndtast telefonnummer for at vælge et medlem:");
-
-        int telefonnummer = scanner.nextInt();
-        scanner.nextLine();
-
-        Medlem valgtMedlem =  Medlem.findMedlemVedTelefonnummer(telefonnummer);
-
-        if (valgtMedlem == null)
-        {
-            System.out.println("Intet medlem fundet med det medlemsnummer.");
-            return;
+        if (medlemsStatus.equals("passiv")) {
+            return 500; // Passiv medlemskab
         }
-
-        setMedlem(valgtMedlem); // Her sætter vi objektet medlem til valgtMedlem.
-
-        System.out.println("Medlemsnummer: " + valgtMedlem.getMedlemsNr());
-        System.out.println("CPR-nr: " + valgtMedlem.getCprNr());
-        System.out.println("Telefon-nr:" + valgtMedlem.getTlf());
-        System.out.println("Mail-adresse: " + valgtMedlem.getMail());
-        System.out.println("Navn: " + valgtMedlem.getNavn());
-        System.out.println("Alder:" + valgtMedlem.getAlder() + " år");
-        System.out.println("Medlemsstatus: " + valgtMedlem.getMedlemsStatus());
-        System.out.println("Medlemstype: " + valgtMedlem.getMedlemsType());
-        System.out.println("Aktivitetsform: " + valgtMedlem.getAktivitetsForm());
-        System.out.println("Disciplin: " + valgtMedlem.getDisciplinNavn());
-        System.out.println("Kontingentpris: " + getPris(valgtMedlem));
-        if (restance.erIRestance()) {
-            System.out.println("Restance-status: Ikke betalt");
+        if (alder < 18) {
+            return 1000; // Junior medlemskab
+        } else if (alder >= 60) {
+            return (int) (1600 * 0.75); // Senior medlemskab med rabat
         } else {
-            System.out.println("Restance-status: Betalt");
+            return 1600; // Standard medlemskab
         }
     }
 
-    public void visKontingentListe() {
-            udskrivMedlemsInfo();
+    public void redigerRestanceStatus(boolean status) {
+        if (medlem != null) {
+            updateBetalingsRecord(status, medlem.getMedlemsNr());
+        }
     }
 
-    public static ArrayList<Kontingent> genererRestanceListe(ArrayList<Kontingent> kontingentListe) {
-        if (kontingentListe.isEmpty()) {
-            for (Medlem medlem : Medlem.getAlleMedlemmer()) {
-                Kontingent kontingent = new Kontingent();
-                kontingent.setMedlem(medlem);
-                kontingentListe.add(kontingent);
-            }
+    public boolean erIRestance() {
+        if (medlem == null) {
+            return true; // Ingen medlem betyder automatisk i restance
         }
+        return !getErBetalt(medlem.getMedlemsNr());
+    }
 
-        ArrayList<Kontingent> restanceListe = new ArrayList<>();
-        for (Kontingent kontingent : kontingentListe) {
-            if (kontingent.erIRestance()) {
-                restanceListe.add(kontingent);
+    public static boolean getErBetalt(int medlemsNr) {
+        for (BetalingsRecord record : betalingsRecords) {
+            if (record.medlemsNr == medlemsNr) {
+                return record.erBetalt;
             }
         }
-        return restanceListe;
+        return false; // Default til ikke betalt
+    }
+
+    private static void updateBetalingsRecord(boolean status, int medlemsNr) {
+        boolean found = false;
+        for (BetalingsRecord record : betalingsRecords) {
+            if (record.medlemsNr == medlemsNr) {
+                record.erBetalt = status;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            betalingsRecords.add(new BetalingsRecord(medlemsNr, status));
+        }
     }
 
     public static void visRestanceListe() {
-
-        PersistensReader.laesRestance();
-
         ArrayList<Kontingent> restanceListe = new ArrayList<>();
 
-        // Iterate through all members and create a Kontingent object for those in restance
         for (Medlem medlem : Medlem.getAlleMedlemmer()) {
             Kontingent kontingent = new Kontingent();
             kontingent.setMedlem(medlem);
@@ -128,25 +105,14 @@ public class Kontingent {
 
                 System.out.println("Navn: " + valgtMedlem.getNavn());
                 System.out.println("Telefon-nr: " + valgtMedlem.getTlf());
-                System.out.println("Kontingentpris: " + kontingent.getPris(valgtMedlem));
+                System.out.println("Kontingentpris: " + kontingentPris);
                 System.out.println("-----");
-
             }
             System.out.println("\nSamlet kontingentpris for restance-medlemmer: " + samletRestanceBeloeb + " kr.");
         }
     }
-    public static int beregnSum(ArrayList<Kontingent> kontingentListe) {
-        int samletIndbetaling = 0;
 
-        for (Kontingent kontingent : kontingentListe) {
-            if (!kontingent.erIRestance()) {
-                samletIndbetaling += kontingent.getPris(kontingent.getMedlem());
-            }
-        }
-        return samletIndbetaling;
-    }
-
-    public void redigerRestanceStatus(Kontingent kontingent) {
+    public static void redigerRestanceStatus() {
         Scanner input = new Scanner(System.in);
         System.out.println("Indtast telefonnummer for medlemmet:");
         try {
@@ -157,24 +123,14 @@ public class Kontingent {
             if (medlemTilRedigering != null) {
                 System.out.println("Indtast ny restance-status \nSkriv: (true for betalt eller false for ikke betalt)");
 
-                // Læs input som streng og valider
                 String statusInput = input.nextLine().trim().toLowerCase();
                 if (!statusInput.equals("true") && !statusInput.equals("false")) {
                     System.out.println("Ugyldig input. Indtast venligst kun 'true' eller 'false'.");
-                    return; // Afbryd metoden, hvis input er ugyldigt
+                    return;
                 }
 
                 boolean nyStatus = Boolean.parseBoolean(statusInput);
-                kontingent.setMedlem(medlemTilRedigering);
-                kontingent.redigerRestanceStatus(nyStatus);
-
-                ArrayList<Kontingent> alleKontingenter = new ArrayList<>();
-                for (Medlem medlem : Medlem.getAlleMedlemmer()) {
-                    Kontingent k = new Kontingent();
-                    k.setMedlem(medlem);
-                    alleKontingenter.add(k);
-                }
-                PersistensWriter.restanceWriter(alleKontingenter);
+                updateBetalingsRecord(nyStatus, medlemTilRedigering.getMedlemsNr());
 
                 System.out.println("Restance-status er blevet opdateret");
             } else {
@@ -186,55 +142,27 @@ public class Kontingent {
         }
     }
 
-
-    public static void visBetalingsStatusForMedlem(Kontingent kontingent) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Indtast telefonnummer for medlemmet:");
-        int telefonnummer = input.nextInt();
-        input.nextLine();
-
-        Medlem medlemTilTjek = Medlem.findMedlemVedTelefonnummer(telefonnummer);
-        if (medlemTilTjek != null) {
-            kontingent.setMedlem(medlemTilTjek);
-            System.out.println("Betalingsstatus for " + medlemTilTjek.getNavn() + ":");
-            if (kontingent.erIRestance()) {
-                System.out.println("Medlemmet er i restance");
-            } else {
-                System.out.println("Medlemmet har betalt");
-            }
-        } else {
-            System.out.println("Medlem med telefonnummer " + telefonnummer + " blev ikke fundet");
-        }
-    }
-
-    public static void beregnSumAfMedlemmer(){
-
+    public static void beregnSumAfMedlemmer() {
         int samletBeloeb = 0;
 
         for (Medlem medlem : Medlem.getAlleMedlemmer()) {
-
             int medlemsPris = getPris(medlem);
             samletBeloeb += medlemsPris;
         }
         System.out.println("Summen af alle kontingentindbetalinger: " + samletBeloeb + " kr.");
     }
 
-    public void visSum(ArrayList<Kontingent> kontingentListe) {
-        int samletBeloeb = beregnSum(kontingentListe);
-        System.out.println("Samlede kontingentindbetalinger: " + samletBeloeb + " kr.");
-    }
-
-    public boolean erIRestance() {
-        if (medlem == null) {
-            return true;
-        }
-        return !restance.getErBetalt(medlem.getMedlemsNr());
-    }
-
-    public void redigerRestanceStatus(boolean status) {
-        if (medlem != null) {
-            restance.redigerRestanceStatus(status, medlem.getMedlemsNr());
+    public static void visAlleKontingenter() {
+        for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+            int pris = getPris(medlem);
+            System.out.println("Medlemsnummer: " + medlem.getMedlemsNr());
+            System.out.println("Navn: " + medlem.getNavn());
+            System.out.println("Kontingentpris: " + pris + " kr.");
+            System.out.println("Restance-status: " + (getErBetalt(medlem.getMedlemsNr()) ? "Betalt" : "Ikke betalt"));
+            System.out.println("-----");
         }
     }
-} //klasse slut
-
+    public static void clearBetalingsRecords() {
+        betalingsRecords.clear();
+    }
+}
