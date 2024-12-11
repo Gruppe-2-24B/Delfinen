@@ -122,10 +122,10 @@ public class Kontingent {
 
             Medlem medlemTilRedigering = Medlem.findMedlemVedTelefonnummer(telefonnummer);
             if (medlemTilRedigering != null) {
-                System.out.println("Indtast ny restance-status \nSkriv: (Ja for betalt eller Nej for ikke betalt)");
+                System.out.println("Indtast ny restance-status \nSkriv: (true for betalt eller false for ikke betalt)");
 
                 String statusInput = input.nextLine().trim().toLowerCase();
-                if (!statusInput.equals("ja") && !statusInput.equals("nej")) {
+                if (!statusInput.equals("true") && !statusInput.equals("false")) {
                     System.out.println("Ugyldig input. Indtast venligst kun 'true' eller 'false'.");
                     return;
                 }
