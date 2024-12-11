@@ -131,6 +131,8 @@ public class Kontingent {
                 }
 
                 boolean nyStatus = Boolean.parseBoolean(statusInput);
+
+
                 updateBetalingsRecord(nyStatus, medlemTilRedigering.getMedlemsNr());
                 List<Kontingent> kontingentListe = new ArrayList<>();
                 for (Medlem medlem : Medlem.getAlleMedlemmer()) {
