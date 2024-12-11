@@ -182,6 +182,7 @@ public static void visResultater()
         }
 
         System.out.print("Indtast svømmetid: ");
+        System.out.println("FORMAT: XX,XX");
         double svommeTid = scanner.nextDouble();
         scanner.nextLine();
 
@@ -244,7 +245,8 @@ public static void visResultater()
                                     break;
             }
 
-            System.out.print("Indtast ny svømmetid: ");
+            System.out.print("Indtast ny svømmetid - ");
+            System.out.println("FORMAT: XX,XX");
             double nySvommeTid = scanner.nextDouble();
             scanner.nextLine();
 

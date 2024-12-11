@@ -1,5 +1,5 @@
 Telefonnummer,Restance
-20484247,Nej
+20484247,Ja
 25483247,Nej
 20584247,Nej
 21484247,Nej
