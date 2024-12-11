@@ -18,6 +18,7 @@ public class RedigerMedlem
         for (Medlem medlem : Medlem.getAlleMedlemmer())
         {
             System.out.println(medlem);
+            System.out.println("-------------------------");
         }
         
         System.out.println("\nIndtast telefonnummer for at vælge et medlem:");
