@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -131,6 +132,13 @@ public class Kontingent {
 
                 boolean nyStatus = Boolean.parseBoolean(statusInput);
                 updateBetalingsRecord(nyStatus, medlemTilRedigering.getMedlemsNr());
+                List<Kontingent> kontingentListe = new ArrayList<>();
+                for (Medlem medlem : Medlem.getAlleMedlemmer()) {
+                    Kontingent nyKontingent = new Kontingent();
+                    nyKontingent.setMedlem(medlem);
+                    kontingentListe.add(nyKontingent);
+                }
+                PersistensWriter.restanceWriter(kontingentListe);
 
                 System.out.println("Restance-status er blevet opdateret");
             } else {

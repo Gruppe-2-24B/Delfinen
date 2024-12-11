@@ -39,7 +39,6 @@ public class PersistensWriter {
                 writer.write(resultat.getDato().format(formatter) + ",");
                 writer.write(resultat.getTelefonnummer() + "\n");
             }
-            System.out.println("Resultater er gemt til fil!");
         }
         catch (IOException e)
         {
@@ -59,7 +58,6 @@ public class PersistensWriter {
                     writer.write(medlem.getMedlemsType() + ",");
                     writer.write(medlem.getDisciplinNavn() + "\n");
                 }
-                System.out.print("Medlemmet er gemt til fil!");
             } catch (IOException e) {
                 e.printStackTrace();
         }
@@ -81,7 +79,6 @@ public class PersistensWriter {
                 writer.write(medlem.getMedlemsType() + ",");
                 //writer.write(medlem.getTildeltDisciplin() + "\n");
             }
-            System.out.print("Træner er gemt til fil!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,7 +121,6 @@ public class PersistensWriter {
             writer.write("Antal medlemmer: " + antalMedlemmer + "\n");
             writer.write("Antal medlemmer i restance: " + antalIRestance + "\n");
 
-            System.out.println("Kontingentoplysningerne er gemt til fil!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,7 +140,6 @@ public class PersistensWriter {
                 writer.write("\n");
             }
 
-            System.out.print("Hold er gemt til fil!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -162,8 +157,6 @@ public class PersistensWriter {
                                 (kontingent.erIRestance() ? "Ja" : "Nej") + "\n"
                 );
             }
-
-            System.out.println("Restance-status er gemt til fil!");
 
         } catch (IOException e) {
             e.printStackTrace();

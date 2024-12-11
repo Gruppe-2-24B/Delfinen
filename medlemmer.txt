@@ -12,3 +12,6 @@ Lasse,1710961111,20687297,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,B
 Mikkel,1710961111,23464147,frederik@hotmail.dk,konkurrencesvømmer,aktiv,Senior,Crawl
 Erik,1710790820,24043412,Erik@mail.dk,konkurrencesvømmer,aktiv,Senior,Rygcrawl
 Mette,2009087092,84739284,mette@hotmail.dk,motionist,aktiv,Junior,Rygcrawl
+Sebastian,2808942555,30119790,sebastianboel@gmail.com,konkurrencesvømmer,aktiv,Senior,Butterfly
+Junior Jr. ,2808108888,30119780,junior@bop.dk,konkurrencesvømmer,aktiv,Junior,Rygcrawl
+ole,0107552955,99999999,oledolriis@kea.dk,konkurrencesvømmer,aktiv,Senior,Bryst
